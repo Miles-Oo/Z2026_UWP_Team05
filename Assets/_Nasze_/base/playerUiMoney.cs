@@ -1,20 +1,20 @@
 using UnityEngine;
 using TMPro;
 
-public class playerUiCurrencies : MonoBehaviour
+public class playerUiMoney : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _textHp;
-    [SerializeField] baseHp _baseHp;
+    [SerializeField] Money _money;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _textHp.text="currhp/maxhp";        
 
-        _baseHp.OnGetHp+= TextUpdate;
+        _money.OnGetMoney+= TextUpdate;
     }
     void TextUpdate()
     {
-        _textHp.text=_baseHp.GetCurrHp()+"/"+_baseHp.GetMaxHp();
+        _textHp.text="Money: "+_money.GetCurrMoney()+"";
       
     }
 }

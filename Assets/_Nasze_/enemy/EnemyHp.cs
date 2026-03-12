@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class enemyHp : MonoBehaviour
+public class EnemyHp : MonoBehaviour
 {
  
   [SerializeField] private int _currHp;
