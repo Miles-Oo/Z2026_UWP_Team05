@@ -3,8 +3,8 @@ using UnityEngine.InputSystem;
 
 public class TowerManager : MonoBehaviour
 {
-    [SerializeField] private GameObject towerPrefab;          // prawdziwa wieża
-    [SerializeField] private GameObject towerPreviewPrefab;   // ghost
+    [SerializeField] private GameObject towerPrefab;
+    [SerializeField] private GameObject towerPreviewPrefab;
     [SerializeField] private Money money;
     [SerializeField] private int towerCost = 10;
 
@@ -13,25 +13,21 @@ public class TowerManager : MonoBehaviour
 
     void Update()
     {
-        // Włączenie trybu budowania
         if (Keyboard.current.bKey.wasPressedThisFrame)
         {
             EnterBuildMode();
         }
 
-        // Anulowanie
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             ExitBuildMode();
         }
 
-        // Ruch preview
         if (isBuildMode && towerPreview != null)
         {
             MovePreview();
         }
 
-        // Klik = postawienie wieży
         if (isBuildMode && Mouse.current.leftButton.wasPressedThisFrame)
         {
             PlaceTower();
@@ -42,7 +38,6 @@ public class TowerManager : MonoBehaviour
     {
         isBuildMode = true;
 
-        // Tworzymy preview (osobny prefab!)
         towerPreview = Instantiate(towerPreviewPrefab);
 
         Debug.Log("Tryb budowania ON");

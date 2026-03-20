@@ -34,11 +34,10 @@ public class TowerAttack : MonoBehaviour
     {
         while (enemiesInRange.Count > 0)
         {
-            // Czyścimy null z listy (zniszczone enemy)
             enemiesInRange.RemoveAll(e => e == null);
             if (enemiesInRange.Count == 0) break;
 
-            EnemyHp target = enemiesInRange[0]; // strzelamy w pierwszego
+            EnemyHp target = enemiesInRange[0];
             target.SubHp(damage);
             Debug.Log("Tower strzela w enemy!");
             yield return new WaitForSeconds(attackInterval);
