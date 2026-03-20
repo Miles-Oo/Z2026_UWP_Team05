@@ -1,20 +1,83 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // nowy Input System
+using UnityEngine.InputSystem;
 
 public class TowerManager : MonoBehaviour
 {
-    [SerializeField] private GameObject towerPrefab;
+    [SerializeField] private GameObject towerPrefab;          // prawdziwa wieża
+    [SerializeField] private GameObject towerPreviewPrefab;   // ghost
     [SerializeField] private Money money;
     [SerializeField] private int towerCost = 10;
 
+    private bool isBuildMode = false;
     private GameObject towerPreview;
 
     void Update()
     {
-        // Sprawdzamy lewy klik myszy w nowym Input System
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        // Włączenie trybu budowania
+        if (Keyboard.current.bKey.wasPressedThisFrame)
+        {
+            EnterBuildMode();
+        }
+
+        // Anulowanie
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            ExitBuildMode();
+        }
+
+        // Ruch preview
+        if (isBuildMode && towerPreview != null)
+        {
+            MovePreview();
+        }
+
+        // Klik = postawienie wieży
+        if (isBuildMode && Mouse.current.leftButton.wasPressedThisFrame)
         {
             PlaceTower();
+        }
+    }
+
+    void EnterBuildMode()
+    {
+        isBuildMode = true;
+
+        // Tworzymy preview (osobny prefab!)
+        towerPreview = Instantiate(towerPreviewPrefab);
+
+        Debug.Log("Tryb budowania ON");
+    }
+
+    void ExitBuildMode()
+    {
+        isBuildMode = false;
+
+        if (towerPreview != null)
+        {
+            Destroy(towerPreview);
+            towerPreview = null;
+        }
+
+        Debug.Log("Tryb budowania OFF");
+    }
+
+    void MovePreview()
+    {
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+
+        if (groundPlane.Raycast(ray, out float distance))
+        {
+            Vector3 pos = ray.GetPoint(distance);
+
+            Collider towerCollider = towerPrefab.GetComponent<Collider>();
+            float heightOffset = towerCollider != null ? towerCollider.bounds.extents.y : 0f;
+
+            pos.y = heightOffset;
+
+            towerPreview.transform.position = pos;
         }
     }
 
@@ -23,26 +86,26 @@ public class TowerManager : MonoBehaviour
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+
+        if (groundPlane.Raycast(ray, out float distance))
         {
-            Vector3 pos = hit.point;
+            Vector3 pos = ray.GetPoint(distance);
 
-            // Ustawiamy dol wieży na Z=0
-            // Zakładamy, że pivot wieży jest w środku → dodajemy połowę wysokości collidera
             Collider towerCollider = towerPrefab.GetComponent<Collider>();
-            float heightOffset = 0f;
-            if (towerCollider != null)
-            {
-                heightOffset = towerCollider.bounds.extents.y;
-            }
+            float heightOffset = towerCollider != null ? towerCollider.bounds.extents.y : 0f;
 
-            pos.y = heightOffset; // teraz dol wieży jest na y=0
+            pos.y = heightOffset;
 
             if (money.GetCurrMoney() >= towerCost)
             {
                 money.SubMoney(towerCost);
+
                 Instantiate(towerPrefab, pos, Quaternion.identity);
-                Debug.Log("Wieża postawiona na ziemi!");
+
+                Debug.Log("Wieża postawiona!");
+
+                ExitBuildMode();
             }
             else
             {
