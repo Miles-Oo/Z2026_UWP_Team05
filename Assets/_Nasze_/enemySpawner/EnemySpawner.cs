@@ -16,26 +16,17 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(SpawnCoroutine());
     }
 
-    IEnumerator SpawnCoroutine()
-    {
-        while (true)
-        {
+    IEnumerator SpawnCoroutine(){
+        while (true){
             SpawnEnemy();
             yield return new WaitForSeconds(spawnInterval);
         }
     }
 
-void SpawnEnemy()
-{
-    GameObject enemy = Instantiate(
-        enemyPrefab,
-        spawnPoint.position,
-        spawnPoint.rotation
-    );
-
+void SpawnEnemy(){
+    GameObject enemy = Instantiate(enemyPrefab,spawnPoint.position,spawnPoint.rotation);
     EnemyMovement movement = enemy.GetComponent<EnemyMovement>();
     movement.SetWaypoints(pathWaypoints);
-
     EnemyAI ai = enemy.GetComponent<EnemyAI>();
     ai.SetBase(baseTarget);
 }
