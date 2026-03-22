@@ -11,6 +11,7 @@ public class playerUiHp : MonoBehaviour
         _textHp.text="currhp/maxhp";        
 
         _baseHp.OnGetHp+= TextUpdate;
+        TextUpdate();
     }
     void TextUpdate()
     {

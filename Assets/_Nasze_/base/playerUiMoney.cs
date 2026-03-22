@@ -11,6 +11,7 @@ public class playerUiMoney : MonoBehaviour
         _textHp.text="currhp/maxhp";        
 
         _money.OnGetMoney+= TextUpdate;
+        TextUpdate();
     }
     void TextUpdate()
     {
