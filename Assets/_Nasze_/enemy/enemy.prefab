@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &9136769267817440122
+--- !u!1 &1970697467004205946
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,14 +8,14 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2568344017617442102}
-  - component: {fileID: 2584974179825579616}
-  - component: {fileID: 1843885675190191521}
-  - component: {fileID: 5352271194330420501}
-  - component: {fileID: 19677318326545486}
-  - component: {fileID: 4790635195622789747}
-  - component: {fileID: 3800246245590608662}
-  - component: {fileID: 8871448935385118167}
+  - component: {fileID: 5399271999006511255}
+  - component: {fileID: 2008796015639265976}
+  - component: {fileID: 8086299525333980075}
+  - component: {fileID: 6693919860347125315}
+  - component: {fileID: 1446412888720053689}
+  - component: {fileID: 3315901080706830291}
+  - component: {fileID: 7550476481465149350}
+  - component: {fileID: 2247771508503070629}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -23,36 +23,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2568344017617442102
+--- !u!4 &5399271999006511255
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9136769267817440122}
+  m_GameObject: {fileID: 1970697467004205946}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.46, y: 0, z: -9.75}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.07739, y: 0.25689, z: -1.11988}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2584974179825579616
+--- !u!33 &2008796015639265976
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9136769267817440122}
+  m_GameObject: {fileID: 1970697467004205946}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &1843885675190191521
+--- !u!23 &8086299525333980075
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9136769267817440122}
+  m_GameObject: {fileID: 1970697467004205946}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -94,13 +94,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5352271194330420501
+--- !u!65 &6693919860347125315
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9136769267817440122}
+  m_GameObject: {fileID: 1970697467004205946}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -115,59 +115,55 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &19677318326545486
+--- !u!114 &1446412888720053689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9136769267817440122}
+  m_GameObject: {fileID: 1970697467004205946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00df1337a6a2c83e0952930378317278, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::enemyHp
-  _currHp: 0
-  _maxHp: 26
---- !u!114 &4790635195622789747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9136769267817440122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a14c9988c774b5bc08557a60aa91bd4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  speed: 3
---- !u!114 &3800246245590608662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9136769267817440122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f77c68836e598e7118ddc1292ea13c93, type: 3}
+  m_Script: {fileID: 11500000, guid: e63075b6197d5004fafb1acd9167b063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   baseTarget: {fileID: 0}
---- !u!114 &8871448935385118167
+--- !u!114 &3315901080706830291
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9136769267817440122}
+  m_GameObject: {fileID: 1970697467004205946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e39374584a8b35288848aa0cf5def6ed, type: 3}
+  m_Script: {fileID: 11500000, guid: dbadfd2a9369f0240a09b31f2c8381bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
+--- !u!114 &7550476481465149350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970697467004205946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7bd65b36706c446b349d5e4b2e720b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHp
+  _currHp: 24
+  _maxHp: 47
+--- !u!114 &2247771508503070629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970697467004205946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b2805ff539da345a935936806d940f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
+  speed: 3
