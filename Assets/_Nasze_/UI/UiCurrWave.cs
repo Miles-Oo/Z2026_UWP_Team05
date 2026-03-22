@@ -28,6 +28,10 @@ public class UiCurrWave : MonoBehaviour
 
     private void UpdateEnemyText()
     {
+        if(_waveManager.aliveEnemies==0){
+        _enemyText.text =$"All enemy destroyed";
+        }else{
         _enemyText.text = $"Enemies: {_waveManager.aliveEnemies} / {_waveManager.totalEnemiesInWave}";
+        }
     }
 }

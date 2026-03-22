@@ -15,7 +15,7 @@ public class playerUiHp : MonoBehaviour
     }
     void TextUpdate()
     {
-        _textHp.text=_baseHp.GetCurrHp()+"/"+_baseHp.GetMaxHp();
+        _textHp.text="Base HP: "+_baseHp.GetCurrHp()+"/"+_baseHp.GetMaxHp();
       
     }
 }
