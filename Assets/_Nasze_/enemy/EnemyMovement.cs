@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     private Transform[] waypoints;
-    public float speed = 3f;
+    public float speed = 120f;
 
     private int currentWaypoint = 0;
     private EnemyAI enemyAI;

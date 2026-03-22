@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbadfd2a9369f0240a09b31f2c8381bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
+  rotationSpeed: 2344
 --- !u!114 &338615663924745994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02b2805ff539da345a935936806d940f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  speed: 3
+  speed: 16.12
 --- !u!1001 &8534855229244734216
 PrefabInstance:
   m_ObjectHideFlags: 0
