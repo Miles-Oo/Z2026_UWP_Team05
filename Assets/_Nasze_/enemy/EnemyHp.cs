@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyHp : MonoBehaviour
 {
- 
+   private EnemyAI enemyAI;
   [SerializeField] private int _currHp;
    [SerializeField] private int _maxHp;    
 
@@ -21,14 +21,20 @@ public class EnemyHp : MonoBehaviour
     else{_currHp-=hp; }
         if (_currHp <= 0)
         {
-            Destroy(this.gameObject);
+           EndOfLive();
         }
+    }
+    private void EndOfLive(){
+       
+        enemyAI.GetBase().GetComponent<Money>().AddMoney(19);
+        Destroy(this.gameObject);
     }
     public int GetCurrHp(){return _currHp;}
     public int GetMaxHp(){return _maxHp;}
   
     void Start()
-    {
+    {   
+        enemyAI=GetComponent<EnemyAI>();
         if (_maxHp <=0)
         {
           _maxHp=1;
