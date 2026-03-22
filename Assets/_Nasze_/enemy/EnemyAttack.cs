@@ -8,7 +8,7 @@ public class EnemyAttack : MonoBehaviour
     bool isAttacking = false;
     public bool IsAttacking() { return isAttacking; }
 
-    public float rotationSpeed = 3600f; // stopnie na sekundę
+    public float rotationSpeed = 3600f; 
 
     void Start()
     {
@@ -17,12 +17,8 @@ public class EnemyAttack : MonoBehaviour
 
     void Update()
     {
-        // Jeśli atakuje, obracamy przeciwnika
         if (isAttacking)
-        {
-            // Obrót wokół osi Y
-            transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
-        }
+        { transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);}
     }
 
     IEnumerator AttackCoroutine()
