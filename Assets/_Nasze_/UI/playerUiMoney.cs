@@ -15,7 +15,7 @@ public class playerUiMoney : MonoBehaviour
     }
     void TextUpdate()
     {
-        _textHp.text="Money: "+_money.GetCurrMoney()+"";
+        _textHp.text="Gold: "+_money.GetCurrMoney()+"";
       
     }
 }

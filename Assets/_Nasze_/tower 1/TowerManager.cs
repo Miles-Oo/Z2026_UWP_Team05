@@ -34,7 +34,7 @@ public class TowerManager : MonoBehaviour
         }
     }
 
-    void EnterBuildMode()
+    public void EnterBuildMode()
     {
         isBuildMode = true;
 
