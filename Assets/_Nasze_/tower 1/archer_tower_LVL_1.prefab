@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 826425744838913268}
   - component: {fileID: 5647522370973237450}
   - component: {fileID: 7328269721436018162}
-  - component: {fileID: 5972596326717771505}
   - component: {fileID: 8425198380747113571}
   - component: {fileID: 2585641594385067679}
+  - component: {fileID: 5972596326717771505}
+  - component: {fileID: 8911115778004556728}
   m_Layer: 0
   m_Name: archer_tower_LVL_1
   m_TagString: Untagged
@@ -114,20 +115,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 27.72
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5972596326717771505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371248394778543496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa91e698435ee3a45886801cb932eb0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TowerAttack
-  attackInterval: 1
-  damage: 25
 --- !u!136 &8425198380747113571
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -178,3 +165,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 14
   m_CollisionDetection: 0
+--- !u!114 &5972596326717771505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371248394778543496}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa91e698435ee3a45886801cb932eb0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerAttack
+  attackInterval: 1
+  damage: 25
+--- !u!114 &8911115778004556728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371248394778543496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e619173a668a6cb2a50f425a01ef5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerPrice
+  price: 12
