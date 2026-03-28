@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,67 +9,114 @@ public class TowerManagerNewPlus : MonoBehaviour
      private GameObject towerPreviewPrefab;
      [SerializeField] private GameObject hammerAsset;
     [SerializeField] private Money money;
+
+    [SerializeField] LayerMask layerMaskg;
     private int towerCost;
+    private GameObject objPreview;
 
-    private bool isBuildMode = false;
-    private bool isSellMode = false;
-    private GameObject towerPreview;
 
-    void Start()
-    {
+    private Mode currentMode;
+
+    void Start(){
         towerCost=towerPrefab.GetComponent<TowerPrice>().GetPrice();
         towerPreviewPrefab=towerPrefab;
         towerPreviewPrefab.GetComponent<TowerAttack>().enabled=false;
+        EnterMode(Mode.IDLE);
     }
-    void Update()
-    {
-        if (Keyboard.current.bKey.wasPressedThisFrame)
+    public void EnterMode(Mode mode){currentMode=mode;}
+    public void ExitMode(){
+
+        switch (currentMode)
         {
-            EnterBuildMode();
+            case Mode.BUILD:
+            ExitPrewMode();
+            EnterMode(Mode.IDLE);
+            break;
+            case Mode.SELL:
+            ExitPrewMode();
+            EnterMode(Mode.IDLE);
+            break;
+            case Mode.UPGRADE:
+            ExitPrewMode();
+            EnterMode(Mode.IDLE);
+            break;
+            default:
+            EnterMode(Mode.IDLE);
+            break;
         }
- if (Keyboard.current.vKey.wasPressedThisFrame)
-        {
-          SellTower();
-        }
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            ExitBuildMode();
+        currentMode=Mode.IDLE;
         }
 
-        if (isBuildMode && towerPreview != null)
+    void Update(){
+        if (Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            ExitMode();
+        }
+
+        if (currentMode!=Mode.IDLE)
         {
             MovePreview();
         }
-
-        if (isBuildMode && Mouse.current.leftButton.wasPressedThisFrame)
+        if (currentMode==Mode.BUILD && Mouse.current.leftButton.wasPressedThisFrame)
         {
             PlaceTower();
         }
+        if (currentMode==Mode.SELL && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            SellTower();
+        }
+        if (currentMode==Mode.UPGRADE && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            UpgradeTower();
+        }
     }
-
+    /// <summary>
+    /// DLA PRZYCISKÓW NA UI
+    /// </summary>
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// NIECH UŻYWA ASETU Z OBAZKA ABY WYGLĄDAŁO ŻE TEGO UŻYWA A PO UŻYCIU SETUJE NA SWOJE MIEJSCE
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
     public void EnterBuildMode()
     {
-        isBuildMode = true;
-        towerPreview = Instantiate(towerPreviewPrefab);
+        EnterMode(Mode.BUILD);
+        objPreview = Instantiate(towerPreviewPrefab);
         Debug.Log("Tryb budowania ON");
     }
-    public void EnterSellingMode()
+    public void EnterSellMode()
     {
-        isSellMode = true;
-        towerPreview = Instantiate(hammerAsset);
+        EnterMode(Mode.SELL);
+        objPreview = Instantiate(hammerAsset);
         Debug.Log("Tryb sprzedawania ON");
     }
-    void ExitBuildMode()
+    public void EnterUpgradeMode()
     {
-        isBuildMode = false;
-
-        if (towerPreview != null)
+        EnterMode(Mode.UPGRADE);
+        objPreview = Instantiate(hammerAsset);
+        Debug.Log("Tryb ulepszania ON");
+    }
+    void ExitPrewMode(){
+        if (objPreview != null)
         {
-            Destroy(towerPreview);
-            towerPreview = null;
+            Destroy(objPreview);
+            objPreview = null;
         }
-
-        Debug.Log("Tryb budowania OFF");
+        Debug.Log("Tryb prev OFF");
     }
 
 void MovePreview()
@@ -102,9 +149,9 @@ void MovePreview()
         }
     }
 
-    towerPreview.transform.position = pos;
+    objPreview.transform.position = pos;
 }
-[SerializeField] LayerMask layerMaskg;
+
 void PlaceTower()
 {
     Vector2 mousePos = Mouse.current.position.ReadValue();
@@ -123,7 +170,7 @@ void PlaceTower()
                GameObject g= Instantiate(towerPrefab, hit.collider.transform.position, Quaternion.identity);
                 site.SetTower(g);
                 Debug.Log("Wieża postawiona!");
-                ExitBuildMode();
+                ExitMode();
             }
             else
             {
@@ -144,8 +191,14 @@ public void SellTower(){
             
               money.AddMoney(towerCost/2);
               site.SetTower(null);
+              ExitMode();
         }
     }
        
+    }
+
+    public void UpgradeTower()
+    {
+        Debug.Log("ulep");
     }
 }
