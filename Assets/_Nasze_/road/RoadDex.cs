@@ -6,5 +6,5 @@ public class RoadDex : MonoBehaviour
     [SerializeField] private int stepIndex = 0;
     public int StepIndex => stepIndex;
 
-    public Transform GetWayPointPos() => transform;
+    public Transform GetWayPointPos() => GetComponentInChildren<WaypointBecon>().transform;
 }

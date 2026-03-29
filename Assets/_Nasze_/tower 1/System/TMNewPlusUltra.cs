@@ -46,18 +46,20 @@ private void OnRightClick(InputAction.CallbackContext ctx)
         }
     }
 
-    private void OnLeftClick(InputAction.CallbackContext ctx)
+private void OnLeftClick(InputAction.CallbackContext ctx)
+{
+    if (currentMode == null)
     {
-        if (currentMode == null)
-        {
-            return;
-        }
-
-        if (currentMode.ActionMode())
-        {
-            ExitMode();
-        }
+        SetMode(Mode.SELECT);
+        currentMode?.ActionMode();
+        return;
     }
+
+    if (currentMode.ActionMode())
+    {
+        ExitMode();
+    }
+}
 
     public void SetMode(Mode mode)
     {

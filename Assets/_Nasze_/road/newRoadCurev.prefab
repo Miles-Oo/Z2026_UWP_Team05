@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 4107169413460108771}
   - component: {fileID: 7578093536830596358}
   - component: {fileID: 2127264673399422237}
-  - component: {fileID: 1543171334287001148}
+  - component: {fileID: 2364814308199485576}
   m_Layer: 0
   m_Name: waypoint
   m_TagString: Untagged
@@ -224,7 +224,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1543171334287001148
+--- !u!114 &2364814308199485576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -233,10 +233,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3425047615673202513}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eb3e1988eacb6aaca2078bf7ef18c6a, type: 3}
+  m_Script: {fileID: 11500000, guid: a815a787beabf6de8874f5009013967a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RoadDex
-  stepIndex: 0
+  m_EditorClassIdentifier: Assembly-CSharp::WaypointBecon
 --- !u!1 &3478768103463971442
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,6 +245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5649084194900323640}
+  - component: {fileID: 4492994150741943017}
   m_Layer: 0
   m_Name: newRoadCurev
   m_TagString: Untagged
@@ -270,3 +270,16 @@ Transform:
   - {fileID: 3708842649296956058}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4492994150741943017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478768103463971442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb3e1988eacb6aaca2078bf7ef18c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoadDex
+  stepIndex: 0

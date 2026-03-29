@@ -1,5 +1,5 @@
 public enum Mode
 {
-      IDLE,BUILD,SELL,UPGRADE
+      IDLE,BUILD,SELL,UPGRADE,SELECT
 
 }

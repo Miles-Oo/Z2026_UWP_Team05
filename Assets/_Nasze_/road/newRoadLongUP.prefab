@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2714590112976745753}
   - component: {fileID: 3663482999879133384}
   - component: {fileID: 2654910625508468314}
-  - component: {fileID: 6258839775555571933}
+  - component: {fileID: 7372655599879766321}
   m_Layer: 0
   m_Name: waypoint
   m_TagString: Untagged
@@ -112,7 +112,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6258839775555571933
+--- !u!114 &7372655599879766321
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,10 +121,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2980800456528254952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eb3e1988eacb6aaca2078bf7ef18c6a, type: 3}
+  m_Script: {fileID: 11500000, guid: a815a787beabf6de8874f5009013967a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RoadDex
-  stepIndex: 0
+  m_EditorClassIdentifier: Assembly-CSharp::WaypointBecon
 --- !u!1 &3884229599789161343
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,6 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5694010841912862701}
+  - component: {fileID: 8227503613402322035}
   m_Layer: 0
   m_Name: newRoadLongUP
   m_TagString: Untagged
@@ -154,10 +154,23 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1842645693384435630}
   - {fileID: 4622409217704601405}
+  - {fileID: 1842645693384435630}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8227503613402322035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3884229599789161343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb3e1988eacb6aaca2078bf7ef18c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoadDex
+  stepIndex: 0
 --- !u!1 &4823248378625545113
 GameObject:
   m_ObjectHideFlags: 0

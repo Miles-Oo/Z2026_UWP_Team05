@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2585641594385067679}
   - component: {fileID: 5972596326717771505}
   - component: {fileID: 8911115778004556728}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: archer_tower_LVL_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

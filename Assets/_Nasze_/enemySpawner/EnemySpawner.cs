@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour
     }
     public GameObject SpawnEnemy(GameObject enemyPrefab)
 {
-    GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+    GameObject enemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
 
     EnemyMovement movement = enemy.GetComponent<EnemyMovement>();
     movement.SetWaypoints(sortedWaypoints);

@@ -6,6 +6,7 @@ public class TowerAttack : MonoBehaviour
 {
     [SerializeField] private float attackInterval = 1f;
     [SerializeField] private int damage = 1;
+    public int GetDamage(){return damage;}
 
     private List<EnemyHp> enemiesInRange = new List<EnemyHp>();
     private Coroutine attackCoroutine;

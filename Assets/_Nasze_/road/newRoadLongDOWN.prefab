@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 7686691099074437420}
   - component: {fileID: 7055832227838273449}
   - component: {fileID: 1281787154984269300}
-  - component: {fileID: 7201341562992320502}
+  - component: {fileID: 8913901906388754894}
   m_Layer: 0
   m_Name: waypoint
   m_TagString: Untagged
@@ -224,7 +224,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7201341562992320502
+--- !u!114 &8913901906388754894
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -233,10 +233,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6758380882976395548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eb3e1988eacb6aaca2078bf7ef18c6a, type: 3}
+  m_Script: {fileID: 11500000, guid: a815a787beabf6de8874f5009013967a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RoadDex
-  stepIndex: 0
+  m_EditorClassIdentifier: Assembly-CSharp::WaypointBecon
 --- !u!1 &7282998755913800877
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,6 +245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4635543832347115634}
+  - component: {fileID: 2066224945269607126}
   m_Layer: 0
   m_Name: newRoadLongDOWN
   m_TagString: Untagged
@@ -266,7 +266,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9129878575535229317}
   - {fileID: 8324652429640706410}
+  - {fileID: 9129878575535229317}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &2066224945269607126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7282998755913800877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb3e1988eacb6aaca2078bf7ef18c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoadDex
+  stepIndex: 0
