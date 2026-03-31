@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3581902279540508113}
   - component: {fileID: 6264920414697018263}
   - component: {fileID: 215589904164053603}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: TowerImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,15 +60,15 @@ RectTransform:
   m_GameObject: {fileID: 937726228624175663}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1190531208591294050}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 12.9}
-  m_SizeDelta: {x: 166, y: 113}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6264920414697018263
 CanvasRenderer:
@@ -116,7 +116,8 @@ GameObject:
   - component: {fileID: 2091722381691850846}
   - component: {fileID: 4505515494368665814}
   - component: {fileID: 3183921703293981392}
-  m_Layer: 5
+  - component: {fileID: 203623186777566515}
+  m_Layer: 2
   m_Name: Price tag TEXT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +140,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 52.5, y: -61}
+  m_AnchoredPosition: {x: 52, y: -52}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4505515494368665814
@@ -170,7 +171,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Price: 10'
+  m_text: 'Price: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 797d6ecaf79f90f41b9dce069115d1d3, type: 2}
   m_sharedMaterial: {fileID: -8430550550953478027, guid: 797d6ecaf79f90f41b9dce069115d1d3, type: 2}
@@ -197,8 +198,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -235,12 +236,25 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 127.13818, w: 21.86779}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &203623186777566515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2354523765299090984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eabb45a1c4b4bfaf9947b403b73f636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextSetterStart
+  towerPrice: {fileID: 8911115778004556728, guid: 4838a2d4ffb7fbf83bb9ab2ed58280a6, type: 3}
 --- !u!1 &5065716893299065381
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +281,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5065716893299065381}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -362,8 +376,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TowerManagerNew, Assembly-CSharp
-        m_MethodName: EnterBuildMode
+        m_TargetAssemblyTypeName: TMNewPlusUltra, Assembly-CSharp
+        m_MethodName: SetBuildMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -401,7 +415,7 @@ Transform:
   m_GameObject: {fileID: 5892971395298222404}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -438,11 +452,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 90
-  orthographic: 0
-  orthographic size: 5
+  near clip plane: 0.1
+  far clip plane: 100
+  field of view: 73.3
+  orthographic: 1
+  orthographic size: 5.03
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

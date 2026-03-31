@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     private Transform[] waypoints;
+    [SerializeField] Transform transformAsset;
     public float speed = 120f;
 
     private int currentWaypoint = 0;
@@ -24,7 +25,7 @@ public class EnemyMovement : MonoBehaviour
         if (currentWaypoint < waypoints.Length){
             Transform target = waypoints[currentWaypoint];
             transform.position = Vector3.MoveTowards(transform.position,target.position,speed * Time.deltaTime);
-            transform.LookAt(target);
+            transformAsset.LookAt(target);
             if (Vector3.Distance(transform.position, target.position) < 0.1f){
             currentWaypoint++; }
         }

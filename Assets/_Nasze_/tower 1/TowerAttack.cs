@@ -6,10 +6,19 @@ public class TowerAttack : MonoBehaviour
 {
     [SerializeField] private float attackInterval = 1f;
     [SerializeField] private int damage = 1;
+
+    private float range;
+    public float GetRange(){return range;}
     public int GetDamage(){return damage;}
 
     private List<EnemyHp> enemiesInRange = new List<EnemyHp>();
     private Coroutine attackCoroutine;
+
+void Awake()
+{
+    var col = GetComponent<SphereCollider>();
+    range = col.radius * transform.lossyScale.x;
+}
 
     void OnTriggerEnter(Collider other)
     {

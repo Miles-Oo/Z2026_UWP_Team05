@@ -9,6 +9,7 @@ public class EnemyAttack : MonoBehaviour
     public bool IsAttacking() { return isAttacking; }
 
     public float rotationSpeed = 3600f; 
+    [SerializeField] Transform transformAsset;
 
     void Start()
     {
@@ -18,7 +19,7 @@ public class EnemyAttack : MonoBehaviour
     void Update()
     {
         if (isAttacking)
-        { transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);}
+        { transformAsset.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);}
     }
 
     IEnumerator AttackCoroutine()
