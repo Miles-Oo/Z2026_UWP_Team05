@@ -5,6 +5,7 @@ public class TowerSelect : MonoBehaviour, IUseMode
 {
     [SerializeField] private LayerMask towerLayer;
     [SerializeField] private RangeVisualizer rangeVisualizer;
+    [SerializeField] private GameObject towerInfoUI;
 
     public Mode GetMode() => Mode.SELECT;
 
@@ -24,6 +25,7 @@ public bool ActionMode()
     if (!Physics.Raycast(ray, out RaycastHit hit, 100f, towerLayer))
     {
         rangeVisualizer.Clear();
+        towerInfoUI.SetActive(false);
         return false;
     }
 
@@ -32,6 +34,7 @@ public bool ActionMode()
     if (site == null || site.IsFree())
     {
         rangeVisualizer.Clear();
+        towerInfoUI.SetActive(false);
         return false;
     }
 
@@ -43,6 +46,8 @@ public bool ActionMode()
         tower.transform.position,
         attack.GetRange()
     );
+
+    towerInfoUI.SetActive(true);
 
     Debug.Log($"DMG: {attack.GetDamage()}");
     Debug.Log($"Sell: {price.GetPrice() / 2}");
