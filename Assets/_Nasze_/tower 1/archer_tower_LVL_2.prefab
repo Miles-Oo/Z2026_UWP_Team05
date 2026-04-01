@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5972596326717771505}
   - component: {fileID: 8911115778004556728}
   m_Layer: 11
-  m_Name: archer_tower_LVL_1
+  m_Name: archer_tower_LVL_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1371248394778543496}
-  m_Mesh: {fileID: 1698562412383665031, guid: aa92f4d998ebf9a42b11062d0de1362f, type: 3}
+  m_Mesh: {fileID: -597163193496889104, guid: 1ef8c33990ba89249b4e2e3dd455c89b, type: 3}
 --- !u!23 &5647522370973237450
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -178,8 +178,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerAttack
   attackInterval: 1
-  damage: 25
-  manualRange: 8
+  damage: 33
+  manualRange: 10
 --- !u!114 &8911115778004556728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e619173a668a6cb2a50f425a01ef5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerPrice
-  price: 12
-  upgradeCost: 30
-  nextLevelPrefab: {fileID: 1371248394778543496, guid: b2bebf5b94e3cc542bbf5e6da2a6ae95, type: 3}
+  price: 24
+  upgradeCost: 60
+  nextLevelPrefab: {fileID: 1371248394778543496, guid: 94b99c1eea3da4e4f9b6fe0a43a0c05c, type: 3}
