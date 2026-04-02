@@ -6,9 +6,12 @@ public class TowerBuild : MonoBehaviour, IUseMode
     [SerializeField] private GameObject towerPrefab;
     [SerializeField] private Money money;
     [SerializeField] private LayerMask buildLayer;
+    [SerializeField] private TutorialPopupController tutorialPopup;
+
+    private int cost;
+    private bool firstTowerPlaced = false;
 
     private GameObject preview;
-    private int cost;
 
     public Mode GetMode() => Mode.BUILD;
 
@@ -21,7 +24,6 @@ public class TowerBuild : MonoBehaviour, IUseMode
     {
         preview = Instantiate(towerPrefab);
 
-        // wyłącz logikę TYLKO na instancji
         var attack = preview.GetComponent<TowerAttack>();
         if (attack) attack.enabled = false;
 
@@ -41,12 +43,10 @@ public class TowerBuild : MonoBehaviour, IUseMode
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        Vector3 pos;
-
         Plane plane = new Plane(Vector3.up, Vector3.zero);
         if (!plane.Raycast(ray, out float dist)) return;
 
-        pos = ray.GetPoint(dist);
+        Vector3 pos = ray.GetPoint(dist);
         pos.y = 0f;
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, buildLayer))
@@ -63,32 +63,37 @@ public class TowerBuild : MonoBehaviour, IUseMode
 
     public bool ActionMode()
     {
-            Vector2 mousePos = Mouse.current.position.ReadValue();
-    Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-    if (Physics.Raycast(ray, out RaycastHit hit,100,buildLayer))
-    {
-        ConstructionSide site = hit.collider.GetComponent<ConstructionSide>();
-
-        if (site != null && site.IsFree())
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, buildLayer))
         {
-            if (money.GetCurrMoney() >= cost)
-            {
-                money.SubMoney(cost);
+            ConstructionSide site = hit.collider.GetComponent<ConstructionSide>();
 
-               GameObject g= Instantiate(towerPrefab, hit.collider.transform.position, Quaternion.identity);
-                site.SetTower(g);
-                Debug.Log("Wieża postawiona!");
-                return true;
-            }
-            else
+            if (site != null && site.IsFree())
             {
-                Debug.Log("Nie masz wystarczająco pieniędzy!");
-                return false;
+                if (money.GetCurrMoney() >= cost)
+                {
+                    money.SubMoney(cost);
+
+                    GameObject tower = Instantiate(towerPrefab, hit.collider.transform.position, Quaternion.identity);
+                    site.SetTower(tower);
+                    Debug.Log("Wieża postawiona!");
+
+                    if (!firstTowerPlaced && tutorialPopup != null)
+                    {
+                        tutorialPopup.ShowTowerUpgradePopup();
+                        firstTowerPlaced = true;
+                    }
+
+                    return true;
+                }
+                else
+                {
+                    Debug.Log("Nie masz wystarczająco pieniędzy!");
+                }
             }
         }
+        return false;
     }
-    return false;
-    }
-    
 }

@@ -21,6 +21,7 @@ public class TowerSelect : MonoBehaviour, IUseMode
     [SerializeField] private TutorialPopupController tutorialPopup;
 
     private GameObject selectedTower;
+    private bool firstTowerClicked = false;
 
     public Mode GetMode() => Mode.SELECT;
 
@@ -77,6 +78,12 @@ public class TowerSelect : MonoBehaviour, IUseMode
         var btn = upgradeButton.GetComponent<Button>();
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(() => towerUpgrade.SetSelectedTower(selectedTower));
+
+        if (!firstTowerClicked && tutorialPopup != null)
+        {
+            tutorialPopup.ShowTowerStrategyPopup();
+            firstTowerClicked = true;
+        }
 
         return false;
     }

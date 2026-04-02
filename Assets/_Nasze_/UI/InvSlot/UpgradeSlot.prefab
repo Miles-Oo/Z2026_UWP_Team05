@@ -440,7 +440,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Upgrade
+  m_text: 'Upgrade:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 797d6ecaf79f90f41b9dce069115d1d3, type: 2}
   m_sharedMaterial: {fileID: -8430550550953478027, guid: 797d6ecaf79f90f41b9dce069115d1d3, type: 2}
@@ -532,6 +532,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3248543450163085088}
     m_Modifications:
+    - target: {fileID: 889485289179790148, guid: fc2d01a0eb0f8b8fb8d3095dd324188c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7517585551170367673, guid: fc2d01a0eb0f8b8fb8d3095dd324188c, type: 3}
       propertyPath: m_Name
       value: archer_tower_LVL_1 prev
