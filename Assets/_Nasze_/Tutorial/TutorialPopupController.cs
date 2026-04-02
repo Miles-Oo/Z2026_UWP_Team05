@@ -20,8 +20,11 @@ public class TutorialPopupController : MonoBehaviour
 
     [Header("Base HP (Event Trigger)")]
     public baseHp playerBase;
+
     private bool EnemyAttackPopupShown = false;
     private bool upgradePopupShown = false;
+
+    public bool UpgradePopupShown => upgradePopupShown;
 
     void Start()
     {
@@ -64,13 +67,12 @@ public class TutorialPopupController : MonoBehaviour
         PositionHighlight(enemyHighlight, enemyTargetUI);
     }
 
-    // 🔹 nowa metoda do popupu TowerUpgrade
     public void ShowTowerUpgradePopup()
     {
         if (tutorialRoot == null || TowerUpgradePopup == null || upgradeHighlight == null || upgradeTargetUI == null)
             return;
 
-        if (upgradePopupShown) return; // tylko raz
+        if (upgradePopupShown) return;
 
         Time.timeScale = 0f;
         tutorialRoot.SetActive(true);
@@ -81,27 +83,15 @@ public class TutorialPopupController : MonoBehaviour
         upgradePopupShown = true;
     }
 
-    public void ShowTowerBuildingPopup()
-    {
-        if (tutorialRoot == null || TowerBuilding == null || towerHighlight == null || towerTargetUI == null)
-            return;
-
-        Time.timeScale = 0f; // pauza gry
-        tutorialRoot.SetActive(true);
-        TowerBuilding.SetActive(true);
-        towerHighlight.gameObject.SetActive(true);
-        PositionHighlight(towerHighlight, towerTargetUI);
-    }
-
     public void ResumeGame()
     {
         Time.timeScale = 1f;
         tutorialRoot.SetActive(false);
         towerHighlight.gameObject.SetActive(false);
         enemyHighlight.gameObject.SetActive(false);
-        upgradeHighlight.gameObject.SetActive(false); // 🔹 wyłączamy highlight upgrade
+        upgradeHighlight.gameObject.SetActive(false);
         TowerBuilding.SetActive(false);
         EnemyAttack.SetActive(false);
-        TowerUpgradePopup.SetActive(false); // 🔹 wyłączamy TowerUpgrade popup
+        TowerUpgradePopup.SetActive(false);
     }
 }

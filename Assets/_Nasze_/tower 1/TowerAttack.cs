@@ -8,7 +8,7 @@ public class TowerAttack : MonoBehaviour
     [SerializeField] private int damage = 1;
 
     [Header("Manual Range (overrides collider)")]
-    [SerializeField] private float manualRange = 0f; // 0 = użyj kolidera
+    [SerializeField] private float manualRange = 0f;
 
     private float range;
     public float GetRange() => range;
@@ -21,7 +21,7 @@ public class TowerAttack : MonoBehaviour
     {
         if (manualRange > 0)
         {
-            range = manualRange; // ręcznie ustawiony zasięg prefab
+            range = manualRange;
         }
         else
         {
@@ -29,7 +29,7 @@ public class TowerAttack : MonoBehaviour
             if (col != null)
                 range = col.radius * transform.lossyScale.x;
             else
-                range = 5f; // domyślny zasięg
+                range = 5f;
         }
     }
 

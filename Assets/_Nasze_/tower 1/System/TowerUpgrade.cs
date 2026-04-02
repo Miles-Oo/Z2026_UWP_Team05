@@ -53,20 +53,23 @@ public class TowerUpgrade : MonoBehaviour
         Vector3 pos = selectedTower.transform.position;
         Quaternion rot = selectedTower.transform.rotation;
 
-        // Pobieramy ConstructionSide PRZED zniszczeniem starej wieży
         ConstructionSide site = selectedTower.GetComponentInParent<ConstructionSide>();
+
+        int oldLayer = selectedTower.layer;
 
         Destroy(selectedTower);
 
         GameObject newTower = Instantiate(nextPrefab, pos, rot);
 
-        // Ustawiamy nową wieżę w ConstructionSide
         if (site != null)
         {
+            newTower.transform.SetParent(site.transform);
             site.SetTower(newTower);
         }
 
-        // Aktualizacja referencji
+        SetLayerRecursively(newTower, oldLayer);
+
+
         selectedTower = newTower;
         selectedTowerAttack = newTower.GetComponent<TowerAttack>();
         selectedTowerPrice = newTower.GetComponent<TowerPrice>();
@@ -74,15 +77,12 @@ public class TowerUpgrade : MonoBehaviour
         money.SubMoney(cost);
         selectedTowerPrice.LevelUp();
 
-        // Aktualizacja TowerSelect
         if (towerSelect != null)
             towerSelect.SetSelectedTower(newTower);
 
-        // Wyświetlenie nowego zasięgu
         if (rangeVisualizer != null)
             rangeVisualizer.ShowRange(selectedTower.transform.position, selectedTowerAttack.GetRange());
 
-        // Aktualizacja UI
         if (upgradeCostText != null)
         {
             if (selectedTowerPrice.GetLevel() >= 4)
@@ -91,6 +91,16 @@ public class TowerUpgrade : MonoBehaviour
                 upgradeCostText.text = $"Upgrade: {selectedTowerPrice.GetUpgradeCost()}";
         }
 
-        Debug.Log($"Tower upgraded to level {selectedTowerPrice.GetLevel()} with range {selectedTowerAttack.GetRange()}");
+        Debug.Log($"Tower upgraded to level {selectedTowerPrice.GetLevel()}");
+    }
+
+    private void SetLayerRecursively(GameObject obj, int layer)
+    {
+        obj.layer = layer;
+
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursively(child.gameObject, layer);
+        }
     }
 }

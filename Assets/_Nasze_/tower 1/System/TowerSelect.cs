@@ -21,7 +21,6 @@ public class TowerSelect : MonoBehaviour, IUseMode
     [SerializeField] private TutorialPopupController tutorialPopup;
 
     private GameObject selectedTower;
-    private bool tutorialShown = false; // 🔹 sprawdzamy, czy popup został już pokazany
 
     public Mode GetMode() => Mode.SELECT;
 
@@ -45,20 +44,16 @@ public class TowerSelect : MonoBehaviour, IUseMode
 
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (!Physics.Raycast(ray, out RaycastHit hit, 100f, towerLayer))
+        if (!Physics.Raycast(ray, out RaycastHit hit, 100f))
         {
             ClearSelection();
             return false;
         }
 
-        var site = hit.collider.GetComponent<ConstructionSide>();
-        if (site == null || site.IsFree())
-        {
-            ClearSelection();
-            return false;
-        }
+        GameObject clickedObject = hit.collider.gameObject;
 
-        GameObject tower = site.GetPlacedTower();
+        var tower = clickedObject.GetComponentInParent<TowerAttack>()?.gameObject;
+
         if (tower == null)
         {
             ClearSelection();
@@ -76,23 +71,12 @@ public class TowerSelect : MonoBehaviour, IUseMode
             return false;
         }
 
-        // 🔹 rysowanie zasięgu w trybie select
         rangeVisualizer.ShowRange(selectedTower.transform.position, attack.GetRange());
-
-        // 🔹 włączamy panel info o wieży
         towerInfoPanel.SetActive(true);
 
-        // 🔹 dynamiczne podpięcie przycisku Upgrade
         var btn = upgradeButton.GetComponent<Button>();
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(() => towerUpgrade.SetSelectedTower(selectedTower));
-
-        // 🔹 pokazanie popupu tutorialowego przy pierwszym kliknięciu
-        if (!tutorialShown && tutorialPopup != null)
-        {
-            tutorialPopup.ShowTowerUpgradePopup(); // 🔹 pokazuje nowy popup przy kliknięciu wieży
-            tutorialShown = true;
-        }
 
         return false;
     }
