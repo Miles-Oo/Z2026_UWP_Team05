@@ -36,9 +36,9 @@ public class TowerSell : MonoBehaviour, IUseMode
         }
         else return;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100, buildLayer))
         {
-            var site = hit.collider.GetComponentInParent<ConstructionSide>();
+            ConstructionSide site = hit.collider.GetComponentInParent<ConstructionSide>();
 
             if (site != null && !site.IsFree())
             {
@@ -54,32 +54,31 @@ public class TowerSell : MonoBehaviour, IUseMode
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (!Physics.Raycast(ray, out RaycastHit hit, 100f))
-            return false;
-
-        GameObject clicked = hit.collider.gameObject;
-
-        var tower = clicked.GetComponentInParent<TowerAttack>()?.gameObject;
-
-        if (tower == null)
-            return false;
-
-        var site = tower.GetComponentInParent<ConstructionSide>();
-
-        var price = tower.GetComponent<TowerPrice>();
-        if (price != null)
+        if (Physics.Raycast(ray, out RaycastHit hit, 100, buildLayer))
         {
-            money.AddMoney(price.GetPrice() / 2);
+            ConstructionSide site = hit.collider.GetComponentInParent<ConstructionSide>();
+
+            if (site != null && !site.IsFree())
+            {
+                GameObject tower = site.GetPlacedTower();
+
+                if (tower != null)
+                {
+                    TowerPrice price = tower.GetComponent<TowerPrice>();
+
+                    if (price != null)
+                    {
+                        money.AddMoney(price.GetPrice() / 2);
+                    }
+
+                    site.SetTower(null);
+                }
+
+                ExitMode();
+                return true;
+            }
         }
 
-        Destroy(tower);
-
-        if (site != null)
-        {
-            site.SetTower(null);
-        }
-
-        ExitMode();
-        return true;
+        return false;
     }
 }
