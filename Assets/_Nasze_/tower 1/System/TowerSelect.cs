@@ -75,9 +75,15 @@ public class TowerSelect : MonoBehaviour, IUseMode
         rangeVisualizer.ShowRange(selectedTower.transform.position, attack.GetRange());
         towerInfoPanel.SetActive(true);
 
+        // 🔥 Lokalna kopia dla listenera
+        GameObject towerToUpgrade = selectedTower;
+
         var btn = upgradeButton.GetComponent<Button>();
         btn.onClick.RemoveAllListeners();
-        btn.onClick.AddListener(() => towerUpgrade.SetSelectedTower(selectedTower));
+        btn.onClick.AddListener(() => towerUpgrade.SetSelectedTower(towerToUpgrade));
+
+        // 🔥 Aktualizacja UI od razu po wybraniu wieży
+        towerUpgrade.UpdateTowerImagesForSelected(price);
 
         if (!firstTowerClicked && tutorialPopup != null)
         {

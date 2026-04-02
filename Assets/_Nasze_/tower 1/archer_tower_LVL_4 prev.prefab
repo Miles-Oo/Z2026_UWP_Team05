@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1371248394778543496
+--- !u!1 &7517585551170367673
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,28 +8,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3759406809222783194}
-  - component: {fileID: 826425744838913268}
-  - component: {fileID: 5647522370973237450}
-  - component: {fileID: 7328269721436018162}
-  - component: {fileID: 8425198380747113571}
-  - component: {fileID: 2585641594385067679}
-  - component: {fileID: 5972596326717771505}
-  - component: {fileID: 8911115778004556728}
-  m_Layer: 11
-  m_Name: archer_tower_LVL_4
+  - component: {fileID: 9070759515305103750}
+  - component: {fileID: 1640906347211364985}
+  - component: {fileID: 889485289179790148}
+  - component: {fileID: 6727256893854296320}
+  - component: {fileID: 5971216348442046885}
+  - component: {fileID: 8116001777281781792}
+  m_Layer: 0
+  m_Name: archer_tower_LVL_4 prev
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3759406809222783194
+--- !u!4 &9070759515305103750
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371248394778543496}
+  m_GameObject: {fileID: 7517585551170367673}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -38,21 +36,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &826425744838913268
+--- !u!33 &1640906347211364985
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371248394778543496}
+  m_GameObject: {fileID: 7517585551170367673}
   m_Mesh: {fileID: -3841557973756163201, guid: fcd21f71adc73ef49aa5a3a31fdeb28b, type: 3}
---- !u!23 &5647522370973237450
+--- !u!23 &889485289179790148
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371248394778543496}
+  m_GameObject: {fileID: 7517585551170367673}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -94,13 +92,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7328269721436018162
+--- !u!135 &6727256893854296320
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371248394778543496}
+  m_GameObject: {fileID: 7517585551170367673}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -115,13 +113,13 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 27.72
   m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &8425198380747113571
+--- !u!136 &5971216348442046885
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371248394778543496}
+  m_GameObject: {fileID: 7517585551170367673}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -138,13 +136,13 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &2585641594385067679
+--- !u!54 &8116001777281781792
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371248394778543496}
+  m_GameObject: {fileID: 7517585551170367673}
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
@@ -165,33 +163,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 14
   m_CollisionDetection: 0
---- !u!114 &5972596326717771505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371248394778543496}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa91e698435ee3a45886801cb932eb0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TowerAttack
-  attackInterval: 0.5
-  damage: 50
-  manualRange: 14
---- !u!114 &8911115778004556728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371248394778543496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e619173a668a6cb2a50f425a01ef5e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TowerPrice
-  price: 96
-  upgradeCost: 999999
-  nextLevelPrefab: {fileID: 0}

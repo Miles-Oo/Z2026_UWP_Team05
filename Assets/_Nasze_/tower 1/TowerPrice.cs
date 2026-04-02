@@ -5,6 +5,7 @@ public class TowerPrice : MonoBehaviour
     [SerializeField] private int price;
     [SerializeField] private int upgradeCost = 30;
     [SerializeField] private GameObject nextLevelPrefab;
+
     private int level = 1;
 
     public int GetPrice() => price;
@@ -13,7 +14,11 @@ public class TowerPrice : MonoBehaviour
 
     public int GetLevel() => level;
 
-    public GameObject GetNextLevelPrefab() => nextLevelPrefab;
+    public GameObject GetNextLevelPrefab()
+    {
+        if (level >= 4) return null;
+        return nextLevelPrefab;
+    }
 
     public void LevelUp()
     {
