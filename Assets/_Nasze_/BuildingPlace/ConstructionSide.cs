@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ConstructionSide : MonoBehaviour
 {
-    private GameObject placedTower;
+   [SerializeField] private GameObject placedTower;
 
     public GameObject GetPlacedTower() => placedTower;
 
@@ -11,7 +11,14 @@ public class ConstructionSide : MonoBehaviour
 
     public void SetTower(GameObject tower)
     {
-        placedTower = tower;
-        placeTaken = tower != null;
+        if (tower == null) { 
+            Destroy(placedTower); 
+            placedTower=null; 
+            placeTaken=false; 
+            }
+        else {
+            placedTower=tower;
+            placeTaken=true; 
+            }
     }
 }
