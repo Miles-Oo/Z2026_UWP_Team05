@@ -62,7 +62,7 @@ public class TowerSelect : MonoBehaviour, IUseMode
         }
 
         selectedTower = tower;
-        towerUpgrade.SetCurrentTower(selectedTower); ////////////
+        towerUpgrade.SetSelectedTower(tower); ///////
 
         var attack = selectedTower.GetComponent<TowerAttack>();
         var price = selectedTower.GetComponent<TowerPrice>();

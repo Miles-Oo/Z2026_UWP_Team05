@@ -4,14 +4,15 @@ using UnityEngine.UI;
 
 public class TowerUpgradeUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI upgradeCostText;
-    [SerializeField] private RawImage upgradeImage;
+    [SerializeField] private TextMeshProUGUI upgradeCostText;  // Tekst kosztu ulepszenia
+    [SerializeField] private RawImage upgradeImage;            // Obrazek do wyświetlenia w przycisku
 
     private TowerPrice currentTower;
 
+    // Ustawienie wieży, której upgrade ma być wyświetlany
     public void SetTower(TowerPrice towerPrice)
     {
-        currentTower = towerPrice;
+        currentTower = towerPrice;  
         UpdateUI();
     }
 
@@ -23,6 +24,7 @@ public class TowerUpgradeUI : MonoBehaviour
         UpdateImage();
     }
 
+    // Aktualizacja tekstu przycisku
     private void UpdateText()
     {
         if (upgradeCostText == null) return;
@@ -33,20 +35,22 @@ public class TowerUpgradeUI : MonoBehaviour
             upgradeCostText.text = $"Upgrade: {currentTower.GetUpgradeCost()}";
     }
 
+    // Aktualizacja obrazka przycisku
     private void UpdateImage()
     {
         if (upgradeImage == null) return;
 
-        Texture tex = currentTower.GetNextLevelTexture();
+        Texture nextTexture = currentTower.GetNextLevelTexture();
 
-        if (tex == null)
+        if (currentTower.GetLevel() >= 4 || nextTexture == null)
         {
-            upgradeImage.enabled = false; // ukryj
+            // Brak kolejnego poziomu wieży → wyłączamy obrazek
+            upgradeImage.enabled = false;
+            return;
         }
-        else
-        {
-            upgradeImage.enabled = true;
-            upgradeImage.texture = tex;
-        }
+
+        // Ustawienie obrazka RawImage w przycisku
+        upgradeImage.enabled = true;
+        upgradeImage.texture = nextTexture;
     }
 }
