@@ -6,9 +6,8 @@ public class TowerUpgrade : MonoBehaviour
     [Header("Range & Money")]
     [SerializeField] private RangeVisualizer rangeVisualizer;
     [SerializeField] private Money money;
-    [SerializeField] private TextMeshProUGUI upgradeCostText;
 
-    [Header("Reference to TowerSelect")]
+    [Header("TowerSelect")]
     [SerializeField] private TowerSelect towerSelect;
 
     [Header("UI")]
@@ -18,7 +17,6 @@ public class TowerUpgrade : MonoBehaviour
     private TowerPrice selectedTowerPrice;
     private GameObject selectedTower;
 
-    // Ustawienie zaznaczonej wieży z TowerSelect
     public void SetSelectedTower(GameObject tower)
     {
         if (tower == null) return;
@@ -27,30 +25,17 @@ public class TowerUpgrade : MonoBehaviour
         selectedTowerAttack = tower.GetComponent<TowerAttack>();
         selectedTowerPrice = tower.GetComponent<TowerPrice>();
 
-        // TYLKO odśwież UI, nie ulepszaj od razu
         if (upgradeUI != null && selectedTowerPrice != null)
             upgradeUI.SetTower(selectedTowerPrice);
     }
 
-    // Wywoływane przy kliknięciu przycisku Upgrade
     public void UpgradeCurrent()
     {
         if (selectedTower == null) return;
-        UpgradeSelectedTower();
-    }
 
-    private void UpgradeSelectedTower()
-    {
-        if (selectedTowerAttack == null || selectedTowerPrice == null) return;
-
-        // Jeśli wieża jest maksymalnego poziomu
         if (selectedTowerPrice.GetLevel() >= 4)
         {
-            if (upgradeCostText != null)
-                upgradeCostText.text = "MAX LEVEL";
-
-            if (upgradeUI != null)
-                upgradeUI.SetTower(selectedTowerPrice); // odśwież UI
+            upgradeUI?.UpdateUI();
             return;
         }
 
@@ -74,7 +59,6 @@ public class TowerUpgrade : MonoBehaviour
         ConstructionSide site = selectedTower.GetComponentInParent<ConstructionSide>();
         int oldLayer = selectedTower.layer;
 
-        // Zniszcz starą wieżę i stwórz nową
         Destroy(selectedTower);
 
         GameObject newTower = Instantiate(nextPrefab, pos, rot);
@@ -95,30 +79,16 @@ public class TowerUpgrade : MonoBehaviour
         money.SubMoney(cost);
         selectedTowerPrice.LevelUp();
 
-        // Zaktualizuj referencję w TowerSelect
         if (towerSelect != null)
             towerSelect.SetSelectedTower(newTower);
 
-        // Pokaż zasięg nowej wieży
         if (rangeVisualizer != null)
             rangeVisualizer.ShowRange(selectedTower.transform.position, selectedTowerAttack.GetRange());
 
-        // Odśwież tekst kosztu
-        if (upgradeCostText != null)
-        {
-            var upgradeTextComp = upgradeCostText.GetComponent<UpgradeCostText>();
-            if (upgradeTextComp != null)
-                upgradeTextComp.SetTower(selectedTowerPrice);
-        }
-
-        // Odśwież UI przycisku
         if (upgradeUI != null)
             upgradeUI.SetTower(selectedTowerPrice);
-
-        Debug.Log($"Tower upgraded to level {selectedTowerPrice.GetLevel()}");
     }
 
-    // Ustawianie warstwy dla całego obiektu wieży
     private void SetLayerRecursively(GameObject obj, int layer)
     {
         obj.layer = layer;

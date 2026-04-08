@@ -62,7 +62,7 @@ public class TowerSelect : MonoBehaviour, IUseMode
         }
 
         selectedTower = tower;
-        towerUpgrade.SetSelectedTower(tower); ///////
+        towerUpgrade.SetSelectedTower(tower);
 
         var attack = selectedTower.GetComponent<TowerAttack>();
         var price = selectedTower.GetComponent<TowerPrice>();
@@ -76,17 +76,7 @@ public class TowerSelect : MonoBehaviour, IUseMode
         rangeVisualizer.ShowRange(selectedTower.transform.position, attack.GetRange());
         towerInfoPanel.SetActive(true);
 
-        GameObject towerToUpgrade = selectedTower;
-
-        var btn = upgradeButton.GetComponent<Button>();
-        btn.onClick.RemoveAllListeners();
-        btn.onClick.AddListener(() => towerUpgrade.UpgradeCurrent()); ////////
-
-        var upgradeText = upgradeButton.GetComponent<UpgradeCostText>();
-        if (upgradeText != null)
-        {
-            upgradeText.SetTower(price);
-        }
+        SetUpgradeButton(price);
 
         if (!firstTowerClicked && tutorialPopup != null)
         {
@@ -102,6 +92,17 @@ public class TowerSelect : MonoBehaviour, IUseMode
         rangeVisualizer.Clear();
         towerInfoPanel.SetActive(false);
         selectedTower = null;
+    }
+
+    private void SetUpgradeButton(TowerPrice price)
+    {
+        var btn = upgradeButton.GetComponent<Button>();
+        btn.onClick.RemoveAllListeners();
+        btn.onClick.AddListener(() => towerUpgrade.UpgradeCurrent());
+
+        var upgradeUI = upgradeButton.GetComponent<TowerUpgradeUI>();
+        if (upgradeUI != null)
+            upgradeUI.SetTower(price);
     }
 
     private bool IsPointerOverUI()
