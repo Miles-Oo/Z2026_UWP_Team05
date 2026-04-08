@@ -62,6 +62,7 @@ public class TowerSelect : MonoBehaviour, IUseMode
         }
 
         selectedTower = tower;
+        towerUpgrade.SetCurrentTower(selectedTower); ////////////
 
         var attack = selectedTower.GetComponent<TowerAttack>();
         var price = selectedTower.GetComponent<TowerPrice>();
@@ -75,15 +76,17 @@ public class TowerSelect : MonoBehaviour, IUseMode
         rangeVisualizer.ShowRange(selectedTower.transform.position, attack.GetRange());
         towerInfoPanel.SetActive(true);
 
-        // 🔥 Lokalna kopia dla listenera
         GameObject towerToUpgrade = selectedTower;
 
         var btn = upgradeButton.GetComponent<Button>();
         btn.onClick.RemoveAllListeners();
-        btn.onClick.AddListener(() => towerUpgrade.SetSelectedTower(towerToUpgrade));
+        btn.onClick.AddListener(() => towerUpgrade.UpgradeCurrent()); ////////
 
-        // 🔥 Aktualizacja UI od razu po wybraniu wieży
-        towerUpgrade.UpdateTowerImagesForSelected(price);
+        var upgradeText = upgradeButton.GetComponent<UpgradeCostText>();
+        if (upgradeText != null)
+        {
+            upgradeText.SetTower(price);
+        }
 
         if (!firstTowerClicked && tutorialPopup != null)
         {

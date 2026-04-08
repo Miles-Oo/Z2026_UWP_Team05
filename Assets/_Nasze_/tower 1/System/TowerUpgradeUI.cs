@@ -1,10 +1,11 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class TowerUpgradeUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI upgradeCostText;
-    [SerializeField] private Transform towersUI; // parent LV2, LV3, LV4
+    [SerializeField] private RawImage upgradeImage;
 
     private TowerPrice currentTower;
 
@@ -18,37 +19,34 @@ public class TowerUpgradeUI : MonoBehaviour
     {
         if (currentTower == null) return;
 
-        int level = currentTower.GetLevel();
-
-        UpdateText(level);
-        UpdateImages(level);
+        UpdateText();
+        UpdateImage();
     }
 
-    private void UpdateText(int level)
+    private void UpdateText()
     {
         if (upgradeCostText == null) return;
 
-        if (level >= 4)
+        if (currentTower.GetLevel() >= 4 || currentTower.GetNextLevelPrefab() == null)
             upgradeCostText.text = "MAX LEVEL";
         else
             upgradeCostText.text = $"Upgrade: {currentTower.GetUpgradeCost()}";
     }
 
-    private void UpdateImages(int level)
+    private void UpdateImage()
     {
-        if (towersUI == null) return;
+        if (upgradeImage == null) return;
 
-        // ukryj wszystkie
-        for (int i = 0; i < towersUI.childCount; i++)
-            towersUI.GetChild(i).gameObject.SetActive(false);
+        Texture tex = currentTower.GetNextLevelTexture();
 
-        // MAX LEVEL → nic
-        if (level >= 4) return;
-
-        // pokaż tylko kolejny poziom: LV1→LV2, LV2→LV3, LV3→LV4
-        int index = level - 1;
-
-        if (index >= 0 && index < towersUI.childCount)
-            towersUI.GetChild(index).gameObject.SetActive(true);
+        if (tex == null)
+        {
+            upgradeImage.enabled = false; // ukryj
+        }
+        else
+        {
+            upgradeImage.enabled = true;
+            upgradeImage.texture = tex;
+        }
     }
 }

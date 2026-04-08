@@ -3,8 +3,9 @@ using UnityEngine;
 public class TowerPrice : MonoBehaviour
 {
     [SerializeField] private int price;
-    [SerializeField] private int upgradeCost = 30;
+    [SerializeField] private int upgradeCost;
     [SerializeField] private GameObject nextLevelPrefab;
+    [SerializeField] private Texture nextLevelTexture;
 
     private int level = 1;
 
@@ -29,5 +30,10 @@ public class TowerPrice : MonoBehaviour
     public void SetNextLevelPrefab(GameObject prefab)
     {
         nextLevelPrefab = prefab;
+    }
+
+    public Texture GetNextLevelTexture()
+    {
+        return nextLevelTexture;
     }
 }

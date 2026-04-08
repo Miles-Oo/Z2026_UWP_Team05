@@ -21,7 +21,7 @@ public class TutorialPopupController : MonoBehaviour
     public RectTransform upgradeTargetUI;
     public RectTransform strategyTargetUI;
 
-    [Header("Base HP (Event Trigger)")]
+    [Header("Base HP")]
     public baseHp playerBase;
 
     private bool towerBuildingPopupShown = false;

@@ -195,3 +195,4 @@ MonoBehaviour:
   price: 48
   upgradeCost: 100
   nextLevelPrefab: {fileID: 1371248394778543496, guid: 9cb6d857be8ec5a47982a14aa3a1054e, type: 3}
+  nextLevelTexture: {fileID: 8400000, guid: 20b8bbe94ceadb94096e8cac8572d402, type: 2}

@@ -11311,6 +11311,7 @@ MonoBehaviour:
   upgradeCostText: {fileID: 4194733158427944444}
   towersUI: {fileID: 1860547502}
   towerSelect: {fileID: 526611101}
+  upgradeUI: {fileID: 8393238461621701660}
 --- !u!1001 &527589358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28733,6 +28734,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1e566f4747a0284084c97bc09b0195d, type: 3}
+--- !u!1 &1638458745 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8353276498842311678, guid: 1d6c4283f215b1049bdb5a9353acf7f9, type: 3}
+  m_PrefabInstance: {fileID: 6335996905423291622}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1646685187
 GameObject:
   m_ObjectHideFlags: 0
@@ -36128,12 +36134,25 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7329707142655695639, guid: 1d6c4283f215b1049bdb5a9353acf7f9, type: 3}
   m_PrefabInstance: {fileID: 6335996905423291622}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1638458745}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &4194733158427944448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638458745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48972a67ad142454aa8d383875ca469e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeCostText
+  text: {fileID: 4194733158427944444}
 --- !u!114 &4249059728379273786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36368,7 +36387,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Upgrade:'
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1724593700713694044, guid: 1d6c4283f215b1049bdb5a9353acf7f9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5793219384709465416, guid: 1d6c4283f215b1049bdb5a9353acf7f9, type: 3}
@@ -36387,6 +36407,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5770311559182846421, guid: 1d6c4283f215b1049bdb5a9353acf7f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8393238461621701660}
+    - targetCorrespondingSourceObject: {fileID: 5770311559182846421, guid: 1d6c4283f215b1049bdb5a9353acf7f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8393238461621701664}
+    - targetCorrespondingSourceObject: {fileID: 8353276498842311678, guid: 1d6c4283f215b1049bdb5a9353acf7f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4194733158427944448}
   m_SourcePrefab: {fileID: 100100000, guid: 1d6c4283f215b1049bdb5a9353acf7f9, type: 3}
 --- !u!1001 &7021115552575945524
 PrefabInstance:
@@ -36685,7 +36711,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerUpgradeUI
   upgradeCostText: {fileID: 4194733158427944444}
-  towersUI: {fileID: 1860547502}
+  upgradeImage: {fileID: 0}
+--- !u!114 &8393238461621701664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2921434870146697099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48972a67ad142454aa8d383875ca469e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeCostText
+  text: {fileID: 4194733158427944444}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

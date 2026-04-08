@@ -6,8 +6,6 @@ public class TowerAttack : MonoBehaviour
 {
     [SerializeField] private float attackInterval = 1f;
     [SerializeField] private int damage = 1;
-
-    [Header("Manual Range (overrides collider)")]
     [SerializeField] private float manualRange = 0f;
 
     private float range;

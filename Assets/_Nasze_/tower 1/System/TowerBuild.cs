@@ -23,6 +23,7 @@ public class TowerBuild : MonoBehaviour, IUseMode
     public void EnterMode()
     {
         preview = Instantiate(towerPrefab);
+        preview.SetActive(true);
 
         var attack = preview.GetComponent<TowerAttack>();
         if (attack) attack.enabled = false;
@@ -51,10 +52,10 @@ public class TowerBuild : MonoBehaviour, IUseMode
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, buildLayer))
         {
-            var site = hit.collider.GetComponent<ConstructionSide>();
+            var site = hit.collider.GetComponentInParent<ConstructionSide>();
             if (site != null && site.IsFree())
             {
-                pos = hit.collider.transform.position;
+                pos = site.transform.position;
             }
         }
 
@@ -68,7 +69,7 @@ public class TowerBuild : MonoBehaviour, IUseMode
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, buildLayer))
         {
-            ConstructionSide site = hit.collider.GetComponent<ConstructionSide>();
+            ConstructionSide site = hit.collider.GetComponentInParent<ConstructionSide>();
 
             if (site != null && site.IsFree())
             {
@@ -76,9 +77,10 @@ public class TowerBuild : MonoBehaviour, IUseMode
                 {
                     money.SubMoney(cost);
 
-                    GameObject tower = Instantiate(towerPrefab, hit.collider.transform.position, Quaternion.identity);
+                    GameObject tower = Instantiate(towerPrefab, site.transform.position, Quaternion.identity);
+                    tower.transform.SetParent(site.transform);
+                    tower.transform.localPosition = Vector3.zero;
                     site.SetTower(tower);
-                    Debug.Log("Wieża postawiona!");
 
                     if (!firstTowerPlaced && tutorialPopup != null)
                     {

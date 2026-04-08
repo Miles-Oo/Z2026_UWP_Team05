@@ -13,6 +13,8 @@ public class TowerUpgrade : MonoBehaviour
     [Header("Reference to TowerSelect")]
     [SerializeField] private TowerSelect towerSelect;
 
+    [SerializeField] private TowerUpgradeUI upgradeUI;
+
     private TowerAttack selectedTowerAttack;
     private TowerPrice selectedTowerPrice;
     private GameObject selectedTower;
@@ -26,8 +28,24 @@ public class TowerUpgrade : MonoBehaviour
         selectedTowerPrice = tower.GetComponent<TowerPrice>();
 
         UpdateTowerImages();
-
         UpgradeSelectedTower();
+    }
+
+    /////////////////
+    public void UpgradeCurrent()
+    {
+        if (selectedTower == null) return;
+        UpgradeSelectedTower();
+        if (upgradeUI != null)
+            upgradeUI.SetTower(selectedTowerPrice); // odśwież obrazek
+    }
+
+    /////////
+    public void SetCurrentTower(GameObject tower)
+    {
+        selectedTower = tower;
+        selectedTowerAttack = tower.GetComponent<TowerAttack>();
+        selectedTowerPrice = tower.GetComponent<TowerPrice>();
     }
 
     public void UpdateTowerImagesForSelected(TowerPrice towerPrice)
@@ -42,10 +60,8 @@ public class TowerUpgrade : MonoBehaviour
 
         if (selectedTowerPrice.GetLevel() >= 4)
         {
-            Debug.Log("MAX LEVEL");
             if (upgradeCostText != null)
                 upgradeCostText.text = "MAX LEVEL";
-
             UpdateTowerImages();
             return;
         }
@@ -68,8 +84,8 @@ public class TowerUpgrade : MonoBehaviour
         Quaternion rot = selectedTower.transform.rotation;
 
         ConstructionSide site = selectedTower.GetComponentInParent<ConstructionSide>();
-
         int oldLayer = selectedTower.layer;
+        int oldLevel = selectedTowerPrice.GetLevel();
 
         Destroy(selectedTower);
 
@@ -78,6 +94,7 @@ public class TowerUpgrade : MonoBehaviour
         if (site != null)
         {
             newTower.transform.SetParent(site.transform);
+            newTower.transform.localPosition = Vector3.zero;
             site.SetTower(newTower);
         }
 
@@ -91,23 +108,27 @@ public class TowerUpgrade : MonoBehaviour
         selectedTowerPrice.LevelUp();
 
         if (towerSelect != null)
-            towerSelect.SetSelectedTower(newTower);
+            towerSelect.SetSelectedTower(newTower); /////// selectedTower
 
         if (rangeVisualizer != null)
             rangeVisualizer.ShowRange(selectedTower.transform.position, selectedTowerAttack.GetRange());
 
-        if (upgradeCostText != null)
+        var upgradeTextComp = upgradeCostText.GetComponent<UpgradeCostText>();
+        if (upgradeTextComp != null)
         {
-            if (selectedTowerPrice.GetLevel() >= 4)
-                upgradeCostText.text = "MAX LEVEL";
-            else
-                upgradeCostText.text = $"Upgrade: {selectedTowerPrice.GetUpgradeCost()}";
+            upgradeTextComp.SetTower(selectedTowerPrice);
         }
 
         UpdateTowerImages();
-
         Debug.Log($"Tower upgraded to level {selectedTowerPrice.GetLevel()}");
+
+//////////////////////////
+        if (upgradeUI != null)
+        {
+            upgradeUI.SetTower(selectedTowerPrice);
+        }
     }
+
     private void UpdateTowerImages()
     {
         if (towersUI == null || selectedTowerPrice == null) return;
@@ -120,26 +141,14 @@ public class TowerUpgrade : MonoBehaviour
         if (level >= 4) return;
 
         int index = level - 1;
-
         if (index >= 0 && index < towersUI.childCount)
-        {
             towersUI.GetChild(index).gameObject.SetActive(true);
-            Debug.Log($"Tower level: {level}, showing child index: {index} ({towersUI.GetChild(index).name})");
-        }
-        else
-        {
-            Debug.LogWarning($"Tower level {level}, index {index} is out of range! towersUI.childCount = {towersUI.childCount}");
-        }
     }
 
-    // Rekurencyjna zmiana warstwy wieży i wszystkich dzieci
     private void SetLayerRecursively(GameObject obj, int layer)
     {
         obj.layer = layer;
-
         foreach (Transform child in obj.transform)
-        {
             SetLayerRecursively(child.gameObject, layer);
-        }
     }
 }

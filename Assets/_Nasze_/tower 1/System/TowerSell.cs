@@ -36,13 +36,18 @@ public class TowerSell : MonoBehaviour, IUseMode
         }
         else return;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100, buildLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
         {
-            ConstructionSide site = hit.collider.GetComponentInParent<ConstructionSide>();
-
-            if (site != null && !site.IsFree())
+        var tower = hit.collider.GetComponentInParent<TowerAttack>()?.gameObject;
+        if (tower != null)
             {
-                pos = site.transform.position;
+                Vector3 cursorPos = pos;
+                float snapDistance = 1.5f;
+
+                if (Vector3.Distance(cursorPos, tower.transform.position) <= snapDistance)
+                {
+                    pos = tower.transform.position;
+                }
             }
         }
 
@@ -54,26 +59,26 @@ public class TowerSell : MonoBehaviour, IUseMode
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100, buildLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100))
         {
-            ConstructionSide site = hit.collider.GetComponentInParent<ConstructionSide>();
+            GameObject tower = hit.collider.GetComponentInParent<TowerAttack>()?.gameObject;
 
-            if (site != null && !site.IsFree())
+            if (tower != null)
             {
-                GameObject tower = site.GetPlacedTower();
+                ConstructionSide site = tower.GetComponentInParent<ConstructionSide>();
+                TowerPrice price = tower.GetComponent<TowerPrice>();
 
-                if (tower != null)
+                if (price != null)
                 {
-                    TowerPrice price = tower.GetComponent<TowerPrice>();
+                    money.AddMoney(price.GetPrice());
+                }
 
-                    if (price != null)
-                    {
-                        money.AddMoney(price.GetPrice() / 2);
-                    }
-
+                if (site != null)
+                {
                     site.SetTower(null);
                 }
 
+                Destroy(tower);
                 ExitMode();
                 return true;
             }
