@@ -6,10 +6,6 @@ public class TMNewPlusUltra : MonoBehaviour
     private IUseMode[] modes;
     private IUseMode currentMode;
 
-    [Header("Input")]
-    [SerializeField] private InputAction leftClickAction;   
-     [SerializeField] private InputAction rightClickAction;
-
 
     void Start()
     {
@@ -19,20 +15,20 @@ public class TMNewPlusUltra : MonoBehaviour
 
 void OnEnable()
 {
-    leftClickAction.Enable();
-    leftClickAction.performed += OnLeftClick;
+   AllInputAction.leftClickAction.Enable();
+    AllInputAction.leftClickAction.performed += OnLeftClick;
 
-    rightClickAction.Enable();
-    rightClickAction.performed += OnRightClick;
+    AllInputAction.rightClickAction.Enable();
+    AllInputAction.rightClickAction.performed += OnRightClick;
 }
 
 void OnDisable()
 {
-    leftClickAction.performed -= OnLeftClick;
-    leftClickAction.Disable();
+    AllInputAction.leftClickAction.performed -= OnLeftClick;
+    AllInputAction.leftClickAction.Disable();
 
-    rightClickAction.performed -= OnRightClick;
-    rightClickAction.Disable();
+    AllInputAction.rightClickAction.performed -= OnRightClick;
+    AllInputAction.rightClickAction.Disable();
 }
 private void OnRightClick(InputAction.CallbackContext ctx)
 {

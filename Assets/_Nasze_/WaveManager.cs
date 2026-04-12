@@ -4,7 +4,7 @@ using System.Collections;
 
 public class WaveManager : MonoBehaviour
 {
-    [SerializeField] private EnemyWave[] waves;             
+    [SerializeField] public EnemyWave[] waves;             
     [SerializeField] private EnemySpawner enemySpawner;     
     [SerializeField] private float spawnInterval = 1f;      
     [SerializeField] private float waveDelay = 3f;          

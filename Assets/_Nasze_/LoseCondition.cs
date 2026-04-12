@@ -19,7 +19,6 @@ public class LoseCondition : MonoBehaviour
     }
     void Gameover(){
         if(_baseHp.GetCurrHp()<=0){
-              Debug.Log("Zjebałeś!!!!!");
             gameoverCanvas.SetActive(true);
             Time.timeScale=0;
         }
@@ -27,7 +26,6 @@ public class LoseCondition : MonoBehaviour
    public void Retry(){
               Time.timeScale=1;
                  string curScName=SceneManager.GetActiveScene().name;
-                 Debug.Log("DUPA"+" "+curScName);
               SceneManager.LoadScene(curScName);
     }
 }
