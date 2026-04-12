@@ -5,11 +5,11 @@ public class EnemyAttack : MonoBehaviour
 {
     private int damage = 2;
     private EnemyAI enemyAI;
-    bool isAttacking = false;
-    public bool IsAttacking() { return isAttacking; }
 
-    public float rotationSpeed = 3600f; 
-    [SerializeField] Transform transformAsset;
+    private bool isAttacking = false;
+
+    public float rotationSpeed = 3600f;
+    [SerializeField] private Transform transformAsset;
 
     void Start()
     {
@@ -19,21 +19,28 @@ public class EnemyAttack : MonoBehaviour
     void Update()
     {
         if (isAttacking)
-        { transformAsset.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);}
+            transformAsset.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
     }
 
     IEnumerator AttackCoroutine()
     {
         isAttacking = true;
-        while (enemyAI.GetBase() != null)
+
+        while (true)
         {
-            if (enemyAI.GetBase() != null)
-            {
-                Debug.Log("Atak na bazę!");
-                AttackBase();
-            }
+            var baseObj = enemyAI.GetBase();
+            if (baseObj == null) break;
+
+            var bridge = baseObj.GetComponent<HpModelBridge>();
+            if (bridge == null || bridge.GetModel() == null) break;
+
+            Debug.Log("Atak na bazę!");
+
+            bridge.GetModel().SubHp(damage);
+
             yield return new WaitForSeconds(2f);
         }
+
         isAttacking = false;
     }
 
@@ -41,10 +48,5 @@ public class EnemyAttack : MonoBehaviour
     {
         if (isAttacking) return;
         StartCoroutine(AttackCoroutine());
-    }
-
-    private void AttackBase()
-    {
-        enemyAI.GetBase().GetComponent<baseHp>().SubHp(damage);
     }
 }

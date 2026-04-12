@@ -2,28 +2,35 @@ using UnityEngine;
 
 public class WinCondition : MonoBehaviour
 {
-    [SerializeField] WaveManager waveManager;
-    [SerializeField] GameObject winCanvasScreen;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private WaveModel waveModel;
+    [SerializeField] private GameObject winCanvasScreen;
+
+    private void Start()
     {
-        waveManager.OnEnemyCountChanged+=GameWin;
+        if (waveModel == null)
+        {
+            Debug.LogError("WaveModel nie jest przypisany!");
+            return;
+        }
+
+        waveModel.OnEnemyChanged += CheckWin;
+
         winCanvasScreen.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void CheckWin()
     {
-        
+        if (waveModel.CurrentWave == waveModel.TotalWaves &&
+            waveModel.AliveEnemies <= 0)
+        {
+            Time.timeScale = 0;
+            Debug.Log("Wygrałeś!");
+            winCanvasScreen.SetActive(true);
+        }
     }
-    void GameWin(){
-        if(waveManager.currentWaveNumber==waveManager.TotalWaves){
-             if(waveManager.aliveEnemies<=0){
-             Time.timeScale=0;
-              Debug.Log("Wygrałeś");
-              winCanvasScreen.SetActive(true);
-        }
-        }
-       
+
+    private void OnDestroy()
+    {
+        waveModel.OnEnemyChanged -= CheckWin;
     }
 }

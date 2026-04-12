@@ -5653,7 +5653,7 @@ MonoBehaviour:
   enemyTargetUI: {fileID: 1233103119}
   upgradeTargetUI: {fileID: 8393238461621701656}
   strategyTargetUI: {fileID: 1383018260}
-  playerBase: {fileID: 695776291}
+  playerBase: {fileID: 0}
 --- !u!1001 &296579955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11795,7 +11795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerBuild
   towerPrefab: {fileID: 1371248394778543496, guid: 4838a2d4ffb7fbf83bb9ab2ed58280a6, type: 3}
-  money: {fileID: 695776290}
+  moneyBridge: {fileID: 695776299}
   buildLayer:
     serializedVersion: 2
     m_Bits: 4096
@@ -11825,7 +11825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerSell
   hammerAsset: {fileID: 1187161176}
-  money: {fileID: 695776290}
+  money: {fileID: 0}
   buildLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -11876,7 +11876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerUpgrade
   rangeVisualizer: {fileID: 526611100}
-  money: {fileID: 695776290}
+  money: {fileID: 0}
   towerSelect: {fileID: 526611101}
   upgradeUI: {fileID: 8393238461621701660}
 --- !u!1001 &527589358
@@ -15742,8 +15742,10 @@ GameObject:
   - component: {fileID: 695776294}
   - component: {fileID: 695776293}
   - component: {fileID: 695776292}
-  - component: {fileID: 695776291}
-  - component: {fileID: 695776290}
+  - component: {fileID: 695776296}
+  - component: {fileID: 695776297}
+  - component: {fileID: 695776298}
+  - component: {fileID: 695776299}
   m_Layer: 0
   m_Name: base
   m_TagString: Untagged
@@ -15751,32 +15753,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &695776290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695776289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c2780df8bbdffd4d82bd1fae47acc7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Money
-  _startMoney: 33
---- !u!114 &695776291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695776289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c14d9a6b6589dec469b5dd2bea556621, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::baseHp
-  _maxHp: 61
 --- !u!65 &695776292
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15870,6 +15846,60 @@ Transform:
   - {fileID: 645597354}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 79.612, z: 0}
+--- !u!114 &695776296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695776289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea8fb5eccd3cab40adeb133e37857cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HpInstaller
+  _view: {fileID: 1233103122}
+  _bridge: {fileID: 695776298}
+  _startHp: 100
+--- !u!114 &695776297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695776289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb5a8b43147f1f4da1fc0f44e0d4cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyInstaller
+  _view: {fileID: 1785231210}
+  _bridge: {fileID: 695776299}
+  _startMoney: 230
+--- !u!114 &695776298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695776289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f35cd15fcdcc714195f20344db31f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HpModelBridge
+--- !u!114 &695776299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695776289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c0fce7dd71ad4d42b75570da509a7db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyBridge
 --- !u!1001 &696622909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16309,7 +16339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb6677b22a95d4642ba370a5529a4521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoseCondition
-  _baseHp: {fileID: 695776291}
+  hpBridge: {fileID: 695776298}
   gameoverCanvas: {fileID: 493950966}
 --- !u!114 &718297425
 MonoBehaviour:
@@ -20735,6 +20765,7 @@ GameObject:
   m_Component:
   - component: {fileID: 953145356}
   - component: {fileID: 953145357}
+  - component: {fileID: 953145358}
   m_Layer: 0
   m_Name: WaveManager
   m_TagString: Untagged
@@ -20787,7 +20818,21 @@ MonoBehaviour:
       count: 3
   enemySpawner: {fileID: 2083956311}
   spawnInterval: 1
-  waveDelay: 4.62
+  waveDelay: 1
+--- !u!114 &953145358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953145355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f0f333e10578ab47b792566be4da53e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveInstaller
+  _view: {fileID: 1048400436}
+  _waveManager: {fileID: 953145357}
 --- !u!4 &956583066 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9070759515305103750, guid: a7ea40ede771c604398e3bb4609fd44f, type: 3}
@@ -22129,6 +22174,7 @@ GameObject:
   - component: {fileID: 1048400432}
   - component: {fileID: 1048400434}
   - component: {fileID: 1048400435}
+  - component: {fileID: 1048400436}
   m_Layer: 5
   m_Name: tlo
   m_TagString: Untagged
@@ -22194,6 +22240,20 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &1048400436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048400431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07470bfeb32ee1c4abd32d11a54e71cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveView
+  _waveText: {fileID: 694326334}
+  _enemyText: {fileID: 620583977}
 --- !u!1 &1059694946
 GameObject:
   m_ObjectHideFlags: 0
@@ -24990,6 +25050,7 @@ GameObject:
   - component: {fileID: 1233103119}
   - component: {fileID: 1233103121}
   - component: {fileID: 1233103120}
+  - component: {fileID: 1233103122}
   m_Layer: 5
   m_Name: Text (TMP) hp
   m_TagString: Untagged
@@ -25115,6 +25176,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1233103118}
   m_CullTransparentMesh: 1
+--- !u!114 &1233103122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233103118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65037d61d65adb4438a6d87ee2d8327a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HpView
+  _textHp: {fileID: 1233103120}
 --- !u!1 &1237656792
 GameObject:
   m_ObjectHideFlags: 0
@@ -33489,6 +33563,7 @@ GameObject:
   - component: {fileID: 1785231207}
   - component: {fileID: 1785231209}
   - component: {fileID: 1785231208}
+  - component: {fileID: 1785231210}
   m_Layer: 5
   m_Name: Text (TMP) money
   m_TagString: Untagged
@@ -33616,6 +33691,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785231206}
   m_CullTransparentMesh: 1
+--- !u!114 &1785231210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785231206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b55b9db14460041b3c579b71d6b130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyView
+  _text: {fileID: 1785231208}
 --- !u!114 &1798639905 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4492994150741943017, guid: 3f396450a069921ea88d9d0bd1398e5c, type: 3}
@@ -37690,9 +37778,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2053188461}
-  - component: {fileID: 2053188463}
-  - component: {fileID: 2053188462}
-  - component: {fileID: 2053188464}
   m_Layer: 5
   m_Name: ekran
   m_TagString: Untagged
@@ -37720,49 +37805,6 @@ RectTransform:
   m_AnchoredPosition: {x: -491.1, y: 368.22}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2053188462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2053188460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd4902dd906d93499c2bdfc70508b5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::playerUiMoney
-  _textHp: {fileID: 1785231208}
-  _money: {fileID: 695776290}
---- !u!114 &2053188463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2053188460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd51c11564f6564408828793d7a341f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::playerUiHp
-  _textHp: {fileID: 1233103120}
-  _baseHp: {fileID: 695776291}
---- !u!114 &2053188464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2053188460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0a208672ceedde44b481d7e9d51f47d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UiCurrWave
-  _waveText: {fileID: 694326334}
-  _enemyText: {fileID: 620583977}
-  _waveManager: {fileID: 953145357}
 --- !u!1001 &2065596742
 PrefabInstance:
   m_ObjectHideFlags: 0

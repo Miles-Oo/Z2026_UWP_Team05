@@ -1,22 +1,25 @@
 using UnityEngine;
-using System;
 using System.Collections;
 
 public class WaveManager : MonoBehaviour
 {
-    [SerializeField] public EnemyWave[] waves;             
-    [SerializeField] private EnemySpawner enemySpawner;     
-    [SerializeField] private float spawnInterval = 1f;      
-    [SerializeField] private float waveDelay = 3f;          
+    [SerializeField] public EnemyWave[] waves;
+    [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private float spawnInterval = 1f;
+    [SerializeField] private float waveDelay = 3f;
 
     public int currentWaveNumber { get; private set; } = 0;
     public int totalEnemiesInWave { get; private set; } = 0;
     public int aliveEnemies { get; private set; } = 0;
 
-    public event Action OnWaveChanged;
-    public event Action OnEnemyCountChanged;
-
     public int TotalWaves => waves.Length;
+
+    private WaveModel _model;
+
+    public void Init(WaveModel model)
+    {
+        _model = model;
+    }
 
     private void Start()
     {
@@ -32,14 +35,12 @@ public class WaveManager : MonoBehaviour
 
             totalEnemiesInWave = 0;
             foreach (var entry in wave.enemies)
-            {
                 totalEnemiesInWave += entry.count;
-            }
 
             aliveEnemies = totalEnemiesInWave;
 
-            OnWaveChanged?.Invoke();
-            OnEnemyCountChanged?.Invoke();
+            // 🔥 MVP: tylko MODEL
+            _model.StartWave(currentWaveNumber, totalEnemiesInWave);
 
             yield return SpawnWave(wave);
 
@@ -59,9 +60,8 @@ public class WaveManager : MonoBehaviour
                 GameObject enemy = enemySpawner.SpawnEnemy(entry.enemyPrefab);
 
                 EnemyHp enemyHp = enemy.GetComponent<EnemyHp>();
-                if (enemyHp != null){
+                if (enemyHp != null)
                     enemyHp.OnEnemyDeath += HandleEnemyDeath;
-                }
 
                 yield return new WaitForSeconds(spawnInterval);
             }
@@ -71,7 +71,10 @@ public class WaveManager : MonoBehaviour
     private void HandleEnemyDeath()
     {
         aliveEnemies--;
-        OnEnemyCountChanged?.Invoke();
+
+        // 🔥 MVP: tylko MODEL
+        _model.EnemyDied();
+
         Debug.Log($"Enemy died! {aliveEnemies} remaining in wave {currentWaveNumber}");
     }
 }

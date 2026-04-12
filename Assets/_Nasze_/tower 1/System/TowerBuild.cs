@@ -4,9 +4,11 @@ using UnityEngine.InputSystem;
 public class TowerBuild : MonoBehaviour, IUseMode
 {
     [SerializeField] private GameObject towerPrefab;
-    [SerializeField] private Money money;
+    [SerializeField] private MoneyBridge moneyBridge;
     [SerializeField] private LayerMask buildLayer;
     [SerializeField] private TutorialPopupController tutorialPopup;
+
+    private MoneyModel money;
 
     private int cost;
     private bool firstTowerPlaced = false;
@@ -18,6 +20,14 @@ public class TowerBuild : MonoBehaviour, IUseMode
     void Start()
     {
         cost = towerPrefab.GetComponent<TowerPrice>().GetPrice();
+
+        if (moneyBridge == null)
+        {
+            Debug.LogError("MoneyBridge not assigned in TowerBuild!");
+            return;
+        }
+
+        money = moneyBridge.GetModel();
     }
 
     public void EnterMode()
@@ -64,6 +74,12 @@ public class TowerBuild : MonoBehaviour, IUseMode
 
     public bool ActionMode()
     {
+        if (money == null)
+        {
+            Debug.LogError("MoneyModel is NULL in TowerBuild!");
+            return false;
+        }
+
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
@@ -73,13 +89,14 @@ public class TowerBuild : MonoBehaviour, IUseMode
 
             if (site != null && site.IsFree())
             {
-                if (money.GetCurrMoney() >= cost)
+                if (money.CurrMoney >= cost)
                 {
                     money.SubMoney(cost);
 
                     GameObject tower = Instantiate(towerPrefab, site.transform.position, Quaternion.identity);
                     tower.transform.SetParent(site.transform);
                     tower.transform.localPosition = Vector3.zero;
+
                     site.SetTower(tower);
 
                     if (!firstTowerPlaced && tutorialPopup != null)
@@ -96,6 +113,7 @@ public class TowerBuild : MonoBehaviour, IUseMode
                 }
             }
         }
+
         return false;
     }
 }

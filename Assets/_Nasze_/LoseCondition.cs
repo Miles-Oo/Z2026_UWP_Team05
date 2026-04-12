@@ -3,29 +3,47 @@ using UnityEngine.SceneManagement;
 
 public class LoseCondition : MonoBehaviour
 {
-    [SerializeField] baseHp _baseHp;
-    [SerializeField] GameObject gameoverCanvas;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private HpModelBridge hpBridge;
+    [SerializeField] private GameObject gameoverCanvas;
+
+    private HpModel _model;
+
     void Start()
     {
-        _baseHp.OnGetHp+=Gameover;
-        gameoverCanvas.SetActive(false);
+        if (hpBridge == null)
+        {
+            Debug.LogError("Brak HpModelBridge!");
+            return;
+        }
+
+        _model = hpBridge.GetModel();
+
+        _model.OnHpChanged += CheckGameOver;
+
+        if (gameoverCanvas != null)
+            gameoverCanvas.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDestroy()
     {
-        
+        if (_model != null)
+            _model.OnHpChanged -= CheckGameOver;
     }
-    void Gameover(){
-        if(_baseHp.GetCurrHp()<=0){
-            gameoverCanvas.SetActive(true);
-            Time.timeScale=0;
+
+    void CheckGameOver()
+    {
+        if (_model.CurrHp <= 0)
+        {
+            if (gameoverCanvas != null)
+                gameoverCanvas.SetActive(true);
+
+            Time.timeScale = 0f;
         }
     }
-   public void Retry(){
-              Time.timeScale=1;
-                 string curScName=SceneManager.GetActiveScene().name;
-              SceneManager.LoadScene(curScName);
+
+    public void Retry()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

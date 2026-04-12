@@ -5,17 +5,18 @@ public class UiCurrWave : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _waveText;
     [SerializeField] private TextMeshProUGUI _enemyText;
-    [SerializeField] private WaveManager _waveManager;
+    [SerializeField] private WaveModel _waveModel;
 
     private void Start()
     {
-        if (_waveManager == null)
+        if (_waveModel == null)
         {
-            Debug.LogError("WaveManager nie jest ustawiony w UI!");
+            Debug.LogError("WaveModel nie jest ustawiony w UI!");
             return;
         }
-        _waveManager.OnWaveChanged += UpdateWaveText;
-        _waveManager.OnEnemyCountChanged += UpdateEnemyText;
+
+        _waveModel.OnWaveChanged += UpdateWaveText;
+        _waveModel.OnEnemyChanged += UpdateEnemyText;
 
         UpdateWaveText();
         UpdateEnemyText();
@@ -23,15 +24,24 @@ public class UiCurrWave : MonoBehaviour
 
     private void UpdateWaveText()
     {
-        _waveText.text = $"Wave: {_waveManager.currentWaveNumber} / {_waveManager.TotalWaves}";
+        _waveText.text = $"Wave: {_waveModel.CurrentWave} / {_waveModel.TotalWaves}";
     }
 
     private void UpdateEnemyText()
     {
-        if(_waveManager.aliveEnemies==0){
-        _enemyText.text =$"All enemy destroyed";
-        }else{
-        _enemyText.text = $"Enemies: {_waveManager.aliveEnemies} / {_waveManager.totalEnemiesInWave}";
+        if (_waveModel.AliveEnemies == 0)
+        {
+            _enemyText.text = "All enemies destroyed";
         }
+        else
+        {
+            _enemyText.text = $"Enemies: {_waveModel.AliveEnemies} / {_waveModel.TotalEnemies}";
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _waveModel.OnWaveChanged -= UpdateWaveText;
+        _waveModel.OnEnemyChanged -= UpdateEnemyText;
     }
 }
