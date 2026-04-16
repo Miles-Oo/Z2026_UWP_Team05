@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerAttack : MonoBehaviour
+public class TowerAttack1 : MonoBehaviour
 {
     [SerializeField] private float attackInterval = 1f;
     [SerializeField] private int damage = 1;

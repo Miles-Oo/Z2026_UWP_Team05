@@ -10,10 +10,19 @@ public class playerUiMoney : MonoBehaviour
     {
         _textHp.text="currhp/maxhp";        
 
-        _money.OnGetMoney+= TextUpdate;
-        TextUpdate();
+        _money.OnGetMoney += UpdateMoneyText;
+        UpdateMoneyText();
     }
-    void TextUpdate()
+
+    void OnDestroy()
+    {
+        if (_money != null)
+        {
+            _money.OnGetMoney -= UpdateMoneyText;
+        }
+    }
+
+    private void UpdateMoneyText()
     {
         _textHp.text="Gold: "+_money.GetCurrMoney()+"";
       
