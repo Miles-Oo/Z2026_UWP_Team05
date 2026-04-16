@@ -1,42 +1,33 @@
 using UnityEngine;
-using System.Collections;
-
+using System.Linq;
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] GameObject enemyPrefab;
-    [SerializeField] Transform spawnPoint;
+    Transform spawnPoint;
+    [SerializeField] RoadDex[] pathWaypoints;
     [SerializeField] GameObject baseTarget;
-
-    [SerializeField] Transform[] pathWaypoints;
-
-    [SerializeField] float spawnInterval = 6f;
-
+     private Transform[] sortedWaypoints;
+    void Awake()
+    {
+        // sortowanie po stepIndex, a jeśli są duplikaty po kolejności w hierarchii
+        sortedWaypoints = pathWaypoints
+            .OrderBy(wp => wp.StepIndex)
+            .ThenBy(wp => wp.transform.GetSiblingIndex())
+            .Select(wp => wp.GetWayPointPos())
+            .ToArray();
+    }
     void Start()
     {
-        StartCoroutine(SpawnCoroutine());
+        spawnPoint=GetComponent<Transform>();
     }
-
-    IEnumerator SpawnCoroutine()
-    {
-        while (true)
-        {
-            SpawnEnemy();
-            yield return new WaitForSeconds(spawnInterval);
-        }
-    }
-
-void SpawnEnemy()
+    public GameObject SpawnEnemy(GameObject enemyPrefab)
 {
-    GameObject enemy = Instantiate(
-        enemyPrefab,
-        spawnPoint.position,
-        spawnPoint.rotation
-    );
+    GameObject enemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
 
     EnemyMovement movement = enemy.GetComponent<EnemyMovement>();
-    movement.SetWaypoints(pathWaypoints);
+    movement.SetWaypoints(sortedWaypoints);
 
     EnemyAI ai = enemy.GetComponent<EnemyAI>();
     ai.SetBase(baseTarget);
+    return enemy;
 }
 }

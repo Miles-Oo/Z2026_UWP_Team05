@@ -1,44 +1,52 @@
 using UnityEngine;
 using System.Collections;
+
 public class EnemyAttack : MonoBehaviour
 {
-
-    private int damage=2;
+    private int damage = 2;
     private EnemyAI enemyAI;
-    bool isAttacking =false;
-    public bool IsAttacking(){return isAttacking;}
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-   void Start()
+
+    private bool isAttacking = false;
+
+    public float rotationSpeed = 3600f;
+    [SerializeField] private Transform transformAsset;
+
+    void Start()
     {
-        enemyAI=GetComponent<EnemyAI>();
+        enemyAI = GetComponent<EnemyAI>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (isAttacking)
+            transformAsset.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
     }
 
-
-    IEnumerator AttackCoroutine(){
-
-        isAttacking=true;
-    while (enemyAI.GetBase() != null){
-            if ( enemyAI.GetBase() != null)
-            {
-                Debug.Log("Atak na bazę!");
-                AttackBase();
-            }
-            yield return new WaitForSeconds(2);
-        }
-    }
-  public void StartAttacking()
-{
-    if (isAttacking) return;
-    StartCoroutine(AttackCoroutine());
-}
-    private void AttackBase()
+    IEnumerator AttackCoroutine()
     {
-        enemyAI.GetBase().GetComponent<baseHp>().SubHp(damage);
+        isAttacking = true;
+
+        while (true)
+        {
+            var baseObj = enemyAI.GetBase();
+            if (baseObj == null) break;
+
+            var bridge = baseObj.GetComponent<HpModelBridge>();
+            if (bridge == null || bridge.GetModel() == null) break;
+
+            Debug.Log("Atak na bazę!");
+
+            bridge.GetModel().SubHp(damage);
+
+            yield return new WaitForSeconds(2f);
+        }
+
+        isAttacking = false;
+    }
+
+    public void StartAttacking()
+    {
+        if (isAttacking) return;
+        StartCoroutine(AttackCoroutine());
     }
 }

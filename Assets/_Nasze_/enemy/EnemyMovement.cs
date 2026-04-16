@@ -1,17 +1,16 @@
 using UnityEngine;
+using System;
 
 public class EnemyMovement : MonoBehaviour
 {
     private Transform[] waypoints;
-    public float speed = 3f;
+
+    [SerializeField] private Transform transformAsset;
+    public float speed = 120f;
 
     private int currentWaypoint = 0;
-    private EnemyAI enemyAI;
 
-    void Start()
-    {
-        enemyAI = GetComponent<EnemyAI>();
-    }
+    public event Action OnReachedEnd;
 
     public void SetWaypoints(Transform[] newWaypoints)
     {
@@ -21,15 +20,28 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         if (waypoints == null || waypoints.Length == 0) return;
-        if (currentWaypoint < waypoints.Length){
+
+        if (currentWaypoint < waypoints.Length)
+        {
             Transform target = waypoints[currentWaypoint];
-            transform.position = Vector3.MoveTowards(transform.position,target.position,speed * Time.deltaTime);
-            transform.LookAt(target);
-            if (Vector3.Distance(transform.position, target.position) < 0.1f){
-            currentWaypoint++; }
+
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                target.position,
+                speed * Time.deltaTime
+            );
+
+            transformAsset.LookAt(target);
+
+            if (Vector3.Distance(transform.position, target.position) < 0.1f)
+            {
+                currentWaypoint++;
+            }
         }
-        else{
-            if (!enemyAI.GetEnemyAttack().IsAttacking()){enemyAI.GetEnemyAttack().StartAttacking();}
+        else
+        {
+            OnReachedEnd?.Invoke();
+            enabled = false;
         }
     }
 }
