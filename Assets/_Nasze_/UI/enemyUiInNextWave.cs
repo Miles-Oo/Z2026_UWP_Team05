@@ -24,18 +24,18 @@ public class enemyUiInNextWave : MonoBehaviour
     private void UpdateEnemyText()
     {
 
-       int totalEnemiesInWave = 0;
-            foreach (var entry in _waveManager.waves[_waveManager.currentWaveNumber+1].enemies)
-            {
-                totalEnemiesInWave += entry.count;
-            }
-        _enemyText.text = $"Enemies: {totalEnemiesInWave}";
+      // int totalEnemiesInWave = 0;
+       //     foreach (var entry in _waveManager.waves[_waveManager.currentWaveNumber+1].enemies)
+        //    {
+       //         totalEnemiesInWave += entry.count;
+      //      }
+      //  _enemyText.text = $"Enemies: {totalEnemiesInWave}";
     }
     private void UpdateWaveText(){
-        string buildstring="";
-        for(int i =0;i<_waveManager.waves[_waveManager.currentWaveNumber+1].enemies.Length;i++){
-      buildstring+= _waveManager.waves[_waveManager.currentWaveNumber+1].enemies[i].enemyName+" ";
-        }
-        _waveText.text=buildstring;
+      //  string buildstring="";
+     //   for(int i =0;i<_waveManager.waves[_waveManager.currentWaveNumber+1].enemies.Length;i++){
+     // buildstring+= _waveManager.waves[_waveManager.currentWaveNumber+1].enemies[i].enemyName+" ";
+     //   }
+      //  _waveText.text=buildstring;
     }
 }
