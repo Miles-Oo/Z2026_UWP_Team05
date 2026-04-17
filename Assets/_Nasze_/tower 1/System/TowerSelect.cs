@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
@@ -12,7 +11,7 @@ public class TowerSelect : MonoBehaviour, IUseMode
 
     [Header("UI")]
     [SerializeField] private GameObject towerInfoPanel;
-    [SerializeField] private GameObject upgradeButton;
+    [SerializeField] private TowerUpgradeUI upgradeUI;
 
     [Header("Upgrade System")]
     [SerializeField] private TowerUpgrade towerUpgrade;
@@ -22,6 +21,8 @@ public class TowerSelect : MonoBehaviour, IUseMode
 
     private GameObject selectedTower;
     private bool firstTowerClicked = false;
+
+    private TowerPresenter presenter;
 
     public Mode GetMode() => Mode.SELECT;
 
@@ -51,9 +52,7 @@ public class TowerSelect : MonoBehaviour, IUseMode
             return false;
         }
 
-        GameObject clickedObject = hit.collider.gameObject;
-
-        var tower = clickedObject.GetComponentInParent<TowerAttack>()?.gameObject;
+        GameObject tower = hit.collider.GetComponentInParent<TowerAttack>()?.gameObject;
 
         if (tower == null)
         {
@@ -65,18 +64,23 @@ public class TowerSelect : MonoBehaviour, IUseMode
         towerUpgrade.SetSelectedTower(tower);
 
         var attack = selectedTower.GetComponent<TowerAttack>();
-        var price = selectedTower.GetComponent<TowerPrice>();
-
-        if (attack == null || price == null)
+        if (attack == null)
         {
             ClearSelection();
             return false;
         }
 
         rangeVisualizer.ShowRange(selectedTower.transform.position, attack.GetRange());
+
         towerInfoPanel.SetActive(true);
 
-        SetUpgradeButton(price);
+        var model = new TowerModel(tower);
+
+        if (presenter != null)
+        {
+            presenter.Remove();
+        }
+        presenter = new TowerPresenter(model, upgradeUI, towerUpgrade);
 
         if (!firstTowerClicked && tutorialPopup != null)
         {
@@ -91,18 +95,14 @@ public class TowerSelect : MonoBehaviour, IUseMode
     {
         rangeVisualizer.Clear();
         towerInfoPanel.SetActive(false);
+
+        if (presenter != null)
+        {
+            presenter.Remove();
+        }
+        presenter = null;
+
         selectedTower = null;
-    }
-
-    private void SetUpgradeButton(TowerPrice price)
-    {
-        var btn = upgradeButton.GetComponent<Button>();
-        btn.onClick.RemoveAllListeners();
-        btn.onClick.AddListener(() => towerUpgrade.UpgradeCurrent());
-
-        var upgradeUI = upgradeButton.GetComponent<TowerUpgradeUI>();
-        if (upgradeUI != null)
-            upgradeUI.SetTower(price);
     }
 
     private bool IsPointerOverUI()

@@ -11291,7 +11291,7 @@ MonoBehaviour:
     m_Bits: 4096
   rangeVisualizer: {fileID: 526611100}
   towerInfoPanel: {fileID: 1383018259}
-  upgradeButton: {fileID: 2921434870146697099}
+  upgradeUI: {fileID: 8393238461621701660}
   towerUpgrade: {fileID: 526611102}
   tutorialPopup: {fileID: 296173365}
 --- !u!114 &526611102
@@ -11309,7 +11309,6 @@ MonoBehaviour:
   rangeVisualizer: {fileID: 526611100}
   money: {fileID: 695776290}
   towerSelect: {fileID: 526611101}
-  upgradeUI: {fileID: 8393238461621701660}
 --- !u!1001 &527589358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36150,8 +36149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48972a67ad142454aa8d383875ca469e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCostText
-  text: {fileID: 4194733158427944444}
-  currentTower: {fileID: 0}
 --- !u!114 &4249059728379273786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36708,6 +36705,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerUpgradeUI
   upgradeCostText: {fileID: 4194733158427944444}
   upgradeImage: {fileID: 1437578023}
+  upgradeButton: {fileID: 8393238461621701661}
+--- !u!114 &8393238461621701661 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1932138378870365039, guid: 1d6c4283f215b1049bdb5a9353acf7f9, type: 3}
+  m_PrefabInstance: {fileID: 6335996905423291622}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2921434870146697099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

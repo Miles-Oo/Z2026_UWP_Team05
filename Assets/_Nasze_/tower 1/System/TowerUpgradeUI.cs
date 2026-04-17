@@ -6,46 +6,43 @@ public class TowerUpgradeUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI upgradeCostText;
     [SerializeField] private RawImage upgradeImage;
+    [SerializeField] private Button upgradeButton;
 
-    private TowerPrice currentTower;
+    private TowerPresenter presenter;
 
-    public void SetTower(TowerPrice towerPrice)
+    public void Bind(TowerPresenter presenter)
     {
-        currentTower = towerPrice;  
-        UpdateUI();
+        this.presenter = presenter;
+        upgradeButton.onClick.RemoveAllListeners();
+        upgradeButton.onClick.AddListener(() => presenter.OnUpgradeClicked());
     }
 
-    public void UpdateUI()
+    public void Unbind()
     {
-        if (currentTower == null) return;
-
-        UpdateText();
-        UpdateImage();
+        upgradeButton.onClick.RemoveAllListeners();
+        presenter = null;
+    }
+    
+    public void UpdateText(int cost)
+    {
+        upgradeCostText.text = $"Upgrade: {cost}";
     }
 
-    private void UpdateText()
+    public void UpdateImage(Texture tex)
     {
-        if (upgradeCostText == null) return;
-
-        if (currentTower.GetLevel() >= 4 || currentTower.GetNextLevelPrefab() == null)
-            upgradeCostText.text = "MAX LEVEL";
-        else
-            upgradeCostText.text = $"Upgrade: {currentTower.GetUpgradeCost()}";
-    }
-
-    private void UpdateImage()
-    {
-        if (upgradeImage == null) return;
-
-        Texture nextTexture = currentTower.GetNextLevelTexture();
-
-        if (currentTower.GetLevel() >= 4 || nextTexture == null)
+        if (tex == null)
         {
             upgradeImage.enabled = false;
             return;
         }
 
         upgradeImage.enabled = true;
-        upgradeImage.texture = nextTexture;
+        upgradeImage.texture = tex;
+    }
+
+    public void ShowMaxLevel()
+    {
+        upgradeCostText.text = "MAX LEVEL";
+        upgradeImage.enabled = false;
     }
 }

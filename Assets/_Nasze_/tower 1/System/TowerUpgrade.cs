@@ -1,21 +1,22 @@
 using UnityEngine;
-using TMPro;
 
 public class TowerUpgrade : MonoBehaviour
 {
-    [Header("Range & Money")]
+
     [SerializeField] private RangeVisualizer rangeVisualizer;
     [SerializeField] private Money money;
 
     [Header("TowerSelect")]
     [SerializeField] private TowerSelect towerSelect;
 
-    [Header("UI")]
-    [SerializeField] private TowerUpgradeUI upgradeUI;
-
     private TowerAttack selectedTowerAttack;
     private TowerPrice selectedTowerPrice;
     private GameObject selectedTower;
+
+    public GameObject GetSelectedTower()
+    {
+        return selectedTower;
+    }
 
     public void SetSelectedTower(GameObject tower)
     {
@@ -24,22 +25,21 @@ public class TowerUpgrade : MonoBehaviour
         selectedTower = tower;
         selectedTowerAttack = tower.GetComponent<TowerAttack>();
         selectedTowerPrice = tower.GetComponent<TowerPrice>();
-
-        if (upgradeUI != null && selectedTowerPrice != null)
-            upgradeUI.SetTower(selectedTowerPrice);
     }
 
     public void UpgradeCurrent()
     {
         if (selectedTower == null) return;
+        if (selectedTowerPrice == null) return;
 
         if (selectedTowerPrice.GetLevel() >= 4)
         {
-            upgradeUI?.UpdateUI();
+            Debug.Log("MAX LEVEL");
             return;
         }
 
         int cost = selectedTowerPrice.GetUpgradeCost();
+
         if (money.GetCurrMoney() < cost)
         {
             Debug.Log("Not enough money!");
@@ -82,11 +82,8 @@ public class TowerUpgrade : MonoBehaviour
         if (towerSelect != null)
             towerSelect.SetSelectedTower(newTower);
 
-        if (rangeVisualizer != null)
-            rangeVisualizer.ShowRange(selectedTower.transform.position, selectedTowerAttack.GetRange());
-
-        if (upgradeUI != null)
-            upgradeUI.SetTower(selectedTowerPrice);
+        if (rangeVisualizer != null && selectedTowerAttack != null)
+            rangeVisualizer.ShowRange(newTower.transform.position, selectedTowerAttack.GetRange());
     }
 
     private void SetLayerRecursively(GameObject obj, int layer)
