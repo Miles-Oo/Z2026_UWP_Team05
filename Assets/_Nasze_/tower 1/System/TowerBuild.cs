@@ -8,6 +8,9 @@ public class TowerBuild : MonoBehaviour, IUseMode
     [SerializeField] private LayerMask buildLayer;
     [SerializeField] private TutorialPopupController tutorialPopup;
 
+    [Header("Command")]
+    [SerializeField] private CommandManager commandManager;
+
     private int cost;
     private bool firstTowerPlaced = false;
 
@@ -75,12 +78,14 @@ public class TowerBuild : MonoBehaviour, IUseMode
             {
                 if (money.GetCurrMoney() >= cost)
                 {
-                    money.SubMoney(cost);
+                    var command = new CommandBuild(
+                        towerPrefab,
+                        site,
+                        money,
+                        cost
+                    );
 
-                    GameObject tower = Instantiate(towerPrefab, site.transform.position, Quaternion.identity);
-                    tower.transform.SetParent(site.transform);
-                    tower.transform.localPosition = Vector3.zero;
-                    site.SetTower(tower);
+                    commandManager.ExecuteCommand(command);
 
                     if (!firstTowerPlaced && tutorialPopup != null)
                     {
@@ -96,6 +101,7 @@ public class TowerBuild : MonoBehaviour, IUseMode
                 }
             }
         }
+
         return false;
     }
 }

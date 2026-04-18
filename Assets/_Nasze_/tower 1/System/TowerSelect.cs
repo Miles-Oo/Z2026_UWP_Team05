@@ -23,6 +23,7 @@ public class TowerSelect : MonoBehaviour, IUseMode
     private bool firstTowerClicked = false;
 
     private TowerPresenter presenter;
+    [SerializeField] private CommandManager commandManager;
 
     public Mode GetMode() => Mode.SELECT;
 
@@ -80,7 +81,7 @@ public class TowerSelect : MonoBehaviour, IUseMode
         {
             presenter.Remove();
         }
-        presenter = new TowerPresenter(model, upgradeButton, towerUpgrade);
+        presenter = new TowerPresenter(model, upgradeButton, towerUpgrade, commandManager);
 
         if (!firstTowerClicked && tutorialPopup != null)
         {

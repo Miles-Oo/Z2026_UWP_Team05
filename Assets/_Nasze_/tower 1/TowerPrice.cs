@@ -6,6 +6,7 @@ public class TowerPrice : MonoBehaviour
     [SerializeField] private int upgradeCost;
     [SerializeField] private GameObject nextLevelPrefab;
     [SerializeField] private Texture nextLevelTexture;
+    [SerializeField] private GameObject prefab;
 
     private int level = 1;
 
@@ -35,5 +36,17 @@ public class TowerPrice : MonoBehaviour
     public Texture GetNextLevelTexture()
     {
         return nextLevelTexture;
+    }
+
+    public GameObject GetTowerPrefab()
+    {
+        return prefab;
+    }
+
+    public void SetLevel(int targetLevel)
+    {
+        level = 1;
+        for (int i = 1; i < targetLevel; i++)
+            LevelUp();
     }
 }

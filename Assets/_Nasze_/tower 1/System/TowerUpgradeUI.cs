@@ -9,12 +9,20 @@ public class TowerUpgradeUI : MonoBehaviour
     [SerializeField] private Button upgradeButton;
 
     private TowerPresenter presenter;
+    [SerializeField] private Button undoButton;
+    [SerializeField] private Button redoButton;
 
     public void Bind(TowerPresenter presenter)
     {
         this.presenter = presenter;
         upgradeButton.onClick.RemoveAllListeners();
         upgradeButton.onClick.AddListener(() => presenter.OnUpgradeClicked());
+        
+        undoButton.onClick.RemoveAllListeners();
+        undoButton.onClick.AddListener(() => presenter.Undo());
+
+        redoButton.onClick.RemoveAllListeners();
+        redoButton.onClick.AddListener(() => presenter.Redo());
     }
 
     public void Unbind()

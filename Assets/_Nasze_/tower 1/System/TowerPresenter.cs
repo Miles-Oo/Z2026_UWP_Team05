@@ -5,12 +5,14 @@ public class TowerPresenter
     private TowerModel model;
     private TowerUpgradeUI view;
     private TowerUpgrade upgrade;
+    private CommandManager commandManager;
 
-    public TowerPresenter(TowerModel model, TowerUpgradeUI view, TowerUpgrade upgrade)
+    public TowerPresenter(TowerModel model, TowerUpgradeUI view, TowerUpgrade upgrade, CommandManager commandManager)
     {
         this.model = model;
         this.view = view;
         this.upgrade = upgrade;
+        this.commandManager = commandManager;
 
         view.Bind(this);
         Refresh();
@@ -38,12 +40,34 @@ public class TowerPresenter
 
     public void OnUpgradeClicked()
     {
-        upgrade.UpgradeCurrent();
+        var command = new CommandUpgrade(upgrade);
+        commandManager.ExecuteCommand(command);
 
         GameObject newTower = upgrade.GetSelectedTower();
 
         model = new TowerModel(newTower);
 
+        Refresh();
+    }
+
+    public void Undo()
+    {
+        commandManager.Undo();
+        RefreshAfterUndoRedo();
+    }
+
+    public void Redo()
+    {
+        commandManager.Redo();
+        RefreshAfterUndoRedo();
+    }
+
+    private void RefreshAfterUndoRedo()
+    {
+        GameObject tower = upgrade.GetSelectedTower();
+        if (tower == null) return;
+
+        model = new TowerModel(tower);
         Refresh();
     }
 

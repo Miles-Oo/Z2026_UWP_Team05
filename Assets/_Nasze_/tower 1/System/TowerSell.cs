@@ -5,7 +5,7 @@ public class TowerSell : MonoBehaviour, IUseMode
 {
     [SerializeField] private GameObject hammerAsset;
     [SerializeField] private Money money;
-    [SerializeField] private LayerMask buildLayer;
+    [SerializeField] private CommandManager commandManager;
 
     private GameObject preview;
 
@@ -26,32 +26,31 @@ public class TowerSell : MonoBehaviour, IUseMode
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        Vector3 pos;
+        Plane ground = new Plane(Vector3.up, Vector3.zero);
 
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        if (groundPlane.Raycast(ray, out float distance))
-        {
-            pos = ray.GetPoint(distance);
-            pos.y = 0f;
-        }
-        else return;
+        if (!ground.Raycast(ray, out float dist))
+            return;
+
+        Vector3 pos = ray.GetPoint(dist);
+        pos.y = 0f;
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f))
         {
-        var tower = hit.collider.GetComponentInParent<TowerAttack>()?.gameObject;
-        if (tower != null)
+            var tower = hit.collider.GetComponentInParent<TowerAttack>()?.gameObject;
+
+            if (tower != null)
             {
-                Vector3 cursorPos = pos;
                 float snapDistance = 1.5f;
 
-                if (Vector3.Distance(cursorPos, tower.transform.position) <= snapDistance)
+                if (Vector3.Distance(pos, tower.transform.position) <= snapDistance)
                 {
                     pos = tower.transform.position;
                 }
             }
         }
 
-        preview.transform.position = pos;
+        if (preview != null)
+            preview.transform.position = pos;
     }
 
     public bool ActionMode()
@@ -59,29 +58,29 @@ public class TowerSell : MonoBehaviour, IUseMode
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
         {
-            GameObject tower = hit.collider.GetComponentInParent<TowerAttack>()?.gameObject;
+            GameObject tower = hit.collider.GetComponentInParent<TowerPrice>()?.gameObject;
 
-            if (tower != null)
-            {
-                ConstructionSide site = tower.GetComponentInParent<ConstructionSide>();
-                TowerPrice price = tower.GetComponent<TowerPrice>();
+            if (tower == null)
+                return false;
 
-                if (price != null)
-                {
-                    money.AddMoney(price.GetPrice());
-                }
+            TowerPrice price = tower.GetComponent<TowerPrice>();
+            ConstructionSide site = tower.GetComponentInParent<ConstructionSide>();
 
-                if (site != null)
-                {
-                    site.SetTower(null);
-                }
+            var command = new CommandSell(
+                tower,
+                site,
+                price.GetLevel(),
+                price.GetPrice(),
+                money
+            );
 
-                Destroy(tower);
-                ExitMode();
-                return true;
-            }
+            commandManager.ExecuteCommand(command);
+                        Debug.Log("TOWER PREFAB FROM PRICE: " + price.GetTowerPrefab());
+
+            ExitMode();
+            return true;
         }
 
         return false;
