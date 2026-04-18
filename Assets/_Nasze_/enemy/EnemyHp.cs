@@ -5,8 +5,8 @@ public class EnemyHp : MonoBehaviour
 {
     private EnemyAI enemyAI;
    private int _currHp;
-    [SerializeField] private int _maxHp;
-
+        [SerializeField] private int _maxHp;
+    private EnemyValueMoney enemyValue;
     public event Action OnEnemyDeath;
     public event Action OnChangeHp;
     public int GetCurrHp(){return _currHp;}
@@ -14,6 +14,7 @@ public class EnemyHp : MonoBehaviour
     void Start()
     {
         enemyAI = GetComponent<EnemyAI>();
+        enemyValue=GetComponent<EnemyValueMoney>();
         if (_maxHp <= 0) _maxHp = 1;
         _currHp = _maxHp;
         OnChangeHp?.Invoke();
@@ -44,7 +45,7 @@ public void SubHp(int hp)
             Money money = enemyAI.GetBase().GetComponent<Money>();
             if(money != null)
             {
-                money.AddMoney(19);
+                money.AddMoney(enemyValue.GetValue());
             }
         }
 

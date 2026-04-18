@@ -458,6 +458,7 @@ GameObject:
   - component: {fileID: 338615663924745994}
   - component: {fileID: 1014355502929170341}
   - component: {fileID: 7563182752409602021}
+  - component: {fileID: -8981823522242992770}
   m_Layer: 0
   m_Name: enemy 1 -Grazyna
   m_TagString: Untagged
@@ -599,7 +600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7bd65b36706c446b349d5e4b2e720b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHp
-  _currHp: 24
   _maxHp: 47
 --- !u!114 &1014355502929170341
 MonoBehaviour:
@@ -628,6 +628,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   enemyName: "Gra\u017Cyna"
+--- !u!114 &-8981823522242992770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8774120459150251609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a6c2bc26323d9d294accd2fb6084b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyValueMoney
+  _valueOfEnemy: 20
 --- !u!1001 &8534855229244734216
 PrefabInstance:
   m_ObjectHideFlags: 0

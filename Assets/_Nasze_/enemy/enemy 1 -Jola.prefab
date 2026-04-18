@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8981823522242992770, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
+      propertyPath: _valueOfEnemy
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 338615663924745994, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
       propertyPath: _maxHp
       value: 600
@@ -74,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8774120459150251609, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
       propertyPath: m_Name
-      value: enemy 1 (1) Variant
+      value: enemy 1 -Jola
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
