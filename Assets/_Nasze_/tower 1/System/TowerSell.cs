@@ -60,7 +60,7 @@ public class TowerSell : MonoBehaviour, IUseMode
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f))
         {
-            GameObject tower = hit.collider.GetComponentInParent<TowerPrice>()?.gameObject;
+            GameObject tower = hit.collider.GetComponentInParent<TowerRuntimeData>()?.gameObject;
 
             if (tower == null)
                 return false;

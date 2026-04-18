@@ -25,8 +25,7 @@ public class CommandBuild : ICommand
         builtTower.transform.SetParent(site.transform);
         builtTower.transform.localPosition = Vector3.zero;
 
-        TowerRuntimeData data = builtTower.GetComponent<TowerRuntimeData>();
-
+        var data = builtTower.GetComponent<TowerRuntimeData>();
         if (data == null)
             data = builtTower.AddComponent<TowerRuntimeData>();
 
@@ -43,7 +42,5 @@ public class CommandBuild : ICommand
 
         site.SetTower(null);
         Object.Destroy(builtTower);
-
-        builtTower = null;
     }
 }

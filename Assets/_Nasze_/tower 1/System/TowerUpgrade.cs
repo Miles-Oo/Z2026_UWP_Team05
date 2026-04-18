@@ -63,6 +63,12 @@ public class TowerUpgrade : MonoBehaviour
 
         GameObject newTower = Instantiate(nextPrefab, pos, rot);
 
+        var data = newTower.GetComponent<TowerRuntimeData>();
+        if (data == null)
+            data = newTower.AddComponent<TowerRuntimeData>();
+
+        data.prefab = nextPrefab;
+
         if (site != null)
         {
             newTower.transform.SetParent(site.transform);

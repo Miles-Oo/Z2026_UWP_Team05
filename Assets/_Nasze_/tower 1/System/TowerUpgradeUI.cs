@@ -53,4 +53,9 @@ public class TowerUpgradeUI : MonoBehaviour
         upgradeCostText.text = "MAX LEVEL";
         upgradeImage.enabled = false;
     }
+
+    // public void ShowTowerRange(float range, Vector3 position)
+    // {
+    //     rangeVisualizer.ShowRange(position, range);
+    // }
 }

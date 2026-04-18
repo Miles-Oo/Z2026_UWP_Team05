@@ -4,12 +4,18 @@ public class CommandUpgrade : ICommand
 {
     private TowerUpgrade upgradeSystem;
 
-    private GameObject towerBefore;
-    private GameObject towerAfter;
+    private GameObject oldTower;
+    private GameObject newTower;
 
+    private GameObject oldPrefab;
+    private GameObject newPrefab;
+
+    private int oldLevel;
+    private int newLevel;
+
+    private ConstructionSide site;
     private Vector3 position;
     private Quaternion rotation;
-    private ConstructionSide site;
 
     public CommandUpgrade(TowerUpgrade upgradeSystem)
     {
@@ -18,42 +24,77 @@ public class CommandUpgrade : ICommand
 
     public void Execute()
     {
-        towerBefore = upgradeSystem.GetSelectedTower();
+        oldTower = upgradeSystem.GetSelectedTower();
+        if (oldTower == null) return;
 
-        if (towerBefore == null)
-            return;
+        var oldPrice = oldTower.GetComponent<TowerPrice>();
+        var oldData = oldTower.GetComponent<TowerRuntimeData>();
 
-        position = towerBefore.transform.position;
-        rotation = towerBefore.transform.rotation;
-        site = towerBefore.GetComponentInParent<ConstructionSide>();
+        position = oldTower.transform.position;
+        rotation = oldTower.transform.rotation;
+        site = oldTower.GetComponentInParent<ConstructionSide>();
+
+        oldLevel = oldPrice.GetLevel();
+        oldPrefab = oldData.prefab;
 
         upgradeSystem.UpgradeCurrent();
 
-        towerAfter = upgradeSystem.GetSelectedTower();
+        newTower = upgradeSystem.GetSelectedTower();
+
+        var newPrice = newTower.GetComponent<TowerPrice>();
+        var newData = newTower.GetComponent<TowerRuntimeData>();
+
+        newLevel = newPrice.GetLevel();
+        newPrefab = newData.prefab;
     }
 
     public void Undo()
     {
-        if (towerBefore == null || towerAfter == null)
-            return;
+        if (site == null || oldPrefab == null) return;
 
-        if (towerAfter != null)
-            Object.Destroy(towerAfter);
+        if (newTower != null)
+            Object.Destroy(newTower);
 
-        GameObject restored = Object.Instantiate(towerBefore, position, rotation);
+        GameObject restored = Object.Instantiate(oldPrefab);
 
-        if (site != null)
-        {
-            restored.transform.SetParent(site.transform);
-            restored.transform.localPosition = Vector3.zero;
-            site.SetTower(restored);
-        }
+        restored.transform.SetParent(site.transform);
+        restored.transform.localPosition = Vector3.zero;
 
+        var data = restored.GetComponent<TowerRuntimeData>();
+        if (data == null)
+            data = restored.AddComponent<TowerRuntimeData>();
+
+        data.prefab = oldPrefab;
+
+        var price = restored.GetComponent<TowerPrice>();
+        price.SetLevel(oldLevel);
+
+        site.SetTower(restored);
         upgradeSystem.SetSelectedTower(restored);
     }
 
     public void Redo()
     {
-        Execute();
+        if (site == null || newPrefab == null) return;
+
+        if (oldTower != null)
+            Object.Destroy(oldTower);
+
+        GameObject upgraded = Object.Instantiate(newPrefab);
+
+        upgraded.transform.SetParent(site.transform);
+        upgraded.transform.localPosition = Vector3.zero;
+
+        var data = upgraded.GetComponent<TowerRuntimeData>();
+        if (data == null)
+            data = upgraded.AddComponent<TowerRuntimeData>();
+
+        data.prefab = newPrefab;
+
+        var price = upgraded.GetComponent<TowerPrice>();
+        price.SetLevel(newLevel);
+
+        site.SetTower(upgraded);
+        upgradeSystem.SetSelectedTower(upgraded);
     }
 }
