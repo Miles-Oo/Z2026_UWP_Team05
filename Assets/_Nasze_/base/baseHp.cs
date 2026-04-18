@@ -6,7 +6,7 @@ public class baseHp : MonoBehaviour
 
     private int _currHp;
    [SerializeField] private int _maxHp;    
-     public event Action OnGetHp;
+     public event Action OnHpChanged;
     public void SetMaxHp(int hp){
         if (hp > 0){_maxHp=hp;}
         else{
@@ -15,12 +15,12 @@ public class baseHp : MonoBehaviour
     public void AddHp(int hp){
     if (_currHp + hp >= _maxHp) { _currHp=_maxHp;}
     else{ _currHp+=hp;}
-    OnGetHp?.Invoke();
+    OnHpChanged?.Invoke();
     }
     public void SubHp(int hp){
     if (_currHp -hp <=0){ _currHp=0;}
     else{_currHp-=hp; }
-    OnGetHp?.Invoke();
+    OnHpChanged?.Invoke();
     }
     public int GetCurrHp(){return _currHp;}
     public int GetMaxHp(){return _maxHp;}
@@ -32,15 +32,7 @@ public class baseHp : MonoBehaviour
           _maxHp=1;
         }
         _currHp=_maxHp;
-            OnGetHp?.Invoke();
+            OnHpChanged?.Invoke();
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
 }

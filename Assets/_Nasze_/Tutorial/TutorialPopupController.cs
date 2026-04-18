@@ -37,7 +37,7 @@ public class TutorialPopupController : MonoBehaviour
         Invoke(nameof(ShowTowerBuilding), 1f);
 
         if (playerBase != null)
-            playerBase.OnGetHp += CheckBaseHp;
+            playerBase.OnHpChanged += CheckBaseHp;
     }
 
     private void PositionHighlight(RectTransform highlight, RectTransform target)

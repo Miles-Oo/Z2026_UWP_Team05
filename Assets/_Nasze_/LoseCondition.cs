@@ -8,7 +8,7 @@ public class LoseCondition : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _baseHp.OnGetHp+=Gameover;
+        _baseHp.OnHpChanged+=Gameover;
         gameoverCanvas.SetActive(false);
     }
 

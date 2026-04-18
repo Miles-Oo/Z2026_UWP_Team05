@@ -4,7 +4,7 @@ using System;
 public class EnemyHp : MonoBehaviour
 {
     private EnemyAI enemyAI;
-    [SerializeField] private int _currHp;
+   private int _currHp;
     [SerializeField] private int _maxHp;
 
     public event Action OnEnemyDeath;

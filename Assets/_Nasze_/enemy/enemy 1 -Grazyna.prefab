@@ -457,8 +457,9 @@ GameObject:
   - component: {fileID: 364262478295449420}
   - component: {fileID: 338615663924745994}
   - component: {fileID: 1014355502929170341}
+  - component: {fileID: 7563182752409602021}
   m_Layer: 0
-  m_Name: enemy 1
+  m_Name: enemy 1 -Grazyna
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -582,6 +583,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbadfd2a9369f0240a09b31f2c8381bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
+  damage: 2
+  nextAttackTime: 2
   rotationSpeed: 2344
   transformAsset: {fileID: 8213260471075675363}
 --- !u!114 &338615663924745994
@@ -612,6 +615,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   transformAsset: {fileID: 8213260471075675363}
   speed: 16.12
+--- !u!114 &7563182752409602021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8774120459150251609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccc645be66d20b179033d59da215005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  enemyName: "Gra\u017Cyna"
 --- !u!1001 &8534855229244734216
 PrefabInstance:
   m_ObjectHideFlags: 0

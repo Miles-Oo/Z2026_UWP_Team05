@@ -74,4 +74,11 @@ public class WaveManager : MonoBehaviour
         OnEnemyCountChanged?.Invoke();
         Debug.Log($"Enemy died! {aliveEnemies} remaining in wave {currentWaveNumber}");
     }
+    public EnemyWave GetNextWave()
+{
+    if (currentWaveNumber >= waves.Length)
+        return null;
+
+    return waves[currentWaveNumber];
+}
 }

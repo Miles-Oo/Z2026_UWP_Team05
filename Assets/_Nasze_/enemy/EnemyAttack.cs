@@ -3,7 +3,8 @@ using System.Collections;
 
 public class EnemyAttack : MonoBehaviour
 {
-    private int damage = 2;
+    [SerializeField] private int damage = 2;
+    [SerializeField] private float nextAttackTime=1;
     private EnemyAI enemyAI;
     bool isAttacking = false;
     public bool IsAttacking() { return isAttacking; }
@@ -14,6 +15,10 @@ public class EnemyAttack : MonoBehaviour
     void Start()
     {
         enemyAI = GetComponent<EnemyAI>();
+        if (nextAttackTime < 1)
+        {
+            nextAttackTime=1;
+        }
     }
 
     void Update()

@@ -13802,6 +13802,8 @@ GameObject:
   - component: {fileID: 620583976}
   - component: {fileID: 620583978}
   - component: {fileID: 620583977}
+  - component: {fileID: 620583980}
+  - component: {fileID: 620583979}
   m_Layer: 5
   m_Name: Text (TMP) enemyInwave
   m_TagString: Untagged
@@ -13927,6 +13929,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 620583975}
   m_CullTransparentMesh: 1
+--- !u!114 &620583979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620583975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd405b819f751887bd169605dc911c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UiEnemyCountView
+  enemyText: {fileID: 620583977}
+--- !u!114 &620583980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620583975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0bcd1edc01df7faa93b6892baff37f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCountPresenter
+  model: {fileID: 953145357}
+  view: {fileID: 620583979}
 --- !u!1 &627737857
 GameObject:
   m_ObjectHideFlags: 0
@@ -15738,6 +15767,8 @@ GameObject:
   - component: {fileID: 694326333}
   - component: {fileID: 694326335}
   - component: {fileID: 694326334}
+  - component: {fileID: 694326337}
+  - component: {fileID: 694326336}
   m_Layer: 5
   m_Name: Text (TMP) curr wave
   m_TagString: Untagged
@@ -15863,6 +15894,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 694326332}
   m_CullTransparentMesh: 1
+--- !u!114 &694326336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694326332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a208672ceedde44b481d7e9d51f47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UiCurrWaveView
+  waveText: {fileID: 694326334}
+--- !u!114 &694326337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694326332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba4987b49119dae119a4b9ebaa816380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WavePresenter
+  model: {fileID: 953145357}
+  view: {fileID: 694326336}
 --- !u!1 &695776289
 GameObject:
   m_ObjectHideFlags: 0
@@ -16687,7 +16745,7 @@ GameObject:
   - component: {fileID: 733338231}
   - component: {fileID: 733338230}
   m_Layer: 5
-  m_Name: Text (TMP) enemyInwave (2)
+  m_Name: 'Text (TMP) '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20444,9 +20502,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 903671565}
+  - component: {fileID: 903671567}
   - component: {fileID: 903671566}
   m_Layer: 5
-  m_Name: ekran2
+  m_Name: ekran2-nextWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20481,12 +20540,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 903671564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97197f17913a5d84595aa3d4d062bfa4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9711b5929eb13e5028ab92ed5ff80262, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::enemyUiInNextWave
-  _waveText: {fileID: 1015703619}
-  _enemyText: {fileID: 1656259859}
-  _waveManager: {fileID: 953145357}
+  m_EditorClassIdentifier: Assembly-CSharp::NextWavePresenter
+  model: {fileID: 953145357}
+  view: {fileID: 903671567}
+--- !u!114 &903671567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903671564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a29320564e3e77ec9804653f7d1206c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyNextWaveView
+  totalText: {fileID: 1015703619}
+  typesText: {fileID: 1656259859}
 --- !u!1001 &910648006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21160,20 +21232,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   waves:
-  - waveName: 
-    enemies:
-    - enemyName: zosia
-      enemyPrefab: {fileID: 8774120459150251609, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
+  - enemies:
+    - enemyPrefab: {fileID: 8774120459150251609, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
       count: 6
-  - waveName: 
-    enemies:
-    - enemyName: zosia
-      enemyPrefab: {fileID: 8774120459150251609, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
+  - enemies:
+    - enemyPrefab: {fileID: 8774120459150251609, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
       count: 9
-  - waveName: 
-    enemies:
-    - enemyName: zosia
-      enemyPrefab: {fileID: 8774120459150251609, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
+    - enemyPrefab: {fileID: 59071989191006608, guid: c8c73d0d4477987bbb46a84364782352, type: 3}
+      count: 3
+  - enemies:
+    - enemyPrefab: {fileID: 8774120459150251609, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
       count: 12
   enemySpawner: {fileID: 2083956311}
   spawnInterval: 1
@@ -21960,7 +22028,7 @@ GameObject:
   - component: {fileID: 1015703620}
   - component: {fileID: 1015703619}
   m_Layer: 5
-  m_Name: Text (TMP) enemyInwave (1)
+  m_Name: Text (TMP) enemyInNextwave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25380,6 +25448,8 @@ GameObject:
   - component: {fileID: 1233103119}
   - component: {fileID: 1233103121}
   - component: {fileID: 1233103120}
+  - component: {fileID: 1233103123}
+  - component: {fileID: 1233103122}
   m_Layer: 5
   m_Name: Text (TMP) hp
   m_TagString: Untagged
@@ -25505,6 +25575,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1233103118}
   m_CullTransparentMesh: 1
+--- !u!114 &1233103122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233103118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b0db75eaa50b50ea6c8fac9a4e7a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHpPresenter
+  model: {fileID: 695776291}
+  view: {fileID: 1233103123}
+--- !u!114 &1233103123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233103118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d1d0297070ca117b8b9e69692dd006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHpView
+  textHp: {fileID: 1233103120}
 --- !u!1 &1237656792
 GameObject:
   m_ObjectHideFlags: 0
@@ -32061,7 +32158,7 @@ GameObject:
   - component: {fileID: 1656259860}
   - component: {fileID: 1656259859}
   m_Layer: 5
-  m_Name: Text (TMP) enemyInwave
+  m_Name: Text (TMP) enemyTypeInNextWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34017,6 +34114,8 @@ GameObject:
   - component: {fileID: 1785231207}
   - component: {fileID: 1785231209}
   - component: {fileID: 1785231208}
+  - component: {fileID: 1785231211}
+  - component: {fileID: 1785231210}
   m_Layer: 5
   m_Name: Text (TMP) money
   m_TagString: Untagged
@@ -34144,6 +34243,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785231206}
   m_CullTransparentMesh: 1
+--- !u!114 &1785231210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785231206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a04ca7c50d2baf8b95f7f0298e6fd42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BaseMoneyPresenter
+  model: {fileID: 695776290}
+  view: {fileID: 1785231211}
+--- !u!114 &1785231211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785231206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6928e48cbf78868b491cc4fb4b4d9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BaseMoneyView
+  textHp: {fileID: 1785231208}
 --- !u!114 &1798639905 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4492994150741943017, guid: 3f396450a069921ea88d9d0bd1398e5c, type: 3}
@@ -38218,9 +38344,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2053188461}
-  - component: {fileID: 2053188463}
-  - component: {fileID: 2053188462}
-  - component: {fileID: 2053188464}
   m_Layer: 5
   m_Name: ekran
   m_TagString: Untagged
@@ -38248,49 +38371,6 @@ RectTransform:
   m_AnchoredPosition: {x: -491.1, y: 368.22}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2053188462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2053188460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd4902dd906d93499c2bdfc70508b5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::playerUiMoney
-  _textHp: {fileID: 1785231208}
-  _money: {fileID: 695776290}
---- !u!114 &2053188463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2053188460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd51c11564f6564408828793d7a341f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::playerUiHp
-  _textHp: {fileID: 1233103120}
-  _baseHp: {fileID: 695776291}
---- !u!114 &2053188464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2053188460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0a208672ceedde44b481d7e9d51f47d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UiCurrWave
-  _waveText: {fileID: 694326334}
-  _enemyText: {fileID: 620583977}
-  _waveManager: {fileID: 953145357}
 --- !u!1001 &2065596742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39455,71 +39535,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1335429772529359235, guid: 954063dcc12489be7a1dde369afdde06, type: 3}
   m_PrefabInstance: {fileID: 290632625}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1869931080298406082
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3097612305933238466, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 195903078}
-    - target: {fileID: 4610284943500802966, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.49519
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610284943500802966, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.14426
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610284943500802966, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.44179
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610284943500802966, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610284943500802966, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610284943500802966, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610284943500802966, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610284943500802966, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610284943500802966, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4610284943500802966, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774120459150251609, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
-      propertyPath: m_Name
-      value: enemy 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8774120459150251609, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
 --- !u!1 &2656435297787843783 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2354523765299090984, guid: 954063dcc12489be7a1dde369afdde06, type: 3}
@@ -40241,7 +40256,6 @@ SceneRoots:
   - {fileID: 8364665}
   - {fileID: 2484042}
   - {fileID: 1392243120}
-  - {fileID: 1869931080298406082}
   - {fileID: 493950967}
   - {fileID: 1958839313}
   - {fileID: 1087825241}
