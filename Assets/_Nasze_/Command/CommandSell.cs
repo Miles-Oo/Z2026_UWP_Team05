@@ -62,4 +62,9 @@ public class CommandSell : ICommand
 
         money.SubMoney(refund);
     }
+
+    public void Redo()
+    {
+        Execute();
+    }
 }

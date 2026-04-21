@@ -43,4 +43,9 @@ public class CommandBuild : ICommand
         site.SetTower(null);
         Object.Destroy(builtTower);
     }
+
+    public void Redo()
+    {
+        Execute();
+    }
 }

@@ -80,26 +80,26 @@ public class CommandUpgrade : ICommand
     {
         if (site == null || newPrefab == null) return;
 
-        if (oldTower != null)
-            Object.Destroy(oldTower);
+        GameObject current = site.GetPlacedTower();
+        if (current != null)
+            Object.Destroy(current);
 
         GameObject upgraded = Object.Instantiate(newPrefab);
-
         upgraded.transform.SetParent(site.transform);
         upgraded.transform.localPosition = Vector3.zero;
 
-        var data = upgraded.GetComponent<TowerRuntimeData>();
-        if (data == null)
-            data = upgraded.AddComponent<TowerRuntimeData>();
-
+        var data = upgraded.GetComponent<TowerRuntimeData>() ??
+                upgraded.AddComponent<TowerRuntimeData>();
         data.prefab = newPrefab;
 
         var price = upgraded.GetComponent<TowerPrice>();
         price.SetLevel(newLevel);
 
         site.SetTower(upgraded);
+
+        money.SubMoney(cost);
+
         upgradeSystem.SetSelectedTower(upgraded);
         upgradeSystem.RefreshRange();
-        money.SubMoney(cost);
     }
 }

@@ -31,7 +31,7 @@ public class CommandManager : MonoBehaviour
         if (redoStack.Count == 0) return;
 
         var command = redoStack.Pop();
-        command.Execute();
+        command.Redo();
         undoStack.Push(command);
     }
 }

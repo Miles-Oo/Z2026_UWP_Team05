@@ -121,4 +121,10 @@ public class TowerUpgrade : MonoBehaviour
             );
         }
     }
+
+    public GameObject GetTowerFromSite(ConstructionSide site)
+    {
+        if (site == null) return null;
+        return site.GetPlacedTower();
+    }
 }
