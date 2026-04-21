@@ -90,6 +90,8 @@ public class TowerUpgrade : MonoBehaviour
 
         if (rangeVisualizer != null && selectedTowerAttack != null)
             rangeVisualizer.ShowRange(newTower.transform.position, selectedTowerAttack.GetRange());
+
+        ObserverUpgrade.Instance.OnTowerUpgraded(selectedTower);
     }
 
     private void SetLayerRecursively(GameObject obj, int layer)

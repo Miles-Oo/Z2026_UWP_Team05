@@ -86,12 +86,13 @@ public class TowerBuild : MonoBehaviour, IUseMode
                     );
 
                     commandManager.ExecuteCommand(command);
+                    ObserverBuild.Instance.OnTowerBuilt(site.gameObject);
 
-                    if (!firstTowerPlaced && tutorialPopup != null)
-                    {
-                        tutorialPopup.ShowTowerUpgradePopup();
-                        firstTowerPlaced = true;
-                    }
+                    // if (!firstTowerPlaced && tutorialPopup != null)
+                    // {
+                    //     tutorialPopup.ShowTowerUpgradePopup();
+                    //     firstTowerPlaced = true;
+                    // }
 
                     return true;
                 }

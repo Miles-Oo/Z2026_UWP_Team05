@@ -40,10 +40,47 @@ public class TutorialPopupController : MonoBehaviour
 
     void Start()
     {
-        Invoke(nameof(ShowTowerBuilding), 1f);
+        Invoke(nameof(ShowTowerBuilding), 1f);  
 
         if (playerBase != null)
             playerBase.OnHpChanged += CheckBaseHp;
+
+        if (ObserverBuild.Instance != null)
+            ObserverBuild.Instance.TowerBuilt  += OnTowerBuilt;
+        
+        if (ObserverUpgrade.Instance != null)
+            ObserverUpgrade.Instance.TowerUpgraded += OnTowerUpgraded;
+    }
+
+    private void OnDestroy()
+    {
+        if (ObserverBuild.Instance != null)
+            ObserverBuild.Instance.TowerBuilt  -= OnTowerBuilt;
+        
+        if (ObserverUpgrade.Instance != null)
+            ObserverUpgrade.Instance.TowerUpgraded -= OnTowerUpgraded;
+
+        if (playerBase != null)
+            playerBase.OnHpChanged -= CheckBaseHp;
+    }
+
+    private void OnTowerBuilt(GameObject tower)
+    {
+        if (tutorialsDisabled) return;
+        if (!upgradePopupShown)
+        {
+            ShowTowerUpgradePopup();
+        }
+    }
+
+    private void OnTowerUpgraded(GameObject tower)
+    {
+        if (tutorialsDisabled) return;
+
+        if (!strategyPopupShown)
+        {
+            ShowTowerStrategyPopup();
+        }
     }
 
     private void PositionHighlight(RectTransform highlight, RectTransform target)

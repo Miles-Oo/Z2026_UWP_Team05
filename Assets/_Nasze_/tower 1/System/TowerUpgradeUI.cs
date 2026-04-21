@@ -11,6 +11,28 @@ public class TowerUpgradeUI : MonoBehaviour
     private TowerPresenter presenter;
     [SerializeField] private Button undoButton;
     [SerializeField] private Button redoButton;
+    
+    private void OnEnable()
+    {
+        if (ObserverUpgrade.Instance != null)
+            ObserverUpgrade.Instance.TowerUpgraded += OnTowerUpgraded;
+    }
+
+    private void OnDisable()
+    {
+        if (ObserverUpgrade.Instance != null)
+            ObserverUpgrade.Instance.TowerUpgraded -= OnTowerUpgraded;
+    }
+
+    private void OnTowerUpgraded(GameObject tower)
+    {
+        if (presenter == null) return;
+
+        if (presenter.GetSelectedTower() == tower)
+        {
+            presenter.Refresh();
+        }
+    }
 
     public void Bind(TowerPresenter presenter)
     {

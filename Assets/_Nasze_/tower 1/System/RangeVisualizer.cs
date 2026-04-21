@@ -8,6 +8,26 @@ public class RangeVisualizer : MonoBehaviour
 
     private List<GameObject> spawned = new();
 
+    private void OnEnable()
+    {
+        if (ObserverUpgrade.Instance != null)
+            ObserverUpgrade.Instance.TowerUpgraded += OnTowerUpgraded;
+    }
+
+    private void OnDisable()
+    {
+        if (ObserverUpgrade.Instance != null)
+            ObserverUpgrade.Instance.TowerUpgraded -= OnTowerUpgraded;
+    }
+
+    private void OnTowerUpgraded(GameObject tower)
+    {
+        var attack = tower.GetComponent<TowerAttack>();
+        if (attack == null) return;
+
+        ShowRange(tower.transform.position, attack.GetRange());
+    }
+
     public void ShowRange(Vector3 center, float radius)
     {
         Clear();

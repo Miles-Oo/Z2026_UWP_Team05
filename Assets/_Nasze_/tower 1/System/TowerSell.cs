@@ -78,6 +78,7 @@ public class TowerSell : MonoBehaviour, IUseMode
 
             commandManager.ExecuteCommand(command);
                         Debug.Log("TOWER PREFAB FROM PRICE: " + price.GetTowerPrefab());
+            ObserverSell.Instance.OnTowerSold(tower);
 
             ExitMode();
             return true;

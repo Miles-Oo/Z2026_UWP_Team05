@@ -18,6 +18,11 @@ public class TowerPresenter
         Refresh();
     }
 
+    public GameObject GetSelectedTower()
+    {
+        return upgrade.GetSelectedTower();
+    }
+
     public void Rebind(GameObject newTower)
     {
         model = new TowerModel(newTower);
