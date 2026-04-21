@@ -2,52 +2,49 @@ using UnityEngine;
 
 public class CommandSell : ICommand
 {
-    private GameObject towerPrefab;
+    private GameObject prefab;
     private ConstructionSide site;
-    private int level;
-    private int refund;
     private Money money;
+    private int refund;
+    private int level;
 
-    private GameObject destroyedTower;
+    private GameObject soldTower;
 
     public CommandSell(GameObject tower, ConstructionSide site, int level, int refund, Money money)
     {
         this.site = site;
-        this.level = level;
-        this.refund = refund;
         this.money = money;
+        this.refund = refund;
+        this.level = level;
 
         if (tower != null)
         {
+            soldTower = tower;
+
             var data = tower.GetComponent<TowerRuntimeData>();
             if (data != null)
-                towerPrefab = data.prefab;
-
-            destroyedTower = tower;
+                prefab = data.prefab;
         }
     }
 
     public void Execute()
     {
-        GameObject tower = site.GetPlacedTower();
-        if (tower == null) return;
+        if (soldTower == null)
+            soldTower = site.GetPlacedTower();
 
-        var data = tower.GetComponent<TowerRuntimeData>();
-        if (data != null)
-            towerPrefab = data.prefab;
+        if (soldTower == null) return;
 
         money.AddMoney(refund);
 
         site.SetTower(null);
-        Object.Destroy(tower);
+        Object.Destroy(soldTower);
     }
 
     public void Undo()
     {
-        if (site == null || towerPrefab == null) return;
+        if (site == null || prefab == null) return;
 
-        GameObject restored = Object.Instantiate(towerPrefab);
-
+        GameObject restored = Object.Instantiate(prefab, site.transform.position, Quaternion.identity);
         restored.transform.SetParent(site.transform);
         restored.transform.localPosition = Vector3.zero;
 
@@ -55,13 +52,14 @@ public class CommandSell : ICommand
         if (data == null)
             data = restored.AddComponent<TowerRuntimeData>();
 
-        data.prefab = towerPrefab;
+        data.prefab = prefab;
 
         var price = restored.GetComponent<TowerPrice>();
         if (price != null)
             price.SetLevel(level);
 
         site.SetTower(restored);
+
         money.SubMoney(refund);
     }
 }

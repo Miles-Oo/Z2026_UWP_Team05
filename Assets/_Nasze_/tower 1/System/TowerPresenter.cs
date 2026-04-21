@@ -51,7 +51,6 @@ public class TowerPresenter
 
         Refresh();
 
-        // view.ShowTowerRange(model.Range, newTower.transform.position);
     }
 
     public void Undo()
@@ -74,7 +73,6 @@ public class TowerPresenter
         model = new TowerModel(tower);
         Refresh();
 
-        // view.ShowTowerRange(model.Range, tower.transform.position);
     }
 
     public void Remove()

@@ -98,4 +98,25 @@ public class TowerUpgrade : MonoBehaviour
         foreach (Transform child in obj.transform)
             SetLayerRecursively(child.gameObject, layer);
     }
+
+    public Money GetMoney()
+    {
+        return money;
+    }
+
+    public void RefreshRange()
+    {
+        if (selectedTower == null) return;
+
+        var attack = selectedTower.GetComponent<TowerAttack>();
+        if (attack == null) return;
+
+        if (rangeVisualizer != null)
+        {
+            rangeVisualizer.ShowRange(
+                selectedTower.transform.position,
+                attack.GetRange()
+            );
+        }
+    }
 }

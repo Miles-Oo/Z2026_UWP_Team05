@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialPopupController : MonoBehaviour
 {
@@ -23,6 +24,11 @@ public class TutorialPopupController : MonoBehaviour
 
     [Header("Base HP")]
     public baseHp playerBase;
+
+    [Header("Tutorial Toggle")]
+    [SerializeField] private Toggle disableTutorialToggle;
+
+    private bool tutorialsDisabled = false;
 
     private bool towerBuildingPopupShown = false;
     private bool enemyAttackPopupShown = false;
@@ -50,6 +56,7 @@ public class TutorialPopupController : MonoBehaviour
 
     private void ShowPopup(GameObject popup, ref bool shownFlag, RectTransform highlight = null, RectTransform target = null)
     {
+        if (tutorialsDisabled) return;
         if (tutorialRoot == null || popup == null || shownFlag) return;
 
         Time.timeScale = 0f;
@@ -80,6 +87,10 @@ public class TutorialPopupController : MonoBehaviour
 
     public void ResumeGame()
     {
+        if (disableTutorialToggle != null && disableTutorialToggle.isOn)
+        {
+            tutorialsDisabled = true;
+        }
         Time.timeScale = 1f;
         tutorialRoot.SetActive(false);
 

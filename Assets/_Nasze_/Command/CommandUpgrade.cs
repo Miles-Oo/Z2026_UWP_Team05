@@ -3,6 +3,7 @@ using UnityEngine;
 public class CommandUpgrade : ICommand
 {
     private TowerUpgrade upgradeSystem;
+    private Money money;
 
     private GameObject oldTower;
     private GameObject newTower;
@@ -13,13 +14,14 @@ public class CommandUpgrade : ICommand
     private int oldLevel;
     private int newLevel;
 
+    private int cost;
+
     private ConstructionSide site;
-    private Vector3 position;
-    private Quaternion rotation;
 
     public CommandUpgrade(TowerUpgrade upgradeSystem)
     {
         this.upgradeSystem = upgradeSystem;
+        this.money = upgradeSystem.GetMoney();
     }
 
     public void Execute()
@@ -30,11 +32,10 @@ public class CommandUpgrade : ICommand
         var oldPrice = oldTower.GetComponent<TowerPrice>();
         var oldData = oldTower.GetComponent<TowerRuntimeData>();
 
-        position = oldTower.transform.position;
-        rotation = oldTower.transform.rotation;
         site = oldTower.GetComponentInParent<ConstructionSide>();
 
         oldLevel = oldPrice.GetLevel();
+        cost = oldPrice.GetUpgradeCost();
         oldPrefab = oldData.prefab;
 
         upgradeSystem.UpgradeCurrent();
@@ -71,6 +72,8 @@ public class CommandUpgrade : ICommand
 
         site.SetTower(restored);
         upgradeSystem.SetSelectedTower(restored);
+        upgradeSystem.RefreshRange();
+        money.AddMoney(cost);
     }
 
     public void Redo()
@@ -96,5 +99,7 @@ public class CommandUpgrade : ICommand
 
         site.SetTower(upgraded);
         upgradeSystem.SetSelectedTower(upgraded);
+        upgradeSystem.RefreshRange();
+        money.SubMoney(cost);
     }
 }
