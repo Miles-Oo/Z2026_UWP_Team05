@@ -9,6 +9,10 @@ public class uihp : MonoBehaviour
 
     private Color good;
     private Color bad;
+    void Awake(){
+        _enemyHp = GetComponentInParent<EnemyHp>();
+    }
+
     void Start(){
         _enemyHp.OnChangeHp += BarUpdate;
       

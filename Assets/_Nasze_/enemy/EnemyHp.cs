@@ -11,11 +11,15 @@ public class EnemyHp : MonoBehaviour
     public event Action OnChangeHp;
     public int GetCurrHp(){return _currHp;}
     public int GetMaxHp(){return _maxHp;}
+    void Awake()
+    {
+        if (_maxHp <= 0) _maxHp = 1;
+        _currHp = _maxHp;
+    }
+
     void Start()
     {
         enemyAI = GetComponent<EnemyAI>();
-        if (_maxHp <= 0) _maxHp = 1;
-        _currHp = _maxHp;
         OnChangeHp?.Invoke();
     }
 

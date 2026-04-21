@@ -80,7 +80,7 @@ public class TowerBuild : MonoBehaviour, IUseMode
         Vector3 pos = ray.GetPoint(dist);
         pos.y = 0f;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f, buildLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, buildLayer, QueryTriggerInteraction.Collide))
         {
             var site = hit.collider.GetComponentInParent<ConstructionSide>();
             if (site != null && site.IsFree())
@@ -102,7 +102,7 @@ public class TowerBuild : MonoBehaviour, IUseMode
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f, buildLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, buildLayer, QueryTriggerInteraction.Collide))
         {
             ConstructionSide site = hit.collider.GetComponentInParent<ConstructionSide>();
 

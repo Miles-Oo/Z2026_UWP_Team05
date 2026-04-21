@@ -1963,7 +1963,7 @@ PrefabInstance:
       objectReference: {fileID: 526611102}
     - target: {fileID: 474254746509760065, guid: 954063dcc12489be7a1dde369afdde06, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UpgradeTower
+      value: UpgradeCurrent
       objectReference: {fileID: 0}
     - target: {fileID: 474254746509760065, guid: 954063dcc12489be7a1dde369afdde06, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -12038,11 +12038,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerSell
   hammerAsset: {fileID: 1187161176}
   money: {fileID: 0}
-  moneyBridge: {fileID: 0}
+  moneyBridge: {fileID: 695776299}
   buildLayer:
     serializedVersion: 2
     m_Bits: 0
-  tutorialPopup: {fileID: 0}
+  tutorialPopup: {fileID: 296173365}
 --- !u!114 &526611100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12091,7 +12091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerUpgrade
   rangeVisualizer: {fileID: 526611100}
   money: {fileID: 0}
-  moneyBridge: {fileID: 0}
+  moneyBridge: {fileID: 695776299}
   towerSelect: {fileID: 526611101}
   upgradeUI: {fileID: 8393238461621701660}
 --- !u!1001 &527589358
@@ -16107,8 +16107,8 @@ GameObject:
   - component: {fileID: 695776292}
   - component: {fileID: 695776296}
   - component: {fileID: 695776297}
-  - component: {fileID: 695776298}
   - component: {fileID: 695776299}
+  - component: {fileID: 695776300}
   m_Layer: 0
   m_Name: base
   m_TagString: Untagged
@@ -16218,11 +16218,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 695776289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eea8fb5eccd3cab40adeb133e37857cc, type: 3}
+  m_Script: {fileID: 11500000, guid: c1b2378e576458a42bb7a1bf90987ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HpInstaller
   _view: {fileID: 1233103122}
-  _bridge: {fileID: 695776298}
+  _bridge: {fileID: 695776300}
   _startHp: 100
 --- !u!114 &695776297
 MonoBehaviour:
@@ -16233,24 +16233,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 695776289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fb5a8b43147f1f4da1fc0f44e0d4cb2, type: 3}
+  m_Script: {fileID: 11500000, guid: ca5eacdf6cd5df5468f92e331576dc1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoneyInstaller
   _view: {fileID: 1785231210}
   _bridge: {fileID: 695776299}
-  _startMoney: 230
---- !u!114 &695776298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695776289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f35cd15fcdcc714195f20344db31f6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HpModelBridge
+  _startMoney: 100
 --- !u!114 &695776299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16260,9 +16248,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 695776289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c0fce7dd71ad4d42b75570da509a7db, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a0f42bd4b493c14a8f07a278303a51f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoneyBridge
+--- !u!114 &695776300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695776289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5404599ab93648a4d93d66ded55c25cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HpModelBridge
 --- !u!1001 &696622909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16699,10 +16699,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 718297422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb6677b22a95d4642ba370a5529a4521, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b8da413cb1d20542abf3912806f6ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoseCondition
-  hpBridge: {fileID: 695776298}
+  hpBridge: {fileID: 695776300}
   gameoverCanvas: {fileID: 493950966}
 --- !u!114 &718297425
 MonoBehaviour:
@@ -16713,7 +16713,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 718297422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df9811a081440614e9e0cc6ef1067c8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ec894eac23bc774ea994e7e2479fb90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WinCondition
   winCanvasScreen: {fileID: 1958839312}
@@ -17078,6 +17078,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8364665}
     m_Modifications:
+    - target: {fileID: 381580144570891161, guid: b998e1f3953a44f5eb900927c2d6d7a5, type: 3}
+      propertyPath: placedTower
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 819664327052857128, guid: b998e1f3953a44f5eb900927c2d6d7a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 24
@@ -20555,10 +20559,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 903671564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97197f17913a5d84595aa3d4d062bfa4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6040c52ffeddd7e44be2dd8526cc8bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemyUiInNextWave
-  _waveText: {fileID: 1015703619}
+  _waveText: {fileID: 733338230}
   _enemyText: {fileID: 1656259859}
   _waveManager: {fileID: 953145357}
 --- !u!1001 &910648006
@@ -21398,7 +21402,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 953145355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f0f333e10578ab47b792566be4da53e, type: 3}
+  m_Script: {fileID: 11500000, guid: f58c9adaf54ec0d46a14eb0f8102c3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveInstaller
   _view: {fileID: 1048400436}
@@ -22820,7 +22824,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1048400431}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07470bfeb32ee1c4abd32d11a54e71cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 80e7951cd49232c4988d48a52fce30a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveView
   _waveText: {fileID: 694326334}
@@ -23076,7 +23080,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1061651902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19d66c23953dc09499523737274fa7fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 6997731089d05c24f801b4867b35c8e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneStart
   scenaGry: Menu
@@ -23629,10 +23633,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1087825240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf75656c1ddc40d40a604cd4b888902e, type: 3}
+  m_Script: {fileID: 11500000, guid: 559e95794a14a7b4ea576db19c4003f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseGame
-  pauseCanvas: {fileID: 1156544092}
+  pauseCanvas: {fileID: 1087825240}
 --- !u!1001 &1092772842
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25756,7 +25760,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1233103118}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65037d61d65adb4438a6d87ee2d8327a, type: 3}
+  m_Script: {fileID: 11500000, guid: 11db04ae9821c1a498a9360e13cafd3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HpView
   _textHp: {fileID: 1233103120}
@@ -31743,7 +31747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d66c23953dc09499523737274fa7fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneStart
-  scenaGry: Menu
+  scenaGry: 
 --- !u!1001 &1619040036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34407,7 +34411,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1785231206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01b55b9db14460041b3c579b71d6b130, type: 3}
+  m_Script: {fileID: 11500000, guid: d1fbe7cbf880ca348850ee5e28225228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoneyView
   _text: {fileID: 1785231208}
@@ -39763,6 +39767,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 338615663924745994, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
+      propertyPath: _maxHp
+      value: 47
+      objectReference: {fileID: 0}
+    - target: {fileID: 338615663924745994, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
+      propertyPath: _currHp
+      value: 47
+      objectReference: {fileID: 0}
+    - target: {fileID: 1477076381390994625, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1477076381390994625, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 3097612305933238466, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
       propertyPath: m_Camera
       value: 
