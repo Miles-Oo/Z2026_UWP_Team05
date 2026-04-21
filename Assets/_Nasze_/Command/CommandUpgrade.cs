@@ -5,18 +5,14 @@ public class CommandUpgrade : ICommand
     private TowerUpgrade upgradeSystem;
     private Money money;
 
-    private GameObject oldTower;
-    private GameObject newTower;
+    private ConstructionSide site;
 
     private GameObject oldPrefab;
     private GameObject newPrefab;
 
     private int oldLevel;
     private int newLevel;
-
     private int cost;
-
-    private ConstructionSide site;
 
     public CommandUpgrade(TowerUpgrade upgradeSystem)
     {
@@ -26,24 +22,27 @@ public class CommandUpgrade : ICommand
 
     public void Execute()
     {
-        oldTower = upgradeSystem.GetSelectedTower();
-        if (oldTower == null) return;
+        GameObject selected = upgradeSystem.GetSelectedTower();
+        if (selected == null) return;
 
-        var oldPrice = oldTower.GetComponent<TowerPrice>();
-        var oldData = oldTower.GetComponent<TowerRuntimeData>();
+        site = selected.GetComponentInParent<ConstructionSide>();
+        if (site == null) return;
 
-        site = oldTower.GetComponentInParent<ConstructionSide>();
+        GameObject tower = site.GetPlacedTower();
+        if (tower == null) return;
 
-        oldLevel = oldPrice.GetLevel();
-        cost = oldPrice.GetUpgradeCost();
-        oldPrefab = oldData.prefab;
+        var price = tower.GetComponent<TowerPrice>();
+        var data = tower.GetComponent<TowerRuntimeData>();
 
-        upgradeSystem.UpgradeCurrent();
+        oldLevel = price.GetLevel();
+        oldPrefab = data.prefab;
+        cost = price.GetUpgradeCost();
 
-        newTower = upgradeSystem.GetSelectedTower();
+        upgradeSystem.UpgradeCurrent(); // zmienia site
 
-        var newPrice = newTower.GetComponent<TowerPrice>();
-        var newData = newTower.GetComponent<TowerRuntimeData>();
+        GameObject upgraded = site.GetPlacedTower();
+        var newPrice = upgraded.GetComponent<TowerPrice>();
+        var newData = upgraded.GetComponent<TowerRuntimeData>();
 
         newLevel = newPrice.GetLevel();
         newPrefab = newData.prefab;
@@ -51,35 +50,31 @@ public class CommandUpgrade : ICommand
 
     public void Undo()
     {
-        if (site == null || oldPrefab == null) return;
+        GameObject current = site.GetPlacedTower();
+        if (current == null) return;
 
-        if (newTower != null)
-            Object.Destroy(newTower);
+        Object.Destroy(current);
 
         GameObject restored = Object.Instantiate(oldPrefab);
-
         restored.transform.SetParent(site.transform);
         restored.transform.localPosition = Vector3.zero;
 
-        var data = restored.GetComponent<TowerRuntimeData>();
-        if (data == null)
-            data = restored.AddComponent<TowerRuntimeData>();
-
+        var data = restored.GetComponent<TowerRuntimeData>() ?? restored.AddComponent<TowerRuntimeData>();
         data.prefab = oldPrefab;
 
         var price = restored.GetComponent<TowerPrice>();
         price.SetLevel(oldLevel);
 
         site.SetTower(restored);
+
+        money.AddMoney(cost);
+
         upgradeSystem.SetSelectedTower(restored);
         upgradeSystem.RefreshRange();
-        money.AddMoney(cost);
     }
 
     public void Redo()
     {
-        if (site == null || newPrefab == null) return;
-
         GameObject current = site.GetPlacedTower();
         if (current != null)
             Object.Destroy(current);
@@ -88,8 +83,7 @@ public class CommandUpgrade : ICommand
         upgraded.transform.SetParent(site.transform);
         upgraded.transform.localPosition = Vector3.zero;
 
-        var data = upgraded.GetComponent<TowerRuntimeData>() ??
-                upgraded.AddComponent<TowerRuntimeData>();
+        var data = upgraded.GetComponent<TowerRuntimeData>() ?? upgraded.AddComponent<TowerRuntimeData>();
         data.prefab = newPrefab;
 
         var price = upgraded.GetComponent<TowerPrice>();

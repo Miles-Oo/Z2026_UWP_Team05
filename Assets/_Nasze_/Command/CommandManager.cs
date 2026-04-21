@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class CommandManager : MonoBehaviour
 {
+    private const int max_stack = 5;
     private Stack<ICommand> undoStack = new();
     private Stack<ICommand> redoStack = new();
 
@@ -12,6 +13,7 @@ public class CommandManager : MonoBehaviour
 
         command.Execute();
         undoStack.Push(command);
+        TrimUndoStack();
         redoStack.Clear();
 
         Debug.Log($"UNDO ROZMIARRRRRRRRRRRR: {undoStack.Count}");
@@ -33,5 +35,24 @@ public class CommandManager : MonoBehaviour
         var command = redoStack.Pop();
         command.Redo();
         undoStack.Push(command);
+    }
+
+    private void TrimUndoStack()
+    {
+        while (undoStack.Count > max_stack)
+            RemoveBottomElement(undoStack);
+    }
+
+    private void RemoveBottomElement(Stack<ICommand> stack)
+    {
+        var temp = new Stack<ICommand>();
+
+        while (stack.Count > 0)
+            temp.Push(stack.Pop());
+
+        temp.Pop();
+
+        while (temp.Count > 0)
+            stack.Push(temp.Pop());
     }
 }

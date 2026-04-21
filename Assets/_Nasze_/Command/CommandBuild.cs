@@ -7,8 +7,6 @@ public class CommandBuild : ICommand
     private Money money;
     private int cost;
 
-    private GameObject builtTower;
-
     public CommandBuild(GameObject prefab, ConstructionSide site, Money money, int cost)
     {
         this.prefab = prefab;
@@ -21,27 +19,25 @@ public class CommandBuild : ICommand
     {
         money.SubMoney(cost);
 
-        builtTower = Object.Instantiate(prefab, site.transform.position, Quaternion.identity);
-        builtTower.transform.SetParent(site.transform);
-        builtTower.transform.localPosition = Vector3.zero;
+        GameObject tower = Object.Instantiate(prefab, site.transform.position, Quaternion.identity);
+        tower.transform.SetParent(site.transform);
+        tower.transform.localPosition = Vector3.zero;
 
-        var data = builtTower.GetComponent<TowerRuntimeData>();
-        if (data == null)
-            data = builtTower.AddComponent<TowerRuntimeData>();
-
+        var data = tower.GetComponent<TowerRuntimeData>() ?? tower.AddComponent<TowerRuntimeData>();
         data.prefab = prefab;
 
-        site.SetTower(builtTower);
+        site.SetTower(tower);
     }
 
     public void Undo()
     {
-        if (builtTower == null) return;
+        GameObject tower = site.GetPlacedTower();
+        if (tower == null) return;
 
         money.AddMoney(cost);
 
         site.SetTower(null);
-        Object.Destroy(builtTower);
+        Object.Destroy(tower);
     }
 
     public void Redo()
