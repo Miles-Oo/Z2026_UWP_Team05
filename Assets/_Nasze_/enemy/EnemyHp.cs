@@ -5,7 +5,7 @@ public class EnemyHp : MonoBehaviour
 {
     private EnemyAI enemyAI;
    private int _currHp;
-        [SerializeField] private int _maxHp;
+    [SerializeField] private int _maxHp;
     private EnemyValueMoney enemyValue;
     public event Action OnEnemyDeath;
     public event Action OnChangeHp;
@@ -18,6 +18,7 @@ public class EnemyHp : MonoBehaviour
         if (_maxHp <= 0) _maxHp = 1;
         _currHp = _maxHp;
         OnChangeHp?.Invoke();
+        ObserverEnemyAudio.Instance?.Register(this);
     }
 
 public void SubHp(int hp)
@@ -50,5 +51,10 @@ public void SubHp(int hp)
         }
 
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        ObserverEnemyAudio.Instance?.Unregister(this);
     }
 }

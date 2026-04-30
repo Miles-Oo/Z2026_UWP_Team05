@@ -5,6 +5,7 @@ public class TMNewPlusUltra : MonoBehaviour
 {
     private IUseMode[] modes;
     private IUseMode currentMode;
+    private GameObject selectedTower;
 
 
     void Start()
@@ -20,26 +21,42 @@ void OnEnable()
 
     AllInputAction.rightClickAction.Enable();
     AllInputAction.rightClickAction.performed += OnRightClick;
+
+    AllInputAction.buildAction.Enable();
+    AllInputAction.buildAction.performed += OnBuildPressed;
+
+    AllInputAction.sellAction.Enable();
+    AllInputAction.sellAction.performed += OnSellPressed;
+
+    AllInputAction.upgradeAction.Enable();
+    AllInputAction.upgradeAction.performed += OnUpgradePressed;
 }
 
-void OnDisable()
-{
-    AllInputAction.leftClickAction.performed -= OnLeftClick;
-    AllInputAction.leftClickAction.Disable();
+    void OnDisable()
+    {
+        AllInputAction.leftClickAction.performed -= OnLeftClick;
+        AllInputAction.leftClickAction.Disable();
 
-    AllInputAction.rightClickAction.performed -= OnRightClick;
-    AllInputAction.rightClickAction.Disable();
-}
-private void OnRightClick(InputAction.CallbackContext ctx)
-{
-    ExitMode();
-}
+        AllInputAction.rightClickAction.performed -= OnRightClick;
+        AllInputAction.rightClickAction.Disable();
+
+        AllInputAction.buildAction.performed -= OnBuildPressed;
+        AllInputAction.buildAction.Disable();
+
+        AllInputAction.sellAction.performed -= OnSellPressed;
+        AllInputAction.sellAction.Disable();
+
+        AllInputAction.upgradeAction.performed -= OnUpgradePressed;
+        AllInputAction.upgradeAction.Disable();
+    }
+    private void OnRightClick(InputAction.CallbackContext ctx)
+    {
+        ExitMode();
+        selectedTower = null;
+    }
     void Update()
     {
-        if (currentMode != null)
-        {
-            currentMode.PrewMode();
-        }
+        currentMode?.PrewMode();
     }
 
 private void OnLeftClick(InputAction.CallbackContext ctx)
@@ -56,6 +73,21 @@ private void OnLeftClick(InputAction.CallbackContext ctx)
         ExitMode();
     }
 }
+
+    private void OnBuildPressed(InputAction.CallbackContext ctx)
+    {
+        SetBuildMode();
+    }
+
+    private void OnSellPressed(InputAction.CallbackContext ctx)
+    {
+        SetSellMode();
+    }
+
+    private void OnUpgradePressed(InputAction.CallbackContext ctx)
+    {
+        SetUpgradeMode();
+    }
 
     public void SetMode(Mode mode)
     {
