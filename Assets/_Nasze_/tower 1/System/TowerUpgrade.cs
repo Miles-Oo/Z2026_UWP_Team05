@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class TowerUpgrade : MonoBehaviour
 {
@@ -25,24 +26,37 @@ public class TowerUpgrade : MonoBehaviour
         selectedTower = tower;
         selectedTowerAttack = tower.GetComponent<TowerAttack>();
         selectedTowerPrice = tower.GetComponent<TowerPrice>();
+        var slow = tower.GetComponent<SlowTowerController>();
+        if (slow != null)
+        {
+            selectedTowerPrice = null;
+        }
     }
 
     public void UpgradeCurrent()
     {
         if (selectedTower == null) return;
+        var slow = selectedTower.GetComponent<SlowTowerController>();
+        if (slow != null)
+        {
+            return;
+        }
         if (selectedTowerPrice == null) return;
 
         if (selectedTowerPrice.GetLevel() >= 4)
         {
-            Debug.Log("MAX LEVEL");
             return;
         }
 
         int cost = selectedTowerPrice.GetUpgradeCost();
 
+        if (cost <= 0)
+        {
+            return;
+        }
+
         if (money.GetCurrMoney() < cost)
         {
-            Debug.Log("Not enough money!");
             return;
         }
 
@@ -94,6 +108,21 @@ public class TowerUpgrade : MonoBehaviour
         ObserverUpgrade.Instance.OnTowerUpgraded(selectedTower);
     }
 
+    public void UpgradeSelected()
+    {
+        if (selectedTower == null) return;
+
+        var slow = selectedTower.GetComponent<SlowTowerController>();
+        if (slow != null)
+        {
+            slow.Upgrade();
+            ObserverUpgrade.Instance.OnTowerUpgraded(selectedTower);
+            return;
+        }
+
+        UpgradeCurrent();
+    }
+
     private void SetLayerRecursively(GameObject obj, int layer)
     {
         obj.layer = layer;
@@ -111,13 +140,23 @@ public class TowerUpgrade : MonoBehaviour
         if (selectedTower == null) return;
 
         var attack = selectedTower.GetComponent<TowerAttack>();
-        if (attack == null) return;
 
-        if (rangeVisualizer != null)
+        if (attack != null)
         {
             rangeVisualizer.ShowRange(
                 selectedTower.transform.position,
                 attack.GetRange()
+            );
+            return;
+        }
+
+        var slow = selectedTower.GetComponent<SlowTowerController>();
+
+        if (slow != null)
+        {
+            rangeVisualizer.ShowRange(
+                selectedTower.transform.position,
+                slow.GetRange()
             );
         }
     }
@@ -126,5 +165,27 @@ public class TowerUpgrade : MonoBehaviour
     {
         if (site == null) return null;
         return site.GetPlacedTower();
+    }
+
+    public void RefreshRangeDelayed()
+    {
+        StartCoroutine(RefreshRangeCoroutine());
+    }
+
+    private IEnumerator RefreshRangeCoroutine()
+    {
+        yield return null;
+
+        RefreshRange();
+    }
+
+    public void ClearSelection()
+    {   
+        selectedTower = null;
+        selectedTowerAttack = null;
+        selectedTowerPrice = null;
+
+        if (rangeVisualizer != null)
+            rangeVisualizer.Clear();
     }
 }

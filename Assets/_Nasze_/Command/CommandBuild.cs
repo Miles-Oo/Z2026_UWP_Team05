@@ -1,18 +1,28 @@
 using UnityEngine;
 
-public class CommandBuild : ICommand
+public class CommandBuild : ICommand, ICommandWithHistory
 {
     private GameObject prefab;
     private ConstructionSide site;
     private Money money;
     private int cost;
 
-    public CommandBuild(GameObject prefab, ConstructionSide site, Money money, int cost)
+    private TowerSelect towerSelect;
+    private TowerUpgrade towerUpgrade;
+
+    public bool WasSkipped { get; private set; }
+
+    public CommandBuild(GameObject prefab, ConstructionSide site, Money money, int cost,
+                        TowerSelect towerSelect,
+                        TowerUpgrade towerUpgrade)
     {
         this.prefab = prefab;
         this.site = site;
         this.money = money;
         this.cost = cost;
+
+        this.towerSelect = towerSelect;
+        this.towerUpgrade = towerUpgrade;
     }
 
     public void Execute()
@@ -38,6 +48,12 @@ public class CommandBuild : ICommand
 
         site.SetTower(null);
         Object.Destroy(tower);
+
+        if (towerSelect != null)
+            towerSelect.ForceClearSelection();
+
+        if (towerUpgrade != null)
+            towerUpgrade.ClearSelection();
     }
 
     public void Redo()

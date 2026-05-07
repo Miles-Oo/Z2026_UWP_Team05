@@ -3,7 +3,11 @@ using UnityEngine.InputSystem;
 
 public class TowerBuild : MonoBehaviour, IUseMode
 {
+    [SerializeField] private TowerSelect towerSelect;
+    [SerializeField] private TowerUpgrade towerUpgrade;
     [SerializeField] private GameObject towerPrefab;
+    [SerializeField] private GameObject slowTowerPrefab;
+    private GameObject selectedPrefab;
     [SerializeField] private Money money;
     [SerializeField] private LayerMask buildLayer;
     [SerializeField] private TutorialPopupController tutorialPopup;
@@ -20,12 +24,39 @@ public class TowerBuild : MonoBehaviour, IUseMode
 
     void Start()
     {
-        cost = towerPrefab.GetComponent<TowerPrice>().GetPrice();
+        selectedPrefab = towerPrefab;
+        cost = selectedPrefab.GetComponent<TowerPrice>().GetPrice();
     }
 
-    public void EnterMode()
+    public void SelectBasicTower()
     {
-        preview = Instantiate(towerPrefab);
+        selectedPrefab = towerPrefab;
+        cost = selectedPrefab.GetComponent<TowerPrice>().GetPrice();
+
+        RefreshPreview();
+    }
+
+    public void SelectSlowTower()
+    {
+        if (slowTowerPrefab == null)
+        {
+            return;
+        }
+
+        selectedPrefab = slowTowerPrefab;
+        cost = selectedPrefab.GetComponent<TowerPrice>().GetPrice();
+
+        RefreshPreview();
+    }
+
+    private void RefreshPreview()
+    {
+        if (preview != null)
+            Destroy(preview);
+
+        if (selectedPrefab == null) return;
+
+        preview = Instantiate(selectedPrefab);
         preview.SetActive(true);
 
         var attack = preview.GetComponent<TowerAttack>();
@@ -33,6 +64,11 @@ public class TowerBuild : MonoBehaviour, IUseMode
 
         foreach (var col in preview.GetComponentsInChildren<Collider>())
             col.enabled = false;
+    }
+
+    public void EnterMode()
+    {
+        RefreshPreview();
     }
 
     public void ExitMode()
@@ -67,6 +103,12 @@ public class TowerBuild : MonoBehaviour, IUseMode
 
     public bool ActionMode()
     {
+        if (selectedPrefab == null)
+        {
+            Debug.Log("Nie wybrano wieży!");
+            return false;
+        }
+        
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
@@ -79,20 +121,16 @@ public class TowerBuild : MonoBehaviour, IUseMode
                 if (money.GetCurrMoney() >= cost)
                 {
                     var command = new CommandBuild(
-                        towerPrefab,
+                        selectedPrefab,
                         site,
                         money,
-                        cost
+                        cost,
+                        towerSelect,
+                        towerUpgrade
                     );
 
                     commandManager.ExecuteCommand(command);
                     ObserverBuild.Instance.OnTowerBuilt(site.gameObject);
-
-                    // if (!firstTowerPlaced && tutorialPopup != null)
-                    // {
-                    //     tutorialPopup.ShowTowerUpgradePopup();
-                    //     firstTowerPlaced = true;
-                    // }
 
                     return true;
                 }

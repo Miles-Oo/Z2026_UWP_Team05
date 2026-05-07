@@ -53,7 +53,21 @@ public class TowerSelect : MonoBehaviour, IUseMode
             return false;
         }
 
-        GameObject tower = hit.collider.GetComponentInParent<TowerAttack>()?.gameObject;
+        // GameObject tower = hit.collider.GetComponentInParent<TowerAttack>()?.gameObject;
+        GameObject tower = null;
+
+        var basic = hit.collider.GetComponentInParent<TowerAttack>();
+        if (basic != null)
+        {
+            tower = basic.gameObject;
+        }
+        else
+        {
+            var slow = hit.collider.GetComponentInParent<SlowTowerController>();
+
+            if (slow != null)
+                tower = slow.gameObject;
+        }
 
         if (tower == null)
         {
@@ -64,14 +78,40 @@ public class TowerSelect : MonoBehaviour, IUseMode
         selectedTower = tower;
         towerUpgrade.SetSelectedTower(tower);
 
-        var attack = selectedTower.GetComponent<TowerAttack>();
-        if (attack == null)
-        {
-            ClearSelection();
-            return false;
-        }
+        // var attack = selectedTower.GetComponent<TowerAttack>();
+        // if (attack == null)
+        // {
+        //     ClearSelection();
+        //     return false;
+        // }
 
-        rangeVisualizer.ShowRange(selectedTower.transform.position, attack.GetRange());
+        // rangeVisualizer.ShowRange(selectedTower.transform.position, attack.GetRange());
+        var attack = selectedTower.GetComponent<TowerAttack>();
+
+        if (attack != null)
+        {
+            rangeVisualizer.ShowRange(
+                selectedTower.transform.position,
+                attack.GetRange()
+            );
+        }
+        else
+        {
+            var slow = selectedTower.GetComponent<SlowTowerController>();
+
+            if (slow != null)
+            {
+                rangeVisualizer.ShowRange(
+                    selectedTower.transform.position,
+                    slow.GetRange()
+                );
+            }
+            else
+            {
+                ClearSelection();
+                return false;
+            }
+        }
 
         towerInfoPanel.SetActive(true);
 
@@ -94,6 +134,7 @@ public class TowerSelect : MonoBehaviour, IUseMode
 
     private void ClearSelection()
     {
+        rangeVisualizer.ClearSelectionRange(selectedTower);
         rangeVisualizer.Clear();
         towerInfoPanel.SetActive(false);
 
@@ -117,5 +158,12 @@ public class TowerSelect : MonoBehaviour, IUseMode
         EventSystem.current.RaycastAll(eventData, results);
 
         return results.Count > 0;
+    }
+    public void ForceClearSelection()
+    {
+        ClearSelection();
+
+        if (towerUpgrade != null)
+            towerUpgrade.ClearSelection(); 
     }
 }

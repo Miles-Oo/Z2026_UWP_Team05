@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class CommandSell : ICommand
+public class CommandSell : ICommand, ICommandWithHistory
 {
+    private TowerSelect towerSelect;
     private GameObject prefab;
     private ConstructionSide site;
     private Money money;
@@ -9,13 +10,18 @@ public class CommandSell : ICommand
     private int level;
 
     private GameObject soldTower;
+    private TowerUpgrade towerUpgrade;
 
-    public CommandSell(GameObject tower, ConstructionSide site, int level, int refund, Money money)
+    public bool WasSkipped { get; private set; }
+
+    public CommandSell(GameObject tower, ConstructionSide site, int level, int refund, Money money, TowerUpgrade towerUpgrade, TowerSelect towerSelect)
     {
         this.site = site;
         this.money = money;
         this.refund = refund;
         this.level = level;
+        this.towerUpgrade = towerUpgrade;
+        this.towerSelect = towerSelect;
 
         if (tower != null)
         {
@@ -38,6 +44,11 @@ public class CommandSell : ICommand
 
         site.SetTower(null);
         Object.Destroy(soldTower);
+
+        if (towerUpgrade != null)
+        {
+            towerSelect.ForceClearSelection();
+        }
     }
 
     public void Undo()
@@ -61,6 +72,11 @@ public class CommandSell : ICommand
         site.SetTower(restored);
 
         money.SubMoney(refund);
+
+        if (towerUpgrade != null)
+        {
+            towerSelect.ForceClearSelection();
+        }
     }
 
     public void Redo()

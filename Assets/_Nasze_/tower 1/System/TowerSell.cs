@@ -6,6 +6,8 @@ public class TowerSell : MonoBehaviour, IUseMode
     [SerializeField] private GameObject hammerAsset;
     [SerializeField] private Money money;
     [SerializeField] private CommandManager commandManager;
+    [SerializeField] private TowerUpgrade towerUpgrade;
+    [SerializeField] private TowerSelect towerSelect;
 
     private GameObject preview;
 
@@ -73,11 +75,13 @@ public class TowerSell : MonoBehaviour, IUseMode
                 site,
                 price.GetLevel(),
                 price.GetPrice(),
-                money
+                money,
+                towerUpgrade,
+                towerSelect
             );
 
             commandManager.ExecuteCommand(command);
-                        Debug.Log("TOWER PREFAB FROM PRICE: " + price.GetTowerPrefab());
+
             ObserverSell.Instance.OnTowerSold(tower);
 
             ExitMode();

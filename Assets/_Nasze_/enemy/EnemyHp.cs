@@ -7,6 +7,7 @@ public class EnemyHp : MonoBehaviour
    private int _currHp;
     [SerializeField] private int _maxHp;
     private EnemyValueMoney enemyValue;
+    public EnemyMovement cachedMovement;
     public event Action OnEnemyDeath;
     public event Action OnChangeHp;
     public int GetCurrHp(){return _currHp;}

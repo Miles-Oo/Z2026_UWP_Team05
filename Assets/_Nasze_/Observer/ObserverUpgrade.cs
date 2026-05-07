@@ -6,6 +6,7 @@ public class ObserverUpgrade : MonoBehaviour
     public static ObserverUpgrade Instance;
 
     public event Action<GameObject> TowerUpgraded;
+    public event Action<GameObject> TowerStateReady;
 
     private void Awake()
     {
@@ -15,5 +16,10 @@ public class ObserverUpgrade : MonoBehaviour
     public void OnTowerUpgraded(GameObject tower)
     {
         TowerUpgraded?.Invoke(tower);
+    }
+
+    public void OnTowerStateReady(GameObject tower)
+    {
+        TowerStateReady?.Invoke(tower);
     }
 }

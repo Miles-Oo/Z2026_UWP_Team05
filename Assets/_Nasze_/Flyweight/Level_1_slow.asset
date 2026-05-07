@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d8507e487fba34994b6baae6f4064c, type: 3}
+  m_Name: Level_1_slow
+  m_EditorClassIdentifier: Assembly-CSharp::SlowTowerStats
+  damage: 5
+  range: 14
+  attackInterval: 1
+  slowPercent: 0.2
+  slowDuration: 1
+  modelPrefab: {fileID: 693558865435185601, guid: 43a4e8a0c5361b94fa2f515018a19f9b, type: 3}
+  nextUpgradePreview: {fileID: 8400000, guid: 859b598124a01b5498e0877b09b5e06b, type: 2}
+  upgradeCost: 10

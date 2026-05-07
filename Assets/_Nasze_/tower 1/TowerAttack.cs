@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerAttack : MonoBehaviour
+public class TowerAttack : MonoBehaviour, IRangeProvider
 {
     [SerializeField] private float attackInterval = 1f;
     [SerializeField] private int damage = 1;
@@ -15,21 +15,28 @@ public class TowerAttack : MonoBehaviour
     private List<EnemyHp> enemiesInRange = new List<EnemyHp>();
     private Coroutine attackCoroutine;
 
-    void Awake()
+void Awake()
+{
+    var col = GetComponent<SphereCollider>();
+
+    if (manualRange > 0)
     {
-        if (manualRange > 0)
-        {
-            range = manualRange;
-        }
-        else
-        {
-            var col = GetComponent<SphereCollider>();
-            if (col != null)
-                range = col.radius * transform.lossyScale.x;
-            else
-                range = 5f;
-        }
+        range = manualRange;
     }
+    else if (col != null)
+    {
+        range = col.radius * transform.lossyScale.x;
+    }
+    else
+    {
+        range = 5f;
+    }
+
+    if (col != null)
+    {
+        col.radius = range / transform.lossyScale.x;
+    }
+}
 
     void OnTriggerEnter(Collider other)
     {

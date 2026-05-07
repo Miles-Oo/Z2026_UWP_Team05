@@ -34,7 +34,7 @@ public class EnemyAttack : MonoBehaviour
         {
             if (enemyAI.GetBase() != null)
             {
-                Debug.Log("Atak na bazę!");
+                // Debug.Log("Atak na bazę!");
                 AttackBase();
             }
             yield return new WaitForSeconds(2f);

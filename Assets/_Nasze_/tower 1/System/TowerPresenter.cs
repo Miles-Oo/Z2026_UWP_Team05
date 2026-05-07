@@ -7,7 +7,11 @@ public class TowerPresenter
     private TowerUpgrade upgrade;
     private CommandManager commandManager;
 
-    public TowerPresenter(TowerModel model, TowerUpgradeUI view, TowerUpgrade upgrade, CommandManager commandManager)
+    public TowerPresenter(
+        TowerModel model,
+        TowerUpgradeUI view,
+        TowerUpgrade upgrade,
+        CommandManager commandManager)
     {
         this.model = model;
         this.view = view;
@@ -31,7 +35,8 @@ public class TowerPresenter
 
     public void Refresh()
     {
-        if (model == null || view == null) return;
+        if (model == null || view == null)
+            return;
 
         if (!model.CanUpgrade())
         {
@@ -45,17 +50,22 @@ public class TowerPresenter
 
     public void OnUpgradeClicked()
     {
+        GameObject tower = upgrade.GetSelectedTower();
+
+        if (tower == null)
+            return;
+
         var command = new CommandUpgrade(upgrade);
         commandManager.ExecuteCommand(command);
 
         GameObject newTower = upgrade.GetSelectedTower();
 
-        if (newTower == null) return;
+        if (newTower == null)
+            return;
 
         model = new TowerModel(newTower);
 
         Refresh();
-
     }
 
     public void Undo()
@@ -73,11 +83,13 @@ public class TowerPresenter
     private void RefreshAfterUndoRedo()
     {
         GameObject tower = upgrade.GetSelectedTower();
-        if (tower == null) return;
+
+        if (tower == null)
+            return;
 
         model = new TowerModel(tower);
-        Refresh();
 
+        Refresh();
     }
 
     public void Remove()

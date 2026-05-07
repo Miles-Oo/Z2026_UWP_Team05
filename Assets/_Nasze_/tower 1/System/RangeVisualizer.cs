@@ -5,6 +5,7 @@ public class RangeVisualizer : MonoBehaviour
 {
     [SerializeField] private GameObject fencePrefab;
     [SerializeField] private float rotationOffsetY = 0f;
+    private GameObject currentTower;
 
     private List<GameObject> spawned = new();
 
@@ -23,19 +24,28 @@ public class RangeVisualizer : MonoBehaviour
     private void OnTowerUpgraded(GameObject tower)
     {
         var attack = tower.GetComponent<TowerAttack>();
-        if (attack == null) return;
 
-        ShowRange(tower.transform.position, attack.GetRange());
+        if (attack != null)
+        {
+            ShowRange(tower.transform.position, attack.GetRange());
+            return;
+        }
+
+        var slow = tower.GetComponent<SlowTowerController>();
+
+        if (slow != null)
+        {
+            ShowRange(tower.transform.position, slow.GetRange());
+            return;
+        }
     }
 
     public void ShowRange(Vector3 center, float radius)
     {
         Clear();
 
-        float circumference = 2 * Mathf.PI * radius;
-        float width = Mathf.Max(0.1f, GetFenceWidth());
+        int count = Mathf.Max(24, Mathf.RoundToInt(radius * 8f));
 
-        int count = Mathf.Max(6, Mathf.RoundToInt(circumference / width));
         float angleStep = 360f / count;
 
         for (int i = 0; i < count; i++)
@@ -61,10 +71,38 @@ public class RangeVisualizer : MonoBehaviour
         }
     }
 
+    public void ShowRange(GameObject tower, float radius)
+{
+    if (tower == null)
+    {
+        Clear();
+        currentTower = null;
+        return;
+    }
+
+    currentTower = tower;
+    ShowRange(tower.transform.position, radius);
+}
+
+public void ClearSelectionRange(GameObject tower)
+{
+    if (currentTower == tower)
+    {
+        Clear();
+        currentTower = null;
+    }
+}
+
     private float GetFenceWidth()
     {
         var mf = fencePrefab.GetComponentInChildren<MeshFilter>();
-        return mf?.sharedMesh != null ? mf.sharedMesh.bounds.size.z : 1f;
+
+        if (mf == null || mf.sharedMesh == null)
+            return 1f;
+
+        Vector3 scale = fencePrefab.transform.lossyScale;
+
+        return mf.sharedMesh.bounds.size.z * scale.z;
     }
 
     public void Clear()

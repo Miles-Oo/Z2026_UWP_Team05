@@ -12,9 +12,13 @@ public class CommandManager : MonoBehaviour
         Debug.Log($"EXECUTE COMMANDos: {command.GetType().Name}");
 
         command.Execute();
-        undoStack.Push(command);
-        TrimUndoStack();
-        redoStack.Clear();
+        if (command is ICommandWithHistory historyCommand && !historyCommand.WasSkipped)
+        {
+            undoStack.Push(command);
+            redoStack.Clear();
+
+            TrimUndoStack();
+        }
 
         Debug.Log($"UNDO ROZMIARRRRRRRRRRRR: {undoStack.Count}");
     }
