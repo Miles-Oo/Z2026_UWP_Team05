@@ -9,35 +9,48 @@ public class TowerAttack : MonoBehaviour, IRangeProvider
     [SerializeField] private float manualRange = 0f;
 
     private float range;
+    private IBasicTargetStrategy targetStrategy;
     public float GetRange() => range;
     public int GetDamage() => damage;
     public float GetAttackInterval() => attackInterval;
 
+    public IBasicTargetStrategy GetCurrentStrategy()
+    {
+        return targetStrategy;
+    }
+    public string GetStrategyName()
+    {
+        return targetStrategy.GetType().Name.Replace("EnemyStrategy", "");
+    }
+
     private List<EnemyHp> enemiesInRange = new List<EnemyHp>();
     private Coroutine attackCoroutine;
 
-void Awake()
-{
-    var col = GetComponent<SphereCollider>();
+    void Awake()
+    {
+        var col = GetComponent<SphereCollider>();
 
-    if (manualRange > 0)
-    {
-        range = manualRange;
-    }
-    else if (col != null)
-    {
-        range = col.radius * transform.lossyScale.x;
-    }
-    else
-    {
-        range = 5f;
-    }
+        if (manualRange > 0)
+        {
+            range = manualRange;
+        }
+        else if (col != null)
+        {
+            range = col.radius * transform.lossyScale.x;
+        }
+        else
+        {
+            range = 5f;
+        }
 
-    if (col != null)
-    {
-        col.radius = range / transform.lossyScale.x;
+        if (col != null)
+        {
+            col.radius = range / transform.lossyScale.x;
+        }
+
+        if (targetStrategy == null)
+            targetStrategy = new NearestEnemyStrategy();
     }
-}
 
     void OnTriggerEnter(Collider other)
     {
@@ -66,10 +79,19 @@ void Awake()
             );
             if (enemiesInRange.Count == 0) break;
 
-            EnemyHp target = enemiesInRange[0];
+            EnemyHp target = targetStrategy != null
+                ? targetStrategy.SelectTarget(enemiesInRange, transform)
+                : enemiesInRange[0];
+            Debug.Log($"[TowerAttack] Target chosen: {target?.name} using {targetStrategy.GetType().Name}");
             target.SubHp(damage);
             yield return new WaitForSeconds(attackInterval);
         }
         attackCoroutine = null;
+    }
+
+    public void SetTargetStrategy(IBasicTargetStrategy strategy)
+    {
+        targetStrategy = strategy;
+        Debug.Log($"[TowerAttack] Strategy changed to: {strategy.GetType().Name}");
     }
 }

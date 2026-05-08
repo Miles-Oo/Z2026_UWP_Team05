@@ -15,7 +15,7 @@ public class SlowTowerHoverInfo : MonoBehaviour
         return level >= MAX_LEVEL ? "MAX LEVEL" : cost.ToString();
     }
 
-    public void Show(SlowTowerStats stats, int level = 1)
+    public void Show(SlowTowerStats stats, int level = 1, string mode = "Slow")
     {
         if (stats == null || infoPanel == null) return;
 
@@ -30,11 +30,30 @@ public class SlowTowerHoverInfo : MonoBehaviour
             $"Attack speed: {stats.attackInterval}s\n\n" +
             $"Slow: {stats.slowPercent * 100f}%\n" +
             $"Slow duration: {stats.slowDuration}s\n\n" +
+            $"Strategy: {mode}\n" +
             $"Upgrade cost: {GetUpgradeText(level, stats.upgradeCost)}";
     }
 
-    // 🟢 BASIC TOWER
-    public void ShowBasicTower(int damage, float range, float attackSpeed, int level, int upgradeCost)
+    public void ShowKnockback(SlowTowerStats stats, int level, float knockbackValue, float attackInterval)
+    {
+        if (stats == null || infoPanel == null) return;
+
+        infoPanel.SetActive(true);
+
+        nameField.text = "Kinetic Suppressor";
+
+        textField.text =
+            $"Level: {level}\n" +
+            $"Damage: {stats.damage}\n" +
+            $"Range: {stats.range}\n" +
+            $"Attack speed: {attackInterval}s\n\n" +
+            $"Knockback: {knockbackValue}\n" +
+            $"Duration: {stats.slowDuration}s\n\n" +
+            $"Strategy: Knockback\n" +
+            $"Upgrade cost: {GetUpgradeText(level, stats.upgradeCost)}";
+    }
+
+    public void ShowBasicTower(int damage, float range, float attackSpeed, int level, int upgradeCost, string strategy)
     {
         if (infoPanel == null) return;
 
@@ -47,6 +66,7 @@ public class SlowTowerHoverInfo : MonoBehaviour
             $"Damage: {damage}\n" +
             $"Range: {range}\n" +
             $"Attack speed: {attackSpeed}s\n\n" +
+            $"Strategy: {strategy}\n\n" + 
             $"Upgrade cost: {GetUpgradeText(level, upgradeCost)}";
     }
 

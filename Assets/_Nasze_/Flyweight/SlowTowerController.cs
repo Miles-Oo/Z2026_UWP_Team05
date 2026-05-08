@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SlowTowerController : MonoBehaviour, IRangeProvider
 {
+    [SerializeField] private float knockbackAttackInterval = 5f;
     [SerializeField] private SlowTowerStats[] levels;
 
     private int currentLevel = 0;
@@ -15,6 +16,43 @@ public class SlowTowerController : MonoBehaviour, IRangeProvider
     public SlowTowerStats CurrentStats => levels[currentLevel];
 
     private float range;
+    private enum SlowTowerMode
+    {
+        Slow,
+        Knockback
+    }
+
+    private SlowTowerMode mode = SlowTowerMode.Slow;
+
+    public void SetMode(bool useKnockback)
+    {
+        mode = useKnockback
+            ? SlowTowerMode.Knockback
+            : SlowTowerMode.Slow;
+
+        StopAllCoroutines();
+        attackRoutine = StartCoroutine(AttackLoop());
+    }
+
+    public string GetModeName()
+    {
+        return mode.ToString();
+    }
+
+    public bool IsKnockbackMode()
+    {
+        return mode == SlowTowerMode.Knockback;
+    }
+
+    public float GetKnockbackAttackInterval()
+    {
+        return knockbackAttackInterval;
+    }
+
+    public float GetKnockbackValue()
+    {
+        return CurrentStats.slowPercent * 10f;
+    }
 
     public float GetRange()
     {
@@ -112,22 +150,90 @@ public class SlowTowerController : MonoBehaviour, IRangeProvider
         {
             if (levels == null || levels.Length == 0)
                 yield break;
+            
+            if (mode == SlowTowerMode.Knockback)
+                yield return new WaitForSeconds(knockbackAttackInterval);
+            else
+                yield return new WaitForSeconds(CurrentStats.attackInterval);
 
             yield return new WaitForSeconds(CurrentStats.attackInterval);
 
             if (enemies.Count == 0)
                 continue;
 
-            DoAoEAttack();
+             if (mode == SlowTowerMode.Slow)
+                DoSlowAttack();
+            else
+                DoKnockbackAttack();
         }
     }
 
-    private void DoAoEAttack()
+    private void DoSlowAttack()
     {
         var stats = CurrentStats;
 
         int dmg = stats.damage;
         float slow = stats.slowPercent;
+        float slowTime = stats.slowDuration;
+
+        for (int i = enemies.Count - 1; i >= 0; i--)
+        {
+            var enemy = enemies[i];
+
+            if (enemy == null || !enemy.gameObject.activeInHierarchy)
+            {
+                enemies.RemoveAt(i);
+                continue;
+            }
+
+            enemy.SubHp(dmg);
+
+            if (enemy.cachedMovement == null)
+                enemy.cachedMovement = enemy.GetComponent<EnemyMovement>();
+
+            if (enemy.cachedMovement != null)
+            {
+                enemy.cachedMovement.ApplySlow(slow, slowTime);
+            }
+        }
+    }
+/// <summary>
+/// AOE KNOCKBACK FUNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN 
+/// </summary>
+    // private void DoKnockbackAttack()
+    // {
+    //     var stats = CurrentStats;
+
+    //     int dmg = stats.damage;
+
+    //     float knockbackForce = stats.slowPercent;
+
+    //     for (int i = enemies.Count - 1; i >= 0; i--)
+    //     {
+    //         var enemy = enemies[i];
+
+    //         if (enemy == null || !enemy.gameObject.activeInHierarchy)
+    //         {
+    //             enemies.RemoveAt(i);
+    //             continue;
+    //         }
+
+    //         enemy.SubHp(dmg);
+
+    //         Vector3 dir = (enemy.transform.position - transform.position).normalized;
+
+    //         enemy.transform.position += dir * knockbackForce;
+
+    //         Debug.Log($"[SlowTower] Knockback applied -> {enemy.name}");
+    //     }
+    // }
+
+    private void DoKnockbackAttack()
+    {
+               var stats = CurrentStats;
+
+        int dmg = stats.damage;
+        float slow = stats.slowPercent * 10;
         float slowTime = stats.slowDuration;
 
         for (int i = enemies.Count - 1; i >= 0; i--)

@@ -41,10 +41,22 @@ public class TowerHover : MonoBehaviour
 
                     Debug.Log($"[HOVER] SlowTower level = {slowTower.GetCurrentLevel()}");
 
-                    hoverUI.Show(
-                        slowTower.CurrentStats,
-                        slowTower.GetCurrentLevel()
-                    );
+                    if (slowTower.IsKnockbackMode())
+                    {
+                        hoverUI.ShowKnockback(
+                            slowTower.CurrentStats,
+                            slowTower.GetCurrentLevel(),
+                            slowTower.GetKnockbackValue(),
+                            slowTower.GetKnockbackAttackInterval()
+                        );
+                    }
+                    else
+                    {
+                        hoverUI.Show(
+                            slowTower.CurrentStats,
+                            slowTower.GetCurrentLevel()
+                        );
+                    }
                 }
 
                 return;
@@ -68,7 +80,8 @@ public class TowerHover : MonoBehaviour
                         attack.GetRange(),
                         attack.GetAttackInterval(),
                         price.GetLevel(),
-                        price.GetUpgradeCost()
+                        price.GetUpgradeCost(),
+                        attack.GetStrategyName()
                     );
                 }
 

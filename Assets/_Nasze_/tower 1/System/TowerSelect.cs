@@ -13,6 +13,9 @@ public class TowerSelect : MonoBehaviour, IUseMode
     [SerializeField] private GameObject towerInfoPanel;
     [SerializeField] private TowerUpgradeUI upgradeButton;
 
+    [Header("Strategy UI")]
+    [SerializeField] private TowerTargetStrategyUI strategyUI;
+
     [Header("Upgrade System")]
     [SerializeField] private TowerUpgrade towerUpgrade;
 
@@ -114,6 +117,18 @@ public class TowerSelect : MonoBehaviour, IUseMode
         }
         presenter = new TowerPresenter(model, upgradeButton, towerUpgrade, commandManager);
 
+        if (strategyUI != null)
+        {
+            if (attack != null)
+                strategyUI.SetTower(attack);
+            else
+            {
+                var slow = selectedTower.GetComponent<SlowTowerController>();
+
+                if (slow != null)
+                    strategyUI.SetSlowTower(slow);
+            }
+        }
         if (!firstTowerClicked && tutorialPopup != null)
         {
             tutorialPopup.ShowTowerStrategyPopup();

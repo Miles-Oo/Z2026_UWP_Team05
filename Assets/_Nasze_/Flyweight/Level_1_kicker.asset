@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d8507e487fba34994b6baae6f4064c, type: 3}
   m_Name: Level_1_kicker
   m_EditorClassIdentifier: Assembly-CSharp::SlowTowerStats
-  damage: 3
-  range: 15
-  attackInterval: 1
-  slowPercent: 4
+  level: 1
+  damage: 5
+  range: 14
+  attackInterval: 5
+  slowPercent: 2
   slowDuration: 1
   modelPrefab: {fileID: 693558865435185601, guid: 43a4e8a0c5361b94fa2f515018a19f9b, type: 3}
+  nextUpgradePreview: {fileID: 8400000, guid: 859b598124a01b5498e0877b09b5e06b, type: 2}
+  upgradeCost: 40
