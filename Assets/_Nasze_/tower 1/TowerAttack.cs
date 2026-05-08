@@ -11,6 +11,7 @@ public class TowerAttack : MonoBehaviour, IRangeProvider
     private float range;
     public float GetRange() => range;
     public int GetDamage() => damage;
+    public float GetAttackInterval() => attackInterval;
 
     private List<EnemyHp> enemiesInRange = new List<EnemyHp>();
     private Coroutine attackCoroutine;

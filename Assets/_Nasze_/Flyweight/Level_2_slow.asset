@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d8507e487fba34994b6baae6f4064c, type: 3}
   m_Name: Level_2_slow
   m_EditorClassIdentifier: Assembly-CSharp::SlowTowerStats
+  level: 2
   damage: 6
   range: 16
   attackInterval: 1

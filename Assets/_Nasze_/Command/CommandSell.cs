@@ -40,7 +40,14 @@ public class CommandSell : ICommand, ICommandWithHistory
 
         if (soldTower == null) return;
 
-        money.AddMoney(refund);
+        var data = soldTower.GetComponent<TowerRuntimeData>();
+        int sellLevel = data != null ? data.level : 1;
+        TowerPrice price = soldTower.GetComponent<TowerPrice>();
+        int basePrice = price != null ? price.GetPrice() : 0;
+
+        int finalRefund = Mathf.RoundToInt(basePrice * sellLevel * 0.6f); 
+
+        money.AddMoney(finalRefund);
 
         site.SetTower(null);
         Object.Destroy(soldTower);

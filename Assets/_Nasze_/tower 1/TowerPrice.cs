@@ -8,7 +8,7 @@ public class TowerPrice : MonoBehaviour
     [SerializeField] private Texture nextLevelTexture;
     [SerializeField] private GameObject prefab;
 
-    private int level = 1;
+    [SerializeField] public int level = 1;
 
     public int GetPrice() => price;
 

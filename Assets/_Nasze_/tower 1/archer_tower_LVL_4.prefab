@@ -193,11 +193,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e619173a668a6cb2a50f425a01ef5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerPrice
-  price: 96
-  upgradeCost: 999999
+  price: 100
+  upgradeCost: 0
   nextLevelPrefab: {fileID: 0}
   nextLevelTexture: {fileID: 0}
   prefab: {fileID: 1371248394778543496}
+  level: 4
 --- !u!114 &-6211023071294006502
 MonoBehaviour:
   m_ObjectHideFlags: 0

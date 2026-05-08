@@ -50,6 +50,9 @@ public class SlowTowerController : MonoBehaviour, IRangeProvider
         currentLevel++;
 
         ApplyLevel();
+        var data = GetComponent<TowerRuntimeData>();
+        if (data != null)
+            data.level = currentLevel + 1;
     }
 
     private void ApplyLevel()

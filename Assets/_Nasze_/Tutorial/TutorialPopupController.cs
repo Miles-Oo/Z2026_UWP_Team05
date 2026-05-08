@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,18 +10,21 @@ public class TutorialPopupController : MonoBehaviour
     public GameObject EnemyAttack;
     public GameObject TowerUpgradePopup;
     public GameObject TowerStrategyPopup;
+    public GameObject TowerSellPopup;
 
     [Header("Highlight Panels")]
     public RectTransform towerHighlight;
     public RectTransform enemyHighlight;
     public RectTransform upgradeHighlight;
     public RectTransform strategyHighlight;
+    public RectTransform sellHighlight;
 
     [Header("Target UI")]
     public RectTransform towerTargetUI;
     public RectTransform enemyTargetUI;
     public RectTransform upgradeTargetUI;
     public RectTransform strategyTargetUI;
+    public RectTransform sellTargetUI;
 
     [Header("Base HP")]
     public baseHp playerBase;
@@ -34,6 +38,8 @@ public class TutorialPopupController : MonoBehaviour
     private bool enemyAttackPopupShown = false;
     private bool upgradePopupShown = false;
     private bool strategyPopupShown = false;
+    private bool sellPopupShown = false;
+    private Coroutine sellTutorialCoroutine;
 
     public bool UpgradePopupShown => upgradePopupShown;
     public bool StrategyPopupShown => strategyPopupShown;
@@ -113,6 +119,7 @@ public class TutorialPopupController : MonoBehaviour
     public void ShowEnemyAttack() => ShowPopup(EnemyAttack, ref enemyAttackPopupShown, enemyHighlight, enemyTargetUI);
     public void ShowTowerUpgradePopup() => ShowPopup(TowerUpgradePopup, ref upgradePopupShown);
     public void ShowTowerStrategyPopup() => ShowPopup(TowerStrategyPopup, ref strategyPopupShown, strategyHighlight, strategyTargetUI);
+    public void ShowTowerSellPopup() => ShowPopup(TowerSellPopup, ref sellPopupShown, sellHighlight, sellTargetUI);
 
     private void CheckBaseHp()
     {
@@ -135,10 +142,29 @@ public class TutorialPopupController : MonoBehaviour
         enemyHighlight.gameObject.SetActive(false);
         upgradeHighlight.gameObject.SetActive(false);
         strategyHighlight.gameObject.SetActive(false);
+        if (sellHighlight != null)
+            sellHighlight.gameObject.SetActive(false);
 
         TowerBuilding.SetActive(false);
         EnemyAttack.SetActive(false);
         TowerUpgradePopup.SetActive(false);
         TowerStrategyPopup.SetActive(false);
+        if (TowerSellPopup != null)
+            TowerSellPopup.SetActive(false);
+        
+        if (!tutorialsDisabled && !sellPopupShown)
+        {
+            if (sellTutorialCoroutine != null)
+                StopCoroutine(sellTutorialCoroutine);
+
+            sellTutorialCoroutine = StartCoroutine(ShowSellTutorialAfterDelay());
+        }
+    }
+
+    private IEnumerator ShowSellTutorialAfterDelay()
+    {
+        yield return new WaitForSeconds(5f);
+
+        ShowTowerSellPopup();
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Flyweight/SlowTowerStats")]
 public class SlowTowerStats : ScriptableObject
 {
+    public int level;
     public int damage;
     public float range;
     public float attackInterval;
