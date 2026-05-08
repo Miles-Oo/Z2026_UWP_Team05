@@ -10,6 +10,7 @@ public class EnemyHp : MonoBehaviour
     public EnemyMovement cachedMovement;
     public event Action OnEnemyDeath;
     public event Action OnChangeHp;
+    private bool isDead;
     public int GetCurrHp(){return _currHp;}
     public int GetMaxHp(){return _maxHp;}
     void Start()
@@ -22,12 +23,28 @@ public class EnemyHp : MonoBehaviour
         ObserverEnemyAudio.Instance?.Register(this);
     }
 
+    private void OnEnable()
+    {
+        isDead = false;
+
+        _currHp = _maxHp;
+
+        OnChangeHp?.Invoke();
+    }
+
+    // private void OnDisable()
+    // {
+    //     StopAllCoroutines();
+    // }
+
 public void SubHp(int hp)
 {
+    if (isDead) return;
     _currHp -= hp;
 
     if (_currHp <= 0)
     {
+        isDead = true;
         _currHp = 0;
         OnChangeHp?.Invoke();
         EndOfLife();
@@ -51,7 +68,14 @@ public void SubHp(int hp)
             }
         }
 
-        Destroy(gameObject);
+        // Destroy(gameObject);
+        EnemyPoolObject poolObj =
+            GetComponent<EnemyPoolObject>();
+
+        EnemyPool.Instance.Return(
+            poolObj.enemyType,
+            gameObject
+        );
     }
 
     private void OnDestroy()

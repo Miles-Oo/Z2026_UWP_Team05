@@ -108,7 +108,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -126,7 +126,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -135,8 +135,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
-  m_Height: 2
+  m_Radius: 8
+  m_Height: 8
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2585641594385067679
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerAttack
   attackInterval: 1
-  damage: 33
+  damage: 23
   manualRange: 10
 --- !u!114 &8911115778004556728
 MonoBehaviour:
@@ -198,6 +198,7 @@ MonoBehaviour:
   nextLevelPrefab: {fileID: 1371248394778543496, guid: 94b99c1eea3da4e4f9b6fe0a43a0c05c, type: 3}
   nextLevelTexture: {fileID: 8400000, guid: 976a5c8ea5a87d24e98d4d0e5a4850c2, type: 2}
   prefab: {fileID: 1371248394778543496}
+  level: 1
 --- !u!114 &1948837499870696396
 MonoBehaviour:
   m_ObjectHideFlags: 0

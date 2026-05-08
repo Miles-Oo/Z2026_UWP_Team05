@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Level_3_slow
   m_EditorClassIdentifier: Assembly-CSharp::SlowTowerStats
   level: 3
-  damage: 7
+  damage: 12
   range: 18
   attackInterval: 1
   slowPercent: 0.4
   slowDuration: 1
   modelPrefab: {fileID: 6791044644425290195, guid: 59dd6f593fc314a40bc33ca2d2f838fd, type: 3}
   nextUpgradePreview: {fileID: 8400000, guid: 3e2d8186106cd494ab7820a04918c80f, type: 2}
-  upgradeCost: 60
+  upgradeCost: 120

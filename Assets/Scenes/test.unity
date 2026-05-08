@@ -12664,6 +12664,7 @@ Transform:
   - {fileID: 1679569307}
   - {fileID: 1792667235}
   - {fileID: 1939385036}
+  - {fileID: 1526718110}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &526611097
@@ -12745,7 +12746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerSelect
   towerLayer:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 2048
   rangeVisualizer: {fileID: 526611100}
   towerInfoPanel: {fileID: 1383018259}
   upgradeButton: {fileID: 8393238461621701660}
@@ -33284,6 +33285,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb3e1988eacb6aaca2078bf7ef18c6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoadDex
+--- !u!1 &1526718109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1526718110}
+  - component: {fileID: 1526718111}
+  m_Layer: 0
+  m_Name: EnemyPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1526718110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526718109}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 526611094}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1526718111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526718109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c739af18ac603a04d8b3ebb46debdb84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyPool
+  initialSize: 25
 --- !u!1001 &1529687818
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37010,7 +37056,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1759799822
 RectTransform:
   m_ObjectHideFlags: 0

@@ -20,9 +20,8 @@ public class TowerHover : MonoBehaviour
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, ~0, QueryTriggerInteraction.Ignore))
         {
-            // 🔧 FIX 1: zawsze bierz ROOT wieży przez TowerPrice (stabilny identyfikator)
             var towerRoot = hit.collider.GetComponentInParent<TowerPrice>()?.gameObject;
 
             if (towerRoot == null)
@@ -31,7 +30,6 @@ public class TowerHover : MonoBehaviour
                 return;
             }
 
-            // 🟣 SLOW TOWER
             var slowTower = towerRoot.GetComponent<SlowTowerController>();
             if (slowTower != null)
             {
@@ -52,7 +50,6 @@ public class TowerHover : MonoBehaviour
                 return;
             }
 
-            // 🟢 BASIC TOWER
             var attack = towerRoot.GetComponent<TowerAttack>();
             var price = towerRoot.GetComponent<TowerPrice>();
 
@@ -60,7 +57,6 @@ public class TowerHover : MonoBehaviour
             {
                 currentSlowTower = null;
 
-                // 🔧 FIX 2: stabilne porównanie rootów
                 if (currentBasicTower != towerRoot)
                 {
                     currentBasicTower = towerRoot;

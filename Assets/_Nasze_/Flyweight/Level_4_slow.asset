@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_4_slow
   m_EditorClassIdentifier: Assembly-CSharp::SlowTowerStats
   level: 4
-  damage: 10
+  damage: 15
   range: 20
   attackInterval: 1
   slowPercent: 0.5

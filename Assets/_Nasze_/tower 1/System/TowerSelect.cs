@@ -47,13 +47,12 @@ public class TowerSelect : MonoBehaviour, IUseMode
 
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (!Physics.Raycast(ray, out RaycastHit hit, 100f))
+        if (!Physics.Raycast(ray, out RaycastHit hit, 100f, towerLayer, QueryTriggerInteraction.Ignore))
         {
             ClearSelection();
             return false;
         }
 
-        // GameObject tower = hit.collider.GetComponentInParent<TowerAttack>()?.gameObject;
         GameObject tower = null;
 
         var basic = hit.collider.GetComponentInParent<TowerAttack>();
@@ -78,14 +77,6 @@ public class TowerSelect : MonoBehaviour, IUseMode
         selectedTower = tower;
         towerUpgrade.SetSelectedTower(tower);
 
-        // var attack = selectedTower.GetComponent<TowerAttack>();
-        // if (attack == null)
-        // {
-        //     ClearSelection();
-        //     return false;
-        // }
-
-        // rangeVisualizer.ShowRange(selectedTower.transform.position, attack.GetRange());
         var attack = selectedTower.GetComponent<TowerAttack>();
 
         if (attack != null)

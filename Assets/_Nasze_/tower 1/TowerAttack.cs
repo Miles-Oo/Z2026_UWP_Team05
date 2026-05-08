@@ -61,7 +61,9 @@ void Awake()
     {
         while (enemiesInRange.Count > 0)
         {
-            enemiesInRange.RemoveAll(e => e == null);
+            enemiesInRange.RemoveAll(
+                e => e == null || !e.gameObject.activeInHierarchy
+            );
             if (enemiesInRange.Count == 0) break;
 
             EnemyHp target = enemiesInRange[0];

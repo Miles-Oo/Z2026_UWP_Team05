@@ -109,7 +109,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -127,17 +127,17 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
-  m_Height: 2
+  m_Radius: 8
+  m_Height: 8
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6140225155932140745
@@ -157,6 +157,7 @@ MonoBehaviour:
   nextLevelPrefab: {fileID: 0}
   nextLevelTexture: {fileID: 0}
   prefab: {fileID: 0}
+  level: 1
 --- !u!54 &2406636423696813275
 Rigidbody:
   m_ObjectHideFlags: 0

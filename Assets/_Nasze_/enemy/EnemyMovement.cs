@@ -17,6 +17,20 @@ public class EnemyMovement : MonoBehaviour
         currentSpeed = speed;
     }
 
+    private void OnEnable()
+    {
+        StopAllCoroutines();
+
+        currentSpeed = speed;
+        currentWaypoint = 0;
+
+        if (waypoints != null && waypoints.Length > 0)
+        {
+            transform.position = waypoints[0].position;
+        }
+        slowCoroutine = null;
+    }
+
     public void SetWaypoints(Transform[] newWaypoints)
     {
         waypoints = newWaypoints;
@@ -38,6 +52,8 @@ public class EnemyMovement : MonoBehaviour
     }
     public void ApplySlow(float slowPercent, float duration)
     {
+        if (!gameObject.activeInHierarchy)
+            return;
         if (slowCoroutine != null)
             StopCoroutine(slowCoroutine);
 

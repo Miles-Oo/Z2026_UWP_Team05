@@ -20,4 +20,4 @@ MonoBehaviour:
   slowDuration: 1
   modelPrefab: {fileID: 693558865435185601, guid: 43a4e8a0c5361b94fa2f515018a19f9b, type: 3}
   nextUpgradePreview: {fileID: 8400000, guid: 859b598124a01b5498e0877b09b5e06b, type: 2}
-  upgradeCost: 10
+  upgradeCost: 40

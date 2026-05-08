@@ -60,6 +60,7 @@ public class WaveManager : MonoBehaviour
 
                 EnemyHp enemyHp = enemy.GetComponent<EnemyHp>();
                 if (enemyHp != null){
+                    enemyHp.OnEnemyDeath -= HandleEnemyDeath;
                     enemyHp.OnEnemyDeath += HandleEnemyDeath;
                 }
 

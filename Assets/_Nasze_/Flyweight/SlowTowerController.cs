@@ -134,7 +134,7 @@ public class SlowTowerController : MonoBehaviour, IRangeProvider
         {
             var enemy = enemies[i];
 
-            if (enemy == null)
+            if (enemy == null || !enemy.gameObject.activeInHierarchy)
             {
                 enemies.RemoveAt(i);
                 continue;
