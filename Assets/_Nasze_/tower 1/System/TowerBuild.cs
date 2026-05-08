@@ -118,10 +118,22 @@ public class TowerBuild : MonoBehaviour, IUseMode
 
             if (site != null && site.IsFree())
             {
-                if (money.GetCurrMoney() >= cost)
+                TowerType type = GetSelectedType();
+                Debug.Log($"[TOWER BUILD] Selected type = {type}");
+
+                GameObject prefab = TowerFactory.GetPrefab(type);
+
+                if (prefab == null)
+                {
+                    Debug.Log("Factory nie zwróciła prefabu!");
+                    return false;
+                }
+
+                int currentCost = prefab.GetComponent<TowerPrice>().GetPrice();
+                if (money.GetCurrMoney() >= currentCost)
                 {
                     var command = new CommandBuild(
-                        selectedPrefab,
+                        prefab,
                         site,
                         money,
                         cost,
@@ -142,5 +154,16 @@ public class TowerBuild : MonoBehaviour, IUseMode
         }
 
         return false;
+    }
+
+    private TowerType GetSelectedType()
+    {
+        if (selectedPrefab == towerPrefab)
+            return TowerType.Basic;
+
+        if (selectedPrefab == slowTowerPrefab)
+            return TowerType.Slow;
+
+        return TowerType.Basic;
     }
 }

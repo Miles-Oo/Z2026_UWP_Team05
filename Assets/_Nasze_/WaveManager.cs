@@ -56,7 +56,7 @@ public class WaveManager : MonoBehaviour
         {
             for (int i = 0; i < entry.count; i++)
             {
-                GameObject enemy = enemySpawner.SpawnEnemy(entry.enemyPrefab);
+                GameObject enemy = enemySpawner.SpawnEnemy(entry.enemyType);
 
                 EnemyHp enemyHp = enemy.GetComponent<EnemyHp>();
                 if (enemyHp != null){

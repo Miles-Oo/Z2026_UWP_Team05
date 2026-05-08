@@ -33,9 +33,11 @@ foreach (var e in wave.enemies)
 {
     total += e.count;
 
-    var data = e.enemyPrefab.GetComponent<EnemyData>();
+    // var data = e.enemyPrefab.GetComponent<EnemyData>();
+    GameObject prefab = EnemyFactory.GetPrefab(e.enemyType);
+    EnemyData data = prefab.GetComponent<EnemyData>();
 
-    string name = data != null ? data.Name : e.enemyPrefab.name;
+    string name = data != null ? data.Name : e.enemyType.ToString();
 
     types += $"{name} x{e.count}\n";
 }

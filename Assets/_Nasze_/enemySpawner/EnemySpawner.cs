@@ -19,21 +19,13 @@ public class EnemySpawner : MonoBehaviour
     {
         spawnPoint=GetComponent<Transform>();
     }
-    public GameObject SpawnEnemy(GameObject enemyPrefab)
+    public GameObject SpawnEnemy(EnemyType type)
     {
+        GameObject prefab = EnemyFactory.GetPrefab(type);
         // GameObject enemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
 
-        IEnemyPrototype prototype = enemyPrefab.GetComponent<IEnemyPrototype>();
-
-        GameObject enemy;
-        if (prototype != null)
-        {
-            enemy = prototype.Clone(transform.position);
-        }
-        else
-        {
-            enemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
-        }
+        IEnemyPrototype prototype = prefab.GetComponent<IEnemyPrototype>();
+        GameObject enemy = prototype.Clone(transform.position);
 
         EnemyMovement movement = enemy.GetComponent<EnemyMovement>();
         movement.SetWaypoints(sortedWaypoints);
