@@ -7,6 +7,8 @@ public class TutorialPopupController : MonoBehaviour
     [Header("Popups")]
     public GameObject tutorialRoot;
     public GameObject TowerBuilding;
+    public GameObject TowerBuildingExtra;
+    public GameObject TowerBuildingFinal;
     public GameObject EnemyAttack;
     public GameObject TowerUpgradePopup;
     public GameObject TowerStrategyPopup;
@@ -116,6 +118,51 @@ public class TutorialPopupController : MonoBehaviour
     }
 
     public void ShowTowerBuilding() => ShowPopup(TowerBuilding, ref towerBuildingPopupShown, towerHighlight, towerTargetUI);
+    public void ContinueTowerBuilding()
+    {
+        TowerBuilding.SetActive(false);
+        ShowTowerBuildingExtra();
+    }
+    public void ShowTowerBuildingExtra()
+    {
+        if (tutorialsDisabled) return;
+
+        Time.timeScale = 0f;
+        tutorialRoot.SetActive(true);
+        TowerBuildingExtra.SetActive(true);
+    }
+    public void ContinueTowerBuildingExtra()
+    {
+        TowerBuildingExtra.SetActive(false);
+        ShowTowerBuildingFinal();
+    }
+    public void ShowTowerBuildingFinal()
+    {
+        if (tutorialsDisabled) return;
+
+        Time.timeScale = 0f;
+        tutorialRoot.SetActive(true);
+        TowerBuildingFinal.SetActive(true);
+    }
+    public void FinishTowerBuildingFinal()
+    {
+        ResumeGame();
+        StartCoroutine(ShowSellTutorialAfterDelay());
+    }
+    private IEnumerator ShowSellTutorialAfterDelay()
+    {
+        yield return new WaitForSecondsRealtime(5f);
+        ShowSellTutorialDelayed();
+    }
+
+    private void ShowSellTutorialDelayed()
+    {
+        if (!tutorialsDisabled)
+        {
+            sellPopupShown = false;
+            ShowTowerSellPopup();
+        }
+    }
     public void ShowEnemyAttack() => ShowPopup(EnemyAttack, ref enemyAttackPopupShown, enemyHighlight, enemyTargetUI);
     public void ShowTowerUpgradePopup() => ShowPopup(TowerUpgradePopup, ref upgradePopupShown);
     public void ShowTowerStrategyPopup() => ShowPopup(TowerStrategyPopup, ref strategyPopupShown, strategyHighlight, strategyTargetUI);
@@ -146,25 +193,12 @@ public class TutorialPopupController : MonoBehaviour
             sellHighlight.gameObject.SetActive(false);
 
         TowerBuilding.SetActive(false);
+        TowerBuildingExtra.SetActive(false);
+        TowerBuildingFinal.SetActive(false); 
         EnemyAttack.SetActive(false);
         TowerUpgradePopup.SetActive(false);
         TowerStrategyPopup.SetActive(false);
         if (TowerSellPopup != null)
             TowerSellPopup.SetActive(false);
-        
-        if (!tutorialsDisabled && !sellPopupShown)
-        {
-            if (sellTutorialCoroutine != null)
-                StopCoroutine(sellTutorialCoroutine);
-
-            sellTutorialCoroutine = StartCoroutine(ShowSellTutorialAfterDelay());
-        }
-    }
-
-    private IEnumerator ShowSellTutorialAfterDelay()
-    {
-        yield return new WaitForSeconds(5f);
-
-        ShowTowerSellPopup();
     }
 }
