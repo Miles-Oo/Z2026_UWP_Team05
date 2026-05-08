@@ -29,7 +29,9 @@ public class CommandBuild : ICommand, ICommandWithHistory
     {
         money.SubMoney(cost);
 
-        GameObject tower = Object.Instantiate(prefab, site.transform.position, Quaternion.identity);
+        ITowerPrototype prototype = prefab.GetComponent<ITowerPrototype>();
+        GameObject tower = prototype.Clone(site.transform.position);
+        // GameObject tower = Object.Instantiate(prefab, site.transform.position, Quaternion.identity);
         tower.transform.SetParent(site.transform);
         tower.transform.localPosition = Vector3.zero;
 

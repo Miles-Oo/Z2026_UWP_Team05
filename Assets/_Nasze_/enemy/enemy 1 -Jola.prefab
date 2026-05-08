@@ -161,8 +161,28 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4610284943500802966, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
       insertIndex: 0
       addedObject: {fileID: 6496078005671606465}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8774120459150251609, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8088686488020561485}
   m_SourcePrefab: {fileID: 100100000, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
+--- !u!1 &59071989191006608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8774120459150251609, guid: 048d4841125404a44a5ac39c0010627e, type: 3}
+  m_PrefabInstance: {fileID: 8724085710489161673}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8088686488020561485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59071989191006608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8a0c44a92fd954a8e80684b3331154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyPrototype
 --- !u!4 &5109659239429108831 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4610284943500802966, guid: 048d4841125404a44a5ac39c0010627e, type: 3}

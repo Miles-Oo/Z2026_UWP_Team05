@@ -87,6 +87,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1db9c9f0cce1df945b339fd50a53a0d3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8581071793015034755}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1db9c9f0cce1df945b339fd50a53a0d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3973265830391677778}
   m_SourcePrefab: {fileID: 100100000, guid: 1db9c9f0cce1df945b339fd50a53a0d3, type: 3}
 --- !u!1 &6000820105312938088 stripped
 GameObject:
@@ -198,3 +201,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 34fe31f36972c4146956ad84f0d39ae1, type: 2}
   - {fileID: 11400000, guid: 7f30adc973d29094687966f5e95064bd, type: 2}
   - {fileID: 11400000, guid: 296e165de6effe141b80e986151dc596, type: 2}
+--- !u!114 &-3973265830391677778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000820105312938088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbe94b83b41f56d479e2d642a252ac8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerPrototype

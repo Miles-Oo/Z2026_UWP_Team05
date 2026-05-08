@@ -81,8 +81,6 @@ public class SlowTowerController : MonoBehaviour, IRangeProvider
             model.transform.localRotation = Quaternion.identity;
             model.transform.localScale = Vector3.one;
         }
-
-        Debug.Log($"SlowTower LEVEL: {currentLevel + 1}");
     }
 
     public void SetLevel(int level)

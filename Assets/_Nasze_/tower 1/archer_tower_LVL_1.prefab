@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2585641594385067679}
   - component: {fileID: 5972596326717771505}
   - component: {fileID: 8911115778004556728}
+  - component: {fileID: 7397638496518000656}
   m_Layer: 11
   m_Name: archer_tower_LVL_1
   m_TagString: Untagged
@@ -197,3 +198,15 @@ MonoBehaviour:
   nextLevelPrefab: {fileID: 1371248394778543496, guid: b2bebf5b94e3cc542bbf5e6da2a6ae95, type: 3}
   nextLevelTexture: {fileID: 8400000, guid: 24a99e1fe3ae40843a5a3ea456297dbe, type: 2}
   prefab: {fileID: 1371248394778543496}
+--- !u!114 &7397638496518000656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371248394778543496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbe94b83b41f56d479e2d642a252ac8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerPrototype
