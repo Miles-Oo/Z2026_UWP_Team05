@@ -29,10 +29,12 @@ public class GameAudioObserver : MonoBehaviour
 
             case GameState.Won:
                 AudioManager.Instance?.PlaySfx(AudioCue.Win);
+                AudioManager.Instance?.PauseMusic();
                 break;
 
             case GameState.Lost:
                 AudioManager.Instance?.PlaySfx(AudioCue.Lose);
+                AudioManager.Instance?.PauseMusic();
                 break;
         }
     }

@@ -24176,6 +24176,21 @@ MonoBehaviour:
       count: 20
     - enemyType: 0
       count: 20
+  - enemies:
+    - enemyType: 1
+      count: 30
+    - enemyType: 0
+      count: 30
+  - enemies:
+    - enemyType: 1
+      count: 40
+    - enemyType: 0
+      count: 40
+  - enemies:
+    - enemyType: 1
+      count: 100
+    - enemyType: 0
+      count: 100
   enemySpawner: {fileID: 2083956311}
   spawnInterval: 1
   waveDelay: 25
@@ -39390,7 +39405,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 76544e5b3a7a2ab4ba30f73d1602a07a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0.481
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -39492,6 +39507,10 @@ MonoBehaviour:
   cueClips:
   - cue: 5
     clip: {fileID: 8300000, guid: 47b9742858f2f404397ad71c6d480f87, type: 3}
+  - cue: 6
+    clip: {fileID: 8300000, guid: 8191d63329f15044d979a51010a3bce6, type: 3}
+  - cue: 1
+    clip: {fileID: 8300000, guid: c943dd495411c0b48bc162bb4710006f, type: 3}
 --- !u!114 &1798639905 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4492994150741943017, guid: 3f396450a069921ea88d9d0bd1398e5c, type: 3}
